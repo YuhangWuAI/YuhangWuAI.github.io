@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="ProposalTables are a fundamental and widely utilized semi-structured data type in relational databases, spreadsheet applications, and programming languages for processing data across various domains,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning">
+<meta property="og:url" content="http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ProposalTables are a fundamental and widely utilized semi-structured data type in relational databases, spreadsheet applications, and programming languages for processing data across various domains,">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yuhangwuai.github.io/Proposal%202416231ab85a438ca8b4337664dd85c2/Untitled.png">
+<meta property="og:image" content="http://yuhangwuai.github.io/Proposal%202416231ab85a438ca8b4337664dd85c2/Untitled%201.png">
+<meta property="og:image" content="http://yuhangwuai.github.io/Proposal%202416231ab85a438ca8b4337664dd85c2/Untitled%202.png">
+<meta property="article:published_time" content="2024-08-05T14:23:58.000Z">
+<meta property="article:modified_time" content="2024-08-05T14:26:42.330Z">
+<meta property="article:author" content="Yuhang Wu">
+<meta property="article:tag" content="RAG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yuhangwuai.github.io/Proposal%202416231ab85a438ca8b4337664dd85c2/Untitled.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/08/05/hello-world/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&text=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&is_video=false&description=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning&body=Check out this article: http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&name=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&t=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Proposal"><span class="toc-number">1.</span> <span class="toc-text">Proposal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dataset"><span class="toc-number">1.0.1.</span> <span class="toc-text">Dataset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dataset-Selection"><span class="toc-number">1.0.2.</span> <span class="toc-text">Dataset Selection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementation-Details"><span class="toc-number">1.0.3.</span> <span class="toc-text">Implementation Details</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-1-Table-Sampling"><span class="toc-number">1.0.4.</span> <span class="toc-text">Part 1: Table Sampling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-2-Table-Enhancement"><span class="toc-number">1.0.5.</span> <span class="toc-text">Part 2: Table Enhancement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-3-Retrieval-Process-Enhancement"><span class="toc-number">1.0.6.</span> <span class="toc-text">Part 3: Retrieval Process Enhancement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Experimental-Evaluation"><span class="toc-number">1.0.7.</span> <span class="toc-text">Experimental Evaluation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">1.1.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Yuhang Wu</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-08-05T14:23:58.000Z" class="dt-published" itemprop="datePublished">2024-08-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/RAG/" rel="tag">RAG</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="Proposal"><a href="#Proposal" class="headerlink" title="Proposal"></a>Proposal</h1><p>Tables are a fundamental and widely utilized semi-structured data type in relational databases, spreadsheet applications, and programming languages for processing data across various domains, including financial analysis (Zhang et al., 2020; Li et al., 2022), risk management (Babaev et al., 2019), and healthcare analytics. Within these applications, table question answering (TableQA) represents a crucial downstream task for reasoning over tabular data (Ye et al., 2023a; Cheng et al., 2023).</p>
+<p>TableQA aims to enable computers to comprehend human queries regarding table contents and respond in natural language. With the rapid advancement of large language models (LLMs) in recent years, TableQA has emerged as a significant subfield, achieving substantial progress (Ray, 2023). Fine-tuning LLMs is a common approach to address TableQA challenges, but this method demands extensive domain-specific annotated data and substantial computational resources. Moreover, most models tend to overly rely on pre-trained knowledge when handling domain-specific and complex tabular data, leading to hallucinations and misinformation (Ray, 2023; Gao et al., 2023).</p>
+<p>To tackle these challenges, the retrieval-augmented generation (RAG) approach combines retrieval mechanisms with generative models, referencing external knowledge bases to mitigate model hallucinations and enhance the accuracy of domain-specific question answering while reducing resource utilization (Gao et al., 2023). However, despite RAG’s effectiveness in handling unstructured text data, several challenges persist when applying it to semi-structured tabular data. Specifically, we have identified the following three limitations:</p>
+<ol>
+<li>The tables required to answer questions may be exceedingly large, containing a significant amount of noise unrelated to the query (Lu et al., 2024). This not only increases unnecessary computation but also affects the accuracy of the generator’s responses. To address this, we can employ table sampling (Sui et al., 2024) or interface extraction to retrieve relevant rows and columns, thereby generating the most pertinent subtable (Jiang et al., 2023).</li>
+<li>The raw content of tables may include information requiring further clarification, such as domain-specific terms or abbreviations (Sui et al., 2024). These domain-specific details can lead to misunderstandings or biases in the generator. To resolve this issue, we can utilize external knowledge bases to provide additional context for the tables (Bian et al., 2023) or generate term explanations through LLMs .</li>
+<li>Tables often contain diverse types of information across different columns, and traditional retrieval methods such as BM25 or Dense Passage Retriever (DPR) may overlook table details, impacting the generated results. We can address this by employing the ColBERT model as a retriever, which encodes text at the token level, enabling more fine-grained retrieval (Li et al., 2023).</li>
+</ol>
+<h3 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h3><p>From previous experience with dataset selection, I have identified the following key challenges when using datasets for retrieval enhancement:</p>
+<ol>
+<li><strong>Short Queries Leading to Poor Recall</strong>:<ul>
+<li>Many questions in Q&amp;A datasets are often very brief, containing only a few words. Such short questions can result in poor recall during similarity retrieval or other dense retrieval methods.</li>
+</ul>
+</li>
+<li><strong>Uniform Question Formats</strong>:<ul>
+<li>Questions often start with similar interrogative words and conjunctions. For example, in the SQA dataset, “What are the schools?” and “What are the countries?” involve completely different content, but both start with “What are the.” there are nearly 500 questions starting with “What are the,” it makes it very difficult to retrieve relevant tables.</li>
+</ul>
+</li>
+<li><strong>Lack of Table Titles</strong>:<ul>
+<li>Many Q&amp;A datasets do not include table titles, usually associating one table with one question without involving the retrieval phase. Each input includes both the table and the related question. The absence of table titles makes it very challenging to retrieve relevant tables from a large number of tables.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Dataset-Selection"><a href="#Dataset-Selection" class="headerlink" title="Dataset Selection"></a>Dataset Selection</h3><p>I have selected the TableFact dataset, which is a benchmark dataset for table fact verification. The specific task is to determine whether a given statement is consistent with the information in a table. The model marks the statement as “True,” “False,” or “Unknown” based on its reasoning over the table content.</p>
+<p><strong>Example:</strong></p>
+<p><img src="/Proposal%202416231ab85a438ca8b4337664dd85c2/Untitled.png" alt="Proposal%202416231ab85a438ca8b4337664dd85c2/Untitled.png"></p>
+<p><strong>Reasons for choosing the <a target="_blank" rel="noopener" href="https://tabfact.github.io/">TableFact dataset</a>:</strong></p>
+<ol>
+<li><strong>Purely Tabular Data</strong>: The data in TableFact consists only of tables, with statements generally not being overly similar, making the recall slightly easier (although the short statements still pose a challenge).</li>
+<li><strong>Clear Classification Task</strong>: The task is simply to judge the truthfulness of statements, making it relatively easy to control the output of large models.</li>
+</ol>
+<h3 id="Implementation-Details"><a href="#Implementation-Details" class="headerlink" title="Implementation Details"></a>Implementation Details</h3><p><img src="/Proposal%202416231ab85a438ca8b4337664dd85c2/Untitled%201.png" alt="Untitled"></p>
+<p><img src="/Proposal%202416231ab85a438ca8b4337664dd85c2/Untitled%202.png" alt="Untitled"></p>
+<h3 id="Part-1-Table-Sampling"><a href="#Part-1-Table-Sampling" class="headerlink" title="Part 1: Table Sampling"></a>Part 1: Table Sampling</h3><p>In the table sampling method, I specifically use two sampling methods:</p>
+<ol>
+<li><p><strong>Semantic-Based Sampling</strong></p>
+<ul>
+<li><strong>Generate Embedding Vectors</strong>: Generate semantic embedding vectors for each row and column in the table and the input query.</li>
+<li><strong>Calculate Similarity</strong>: Compute cosine similarity between the row and column embedding vectors and the user query embedding vector.</li>
+<li><strong>Select Relevant Rows</strong>: Based on similarity scores, select the top k rows and columns that are most relevant to the query.</li>
+<li><strong>Construct Sampled Table</strong>: Construct a new sub-table with the selected rows and columns.</li>
+</ul>
+</li>
+<li><p><strong>LLM-Based Sampling</strong></p>
+<ul>
+<li><strong>Convert to String</strong>: Convert the query and table to strings, then concatenate them to form a context string.</li>
+</ul>
+ <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">query</span>: <span class="string">&quot;Jarrett Jack comes from Westchester school&quot;</span></span><br><span class="line"><span class="attr">table</span>: </span><br><span class="line"><span class="string">&#x27;Player&#x27;</span>: [<span class="string">&#x27;Jarrett Jack&#x27;</span>, <span class="string">&#x27;Jermaine Jackson&#x27;</span>, ...]</span><br><span class="line"><span class="string">&#x27;No.&#x27;</span>: [<span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;8&#x27;</span>, ...]</span><br><span class="line"><span class="string">&#x27;Nationality&#x27;</span>: [<span class="string">&#x27;United States&#x27;</span>, <span class="string">&#x27;United States&#x27;</span>, ...]</span><br><span class="line"><span class="string">&#x27;Position&#x27;</span>: [<span class="string">&#x27;Guard&#x27;</span>, <span class="string">&#x27;Guard&#x27;</span>, ...]</span><br><span class="line"><span class="string">&#x27;Years in Toronto&#x27;</span>: [<span class="string">&#x27;2009-10&#x27;</span>, <span class="string">&#x27;2002-03&#x27;</span>, ...]</span><br><span class="line"><span class="string">&#x27;School&#x27;</span>: [<span class="string">&#x27;Westchester&#x27;</span>, <span class="string">&#x27;Detroit&#x27;</span>, ...]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>Invoke GPT Filtering</strong>: Use GPT to filter relevant rows and columns based on the query and generate corresponding Python code to create the filtered table. For example, the above content might generate the following code:</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new_table = table[table.apply(<span class="keyword">lambda</span> row_dict: <span class="string">&#x27;Westchester&#x27;</span> <span class="keyword">in</span> row_dict[<span class="string">&#x27;School/Club Team&#x27;</span>].lower(), axis=<span class="number">1</span>)]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Select the Most Frequent Filtering Code</strong>: Use LLM generate five different codes, and choose the one that appears most frequently. If all are different, use the first result.</p>
+</li>
+<li><p><strong>Execute Code and Update Table</strong>: Execute the selected code to update the table. If there is an error in the code, capture the error and return the original table.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Part-2-Table-Enhancement"><a href="#Part-2-Table-Enhancement" class="headerlink" title="Part 2: Table Enhancement"></a>Part 2: Table Enhancement</h3><ol>
+<li><p><strong>Term Explanation Using LLM</strong></p>
+<ul>
+<li><p>Use LLM to identify terms that need explanation and provide the following prompt:</p>
+  <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">You</span> are an expert <span class="keyword">in</span> data analysis and natural language processing. <span class="title class_">Your</span> task is to help identify terms <span class="keyword">in</span> a table that may need further explanation <span class="keyword">for</span> better understanding. <span class="title class_">The</span> table contains various fields, some <span class="keyword">of</span> which might include technical jargon, abbreviations, or specialized terms that are not commonly understood by a general audience.</span><br><span class="line"></span><br><span class="line"><span class="title class_">Here</span> is the <span class="attr">table</span>:</span><br><span class="line">[<span class="title class_">Insert</span> table here]</span><br><span class="line"></span><br><span class="line"><span class="title class_">Please</span> follow these <span class="attr">steps</span>:</span><br><span class="line"><span class="number">1.</span> <span class="title class_">Analyze</span> the content <span class="keyword">of</span> each cell <span class="keyword">in</span> the table.</span><br><span class="line"><span class="number">2.</span> <span class="title class_">Identify</span> any terms that are technical, specialized, or abbreviations that may need further explanation.</span><br><span class="line"><span class="number">3.</span> <span class="title class_">Generate</span> a list <span class="keyword">of</span> these terms along <span class="keyword">with</span> the corresponding cell <span class="title function_">reference</span> (row and column).</span><br><span class="line"></span><br><span class="line"><span class="title class_">Consider</span> the following when identifying <span class="attr">terms</span>:</span><br><span class="line">- <span class="title class_">Technical</span> terms related to specific <span class="title function_">industries</span> (e.<span class="property">g</span>., finance, healthcare, technology).</span><br><span class="line">- <span class="title class_">Abbreviations</span> that are not universally known.</span><br><span class="line">- <span class="title class_">Jargon</span> that may be specific to a particular field or context.</span><br><span class="line"></span><br><span class="line"><span class="title class_">Output</span> the terms that need explanation <span class="keyword">in</span> the following <span class="attr">format</span>:</span><br><span class="line">- <span class="title class_">Term</span>: [<span class="title class_">Term</span>]</span><br><span class="line">  <span class="title class_">Cell</span> <span class="title class_">Reference</span>: [<span class="title class_">Row</span>, <span class="title class_">Column</span>]</span><br><span class="line"></span><br><span class="line"><span class="title class_">Example</span> <span class="attr">output</span>:</span><br><span class="line">- <span class="title class_">Term</span>: <span class="title class_">Revenue</span> (million dollars)</span><br><span class="line">  <span class="title class_">Cell</span> <span class="title class_">Reference</span>: [<span class="number">2</span>, <span class="number">2</span>]</span><br><span class="line">- <span class="title class_">Term</span>: <span class="title class_">Market</span> <span class="title class_">Cap</span> (billion dollars)</span><br><span class="line">  <span class="title class_">Cell</span> <span class="title class_">Reference</span>: [<span class="number">2</span>, <span class="number">4</span>]</span><br><span class="line"></span><br><span class="line"><span class="title class_">Be</span> thorough and ensure that all potentially confusing or specialized terms are included <span class="keyword">in</span> the list.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>After identifying the terms needing explanation, use the Google API to search for explanations and attach them to the table (this can be implemented using the <code>GoogleSearchAPIWrapper()</code>in Langchain).</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Document Reference</strong></p>
+<ul>
+<li>Construct a Wikipedia query based on the table title, context, or headers to retrieve relevant content. If there are no table titles or context, use the headers to construct the query (this can be done using the <code>WikipediaRetriever.get_relevant_documents()</code> in Langchain).</li>
+<li>Extract metadata from the retrieved documents and attach it to the table as enhanced data.</li>
+</ul>
+<p> For example, for the following table:</p>
+<table>
+<thead>
+<tr>
+<th>Company Name</th>
+<th>Revenue (Million USD)</th>
+<th>Number of Employees</th>
+<th>Market Cap (Billion USD)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Company A</td>
+<td>1000</td>
+<td>5000</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Company B</td>
+<td>2000</td>
+<td>10000</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Company C</td>
+<td>1500</td>
+<td>7500</td>
+<td>75</td>
+</tr>
+</tbody></table>
+<p> Construct the query using the headers:</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;company revenue employees market capitalization&quot;</span><br></pre></td></tr></table></figure>
+<p> The retrieved information might be:</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;title&quot;: &quot;List of largest technology companies by revenue&quot;,</span><br><span class="line">    &quot;summary&quot;: &quot;This is a list of the largest technology companies in the world by revenue.&quot;,</span><br><span class="line">    &quot;url&quot;: &quot;&lt;https://en.wikipedia.org/wiki/List_of_largest_technology_companies_by_revenue&gt;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> Combine the above information with the table as enhanced data.</p>
+</li>
+</ol>
+<h3 id="Part-3-Retrieval-Process-Enhancement"><a href="#Part-3-Retrieval-Process-Enhancement" class="headerlink" title="Part 3: Retrieval Process Enhancement"></a>Part 3: Retrieval Process Enhancement</h3><ol>
+<li>Enhance the retrieval process using ColBERT, which can currently be integrated into the RAG pipeline through RAGatouille. Langchain provides methods to call this functionality.</li>
+</ol>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/bclavie/RAGatouille">https://github.com/bclavie/RAGatouille</a></p>
+</blockquote>
+<h3 id="Experimental-Evaluation"><a href="#Experimental-Evaluation" class="headerlink" title="Experimental Evaluation"></a>Experimental Evaluation</h3><ol>
+<li><strong>Comparison of Table Sampling Methods</strong><ul>
+<li><strong>Semantic-Based Table Sampling</strong>: Select relevant rows and columns by generating embedding vectors and computing similarity.</li>
+<li><strong>LLM-Based Table Sampling</strong>: Filter relevant rows and columns using LLM-generated filtering code.</li>
+</ul>
+</li>
+<li><strong>Comparison of Table Enhancement Methods</strong><ul>
+<li>Conduct experiments on the baseline (the bertter sampling method in step 1 as baseline) sampling method with the following enhancements:<ol>
+<li><strong>LLM Term Explanation Only</strong>: Identify and explain terms using LLM, and attach them to the table.</li>
+<li><strong>Document Enhancement Only</strong>: Retrieve relevant documents from Wikipedia based on table titles, context, or headers, and attach the metadata to the table.</li>
+<li><strong>Combined Term Explanation and Document Enhancement</strong>: Combine both enhancement methods to comprehensively enrich the table information.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>Ablation Experiments</strong><ul>
+<li>To evaluate the impact of each module on the overall system, conduct the following ablation experiments:<ol>
+<li><strong>Without Table Sampling</strong>: Use the original tables directly to assess the contribution of the table sampling module.</li>
+<li><strong>Without ColBERT</strong>: Use other retrieval methods to evaluate the contribution of ColBERT in the retrieval process.</li>
+<li><strong>Without Table Enhancement</strong>: Conduct experiments without any enhancement to assess the impact of the enhancement module.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>Extended Dataset Testing</strong><ul>
+<li>Add more datasets from different domains or of different types for experimental evaluation.</li>
+</ul>
+</li>
+</ol>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li>Zhang, T., Li, Y., Jin, Y. and Li, J., 2020. Autoalpha: an efficient hierarchical evolutionary algorithm for mining alpha factors in quantitative investment. <em>arXiv preprint arXiv:2002.08245</em>.</li>
+<li>Li, L., Wang, H., Zha, L., Huang, Q., Wu, S., Chen, G. and Zhao, J., 2023. Learning a data-driven policy network for pre-training automated feature engineering. In <em>The Eleventh International Conference on Learning Representations</em>.</li>
+<li>Babaev, D., Savchenko, M., Tuzhilin, A. and Umerenkov, D., 2019, July. Et-rnn: Applying deep learning to credit loan applications. In <em>Proceedings of the 25th ACM SIGKDD international conference on knowledge discovery &amp; data mining</em> (pp. 2183-2190).</li>
+<li>Ye, Y., Hui, B., Yang, M., Li, B., Huang, F. and Li, Y., 2023, July. Large language models are versatile decomposers: Decomposing evidence and questions for table-based reasoning. In <em>Proceedings of the 46th International ACM SIGIR Conference on Research and Development in Information Retrieval</em> (pp. 174-184).</li>
+<li>Cheng, Z., Xie, T., Shi, P., Li, C., Nadkarni, R., Hu, Y., Xiong, C., Radev, D., Ostendorf, M., Zettlemoyer, L. and Smith, N.A., 2022. Binding language models in symbolic languages.<em>arXiv preprint arXiv:2210.02875</em>.</li>
+<li>Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., Dai, Y., Sun, J. and Wang, H., 2023.<br>Retrieval-augmented generation for large language models: A survey. <em>arXiv preprint arXiv:2312.10997</em>.</li>
+<li>Lu, W., Zhang, J., Zhang, J. and Chen, Y., 2024. Large language model for table processing: A survey. <em>arXiv preprint arXiv:2402.05121</em>.</li>
+<li>Jiang, J., Zhou, K., Dong, Z., Ye, K., Zhao, W.X. and Wen, J.R., 2023. Structgpt: A general framework for large language model to reason over structured data. <em>arXiv preprint arXiv:2305.09645</em>.</li>
+<li>Sui, Y., Zou, J., Zhou, M., He, X., Du, L., Han, S. and Zhang, D., 2023. Tap4llm: Table provider on sampling, augmenting, and packing semi-structured data for large language model reasoning. <em>arXiv preprint arXiv:2312.09039</em>.</li>
+<li>Bian, N., Han, X., Sun, L., Lin, H., Lu, Y., He, B., Jiang, S. and Dong, B., 2023. Chatgpt is a knowledgeable but inexperienced solver: An investigation of commonsense problem in large language models. <em>arXiv preprint arXiv:2303.16421</em>.</li>
+<li>Lin, W., Blloshmi, R., Byrne, B., de Gispert, A. and Iglesias, G., 2023, July. LI-RAGE: Late Interaction Retrieval Augmented Generation with Explicit Signals for Open-Domain Table Question Answering. In <em>Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</em> (pp. 1557-1566).</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Proposal"><span class="toc-number">1.</span> <span class="toc-text">Proposal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dataset"><span class="toc-number">1.0.1.</span> <span class="toc-text">Dataset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dataset-Selection"><span class="toc-number">1.0.2.</span> <span class="toc-text">Dataset Selection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementation-Details"><span class="toc-number">1.0.3.</span> <span class="toc-text">Implementation Details</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-1-Table-Sampling"><span class="toc-number">1.0.4.</span> <span class="toc-text">Part 1: Table Sampling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-2-Table-Enhancement"><span class="toc-number">1.0.5.</span> <span class="toc-text">Part 2: Table Enhancement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Part-3-Retrieval-Process-Enhancement"><span class="toc-number">1.0.6.</span> <span class="toc-text">Part 3: Retrieval Process Enhancement</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Experimental-Evaluation"><span class="toc-number">1.0.7.</span> <span class="toc-text">Experimental Evaluation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">1.1.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&text=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&is_video=false&description=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning&body=Check out this article: http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&name=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yuhangwuai.github.io/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/&t=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    Yuhang Wu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
