@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Proposal Archive背景表格作为一种基础且广泛应用的半结构化数据类型，广泛存在于关系数据库、电子表格应用程序和用于数据处理的编程语言中，涵盖了金融分析（Zhang et al., 2020; Li et al., 2022）、风险管理（Babaev et al., 2019）和医疗保健分析等多个领域。在这些应用中，表格问答（TableQA）是对表格数据进行推理的一个关键下游任务（Ye">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)">
+<meta property="og:url" content="http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/index.html">
+<meta property="og:site_name" content="Yuhang&#39;s AI Journey">
+<meta property="og:description" content="Proposal Archive背景表格作为一种基础且广泛应用的半结构化数据类型，广泛存在于关系数据库、电子表格应用程序和用于数据处理的编程语言中，涵盖了金融分析（Zhang et al., 2020; Li et al., 2022）、风险管理（Babaev et al., 2019）和医疗保健分析等多个领域。在这些应用中，表格问答（TableQA）是对表格数据进行推理的一个关键下游任务（Ye">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yuhangwuai.github.io/Proposal%20Archive%2048dc98ad75da4a95a41839ae1b8a0912/Untitled.png">
+<meta property="og:image" content="http://yuhangwuai.github.io/Proposal%20Archive%2048dc98ad75da4a95a41839ae1b8a0912/Untitled%201.png">
+<meta property="og:image" content="http://yuhangwuai.github.io/Proposal%20Archive%2048dc98ad75da4a95a41839ae1b8a0912/Untitled%202.png">
+<meta property="article:published_time" content="2024-08-07T23:00:17.000Z">
+<meta property="article:modified_time" content="2024-08-07T23:01:33.706Z">
+<meta property="article:author" content="YuhangWu">
+<meta property="article:tag" content="CN_blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yuhangwuai.github.io/Proposal%20Archive%2048dc98ad75da4a95a41839ae1b8a0912/Untitled.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/08/05/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&text=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&is_video=false&description=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)&body=Check out this article: http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&name=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&t=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Proposal-Archive"><span class="toc-number">1.</span> <span class="toc-text">Proposal Archive</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%A6%82%E5%86%B5%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.</span> <span class="toc-text">项目概况介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8ERAG%E7%9A%84%E5%A4%9A%E8%A1%A8%E6%A0%BC%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="toc-number">3.0.1.</span> <span class="toc-text">基于RAG的多表格问答系统架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%A1%A8%E6%A0%BC%E9%97%AE%E7%AD%94%E7%9A%84%E5%A2%9E%E5%BC%BA%E6%9C%BA%E5%88%B6"><span class="toc-number">3.0.2.</span> <span class="toc-text">多表格问答的增强机制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">4.</span> <span class="toc-text">数据集的选择</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E6%96%BD%E6%96%B9%E6%A1%88"><span class="toc-number">5.</span> <span class="toc-text">实施方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E8%A1%A8%E6%A0%BC%E9%87%87%E6%A0%B7"><span class="toc-number">5.1.</span> <span class="toc-text">第一部分：表格采样</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%87%E6%A0%B7%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E9%9A%BE%E7%82%B9%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">5.1.1.</span> <span class="toc-text">采样过程中的难点及解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E8%A1%A8%E6%A0%BC%E5%A2%9E%E5%BC%BA"><span class="toc-number">5.2.</span> <span class="toc-text">第二部分：表格增强</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A"><span class="toc-number">5.2.1.</span> <span class="toc-text">术语解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E5%8F%82%E8%80%83"><span class="toc-number">5.2.2.</span> <span class="toc-text">文档参考</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8E%E7%90%86%E8%AE%BA%E5%88%B0%E5%AE%9E%E8%B7%B5%EF%BC%9A%E8%A1%A8%E6%A0%BC%E5%A2%9E%E5%BC%BA%E7%AD%96%E7%95%A5%E7%9A%84%E6%94%B9%E8%BF%9B%E4%B8%8E%E5%AE%8C%E5%96%84"><span class="toc-number">6.</span> <span class="toc-text">从理论到实践：表格增强策略的改进与完善</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A%E6%A8%A1%E5%9D%97%E7%9A%84%E7%B2%BE%E5%87%86%E4%BC%98%E5%8C%96"><span class="toc-number">6.1.</span> <span class="toc-text">术语解释模块的精准优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E5%8F%82%E8%80%83%E6%A8%A1%E5%9D%97%E7%9A%84%E6%9C%89%E6%95%88%E5%A2%9E%E5%BC%BA"><span class="toc-number">6.2.</span> <span class="toc-text">文档参考模块的有效增强</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A%E6%A8%A1%E5%9D%97%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">6.2.1.</span> <span class="toc-text">术语解释模块的改进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E5%8F%82%E8%80%83%E6%A8%A1%E5%9D%97%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">6.2.2.</span> <span class="toc-text">文档参考模块的改进</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%A3%80%E7%B4%A2%E8%BF%87%E7%A8%8B%E5%A2%9E%E5%BC%BA"><span class="toc-number">7.</span> <span class="toc-text">第三部分：检索过程增强</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ColBERT-%E7%9A%84%E5%88%9B%E6%96%B0%E4%B8%8E%E4%BC%98%E7%82%B9"><span class="toc-number">7.1.</span> <span class="toc-text">ColBERT 的创新与优点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E6%96%B0%E7%82%B9"><span class="toc-number">7.1.1.</span> <span class="toc-text">创新点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">7.1.2.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ColBERTv2-%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">7.1.3.</span> <span class="toc-text">ColBERTv2 的改进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E7%B4%A2%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-number">7.1.4.</span> <span class="toc-text">检索过程中的实际应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%A0%E5%85%A5%E6%A0%BC%E5%BC%8F%E5%A2%9E%E5%BC%BA"><span class="toc-number">8.</span> <span class="toc-text">传入格式增强</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%84%E4%BC%B0"><span class="toc-number">9.</span> <span class="toc-text">评估</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AF%84%E4%BC%B0"><span class="toc-number">9.1.</span> <span class="toc-text">实验评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83"><span class="toc-number">9.1.1.</span> <span class="toc-text">表格采样方法比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83"><span class="toc-number">9.1.2.</span> <span class="toc-text">表格增强方法比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-number">9.1.3.</span> <span class="toc-text">消融实验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E6%95%B0%E6%8D%AE%E9%9B%86%E6%B5%8B%E8%AF%95"><span class="toc-number">9.1.4.</span> <span class="toc-text">扩展数据集测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">9.2.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">YuhangWu</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-08-07T23:00:17.000Z" class="dt-published" itemprop="datePublished">2024-08-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CN-blog/" rel="tag">CN_blog</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="Proposal-Archive"><a href="#Proposal-Archive" class="headerlink" title="Proposal Archive"></a>Proposal Archive</h1><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>表格作为一种基础且广泛应用的半结构化数据类型，广泛存在于关系数据库、电子表格应用程序和用于数据处理的编程语言中，涵盖了金融分析（Zhang et al., 2020; Li et al., 2022）、风险管理（Babaev et al., 2019）和医疗保健分析等多个领域。在这些应用中，表格问答（TableQA）是对表格数据进行推理的一个关键下游任务（Ye et al., 2023a; Cheng et al., 2023）。</p>
+<p>表格问答的目标是使计算机能够理解人类针对表格内容的查询，并以自然语言作出回答。随着近年来大规模语言模型（LLMs）的快速发展，表格问答已成为一个重要的子领域，并取得了显著的进展（Ray, 2023）。微调大规模语言模型是解决表格问答挑战的常见方法，但这种方法需要大量的领域特定的标注数据和巨大的计算资源。此外，大多数模型在处理领域特定和复杂的表格数据时，往往过度依赖预训练知识，从而导致幻觉和错误信息（Ray, 2023; Gao et al., 2023）。</p>
+<p>为了解决这些挑战，检索增强生成（RAG）方法将检索机制与生成模型相结合，引用外部知识库，以减少模型幻觉并提高领域特定问答的准确性，同时降低资源消耗（Gao et al., 2023）。然而，尽管RAG在处理非结构化文本数据方面表现出色，但在应用于半结构化表格数据时仍存在若干挑战。具体而言，我们识别了以下三个局限性：</p>
+<ol>
+<li>为回答问题所需的表格可能非常庞大，包含大量与查询无关的噪声（Lu et al., 2024）。这不仅增加了不必要的计算，还会影响生成器响应的准确性。为了解决这个问题，我们可以采用表格采样（Sui et al., 2024）或界面提取的方法，检索相关的行和列，从而生成最相关的子表（Jiang et al., 2023）。</li>
+<li>表格的原始内容可能包含需要进一步澄清的信息，如领域特定术语或缩写（Sui et al., 2024）。这些领域特定的细节可能导致生成器的误解或偏见。为了解决这个问题，我们可以利用外部知识库为表格提供额外的上下文信息（Bian et al., 2023），或通过大规模语言模型生成术语解释。</li>
+<li>表格通常在不同列中包含多种类型的信息，而传统的检索方法如BM25或Dense Passage Retriever（DPR）可能会忽略表格细节，影响生成结果。我们可以通过采用ColBERT模型作为检索器来解决这一问题，该模型在标记级别对文本进行编码，使得检索更加细粒度（Li et al., 2023）。</li>
+</ol>
+<p>表格作为一种基础且广泛应用的半结构化数据类型，广泛存在于关系数据库、电子表格应用程序和用于数据处理的编程语言中，涵盖了金融分析（Zhang et al., 2020; Li et al., 2022）、风险管理（Babaev et al., 2019）和医疗保健分析等多个领域。在这些应用中，表格问答（TableQA）是对表格数据进行推理的一个关键下游任务（Ye et al., 2023a; Cheng et al., 2023）。</p>
+<p>表格问答的目标是使计算机能够理解人类针对表格内容的查询，并以自然语言作出回答。随着近年来大规模语言模型（LLMs）的快速发展，表格问答已成为一个重要的子领域，并取得了显著的进展（Ray, 2023）。目前，大多数利用LLM进行表格问答的研究都是基于单个表格的（Li et al., 2023）。这些方法通常通过将表格预处理后，将问题和表格逐个输入LLM，侧重于让LLM更好地理解表格结构。这类方法在实际应用中主要集中于金融领域，如金融表格问答、金融审计表格处理(Zhu et al., 2021)和金融数值推理等(Chen et al., 2021, Chen et al., 2020)。然而，在现实场景中，往往面临的是一组表格（a set of tables）而非单个表格，用户可能会提出涉及多个表格的任意相关问题。在这种情况下，LLM不仅需要逐个输入回答，更重要的是能够从大量表格中召回相关表格并给出答案。然而，目前在这方面的研究还相对欠缺，我们的研究旨在弥补这一差距。</p>
+<p>微调大规模语言模型是解决表格问答挑战的常见方法，但这种方法需要大量的领域特定的标注数据和巨大的计算资源。此外，大多数模型在处理领域特定和复杂的表格数据时，往往过度依赖预训练知识，从而导致幻觉和错误信息（Ray, 2023; Gao et al., 2023）。</p>
+<p>为了解决这些挑战，检索增强生成（RAG）方法将检索机制与生成模型相结合，引用外部知识库，以减少模型幻觉并提高领域特定问答的准确性，同时降低资源消耗（Gao et al., 2023）。然而，尽管RAG在处理非结构化文本数据方面表现出色，但在应用于半结构化表格数据时仍存在若干挑战。具体而言，我们识别了以下三个局限性：</p>
+<ol>
+<li>为回答问题所需的表格可能非常庞大，包含大量与查询无关的噪声（Lu et al., 2024）。这不仅增加了不必要的计算，还会影响生成器响应的准确性。为了解决这个问题，我们可以采用表格采样（Sui et al., 2024）或表格筛选的方法，检索相关的行和列，从而生成最相关的子表（Jiang et al., 2023）。</li>
+<li>表格的原始内容可能包含需要进一步澄清的信息，如领域特定术语或缩写（Sui et al., 2024）。这些领域特定的细节可能导致生成器的误解或偏见。为了解决这个问题，我们可以利用外部知识库为表格提供额外的上下文信息（Bian et al., 2023），或通过LLM生成术语解释。</li>
+<li>表格通常在不同列中包含多种类型的信息，而传统的检索方法如BM25或Dense Passage Retriever（DPR）可能会忽略表格细节，影响生成结果。我们可以通过采用ColBERT模型作为检索器来解决这一问题，该模型在标记级别对文本进行编码，使得检索更加细粒度（Li et al., 2023）。</li>
+</ol>
+<p>通过结合这些改进，我们的研究旨在为处理多个表格的大规模表格问答任务提供一个更有效的解决方案，以应对更复杂的现实场景。</p>
+<h1 id="项目概况介绍"><a href="#项目概况介绍" class="headerlink" title="项目概况介绍"></a>项目概况介绍</h1><p>在处理复杂表格问答任务时，我们设计了一个结合最新大规模语言模型（LLM）与检索增强生成（RAG）技术的系统，以应对实际应用中的多表格问题。以下是项目核心思想的图示与介绍。</p>
+<h3 id="基于RAG的多表格问答系统架构"><a href="#基于RAG的多表格问答系统架构" class="headerlink" title="基于RAG的多表格问答系统架构"></a>基于RAG的多表格问答系统架构</h3><p><img src="/Proposal%20Archive%2048dc98ad75da4a95a41839ae1b8a0912/Untitled.png" alt="Untitled"></p>
+<p>在这个系统架构中，我们的目标是从多个表格中检索相关信息，并生成准确的自然语言答案。流程可以分为以下几个关键步骤：</p>
+<ol>
+<li><strong>表格处理与文本切分</strong>：首先，原始表格数据经过预处理和文本切分，将表格内容转换为多个文本片段。这样做的目的是使得数据更易于处理，并能够针对查询进行高效的检索。</li>
+<li><strong>向量数据库的构建</strong>：切分后的文本片段经过嵌入处理并存储在向量数据库中。向量数据库通过高效的向量化检索技术，可以迅速找到与查询相关的内容片段。</li>
+<li><strong>查询与检索</strong>：当用户提出问题时，检索器会从向量数据库中查找与问题相关的表格片段。在这个过程中，我们引入了ColBERT模型来增强检索器的精度。ColBERT通过在标记级别编码文本，能够实现更细粒度的检索，从而提高检索结果的相关性。</li>
+<li><strong>生成答案</strong>：检索到的相关文本片段与用户的提问一起输入到大规模语言模型（LLM）中，由LLM生成最终的自然语言答案。</li>
+</ol>
+<h3 id="多表格问答的增强机制"><a href="#多表格问答的增强机制" class="headerlink" title="多表格问答的增强机制"></a>多表格问答的增强机制</h3><p><img src="/Proposal%20Archive%2048dc98ad75da4a95a41839ae1b8a0912/Untitled%201.png" alt="Untitled"></p>
+<p>在处理来自多张表格的数据时，我们的系统引入了多种增强机制，以提高问答任务的精确性和有效性。</p>
+<ol>
+<li><strong>基于语义的表格采样</strong>：当面对大量表格时，系统首先通过语义分析对表格进行采样，选择最相关的表格。在此过程中，我们采用了以下两种不同的模型进行文本嵌入，并进行了对比：<ul>
+<li><strong>利用OpenAI的Embedding模型</strong>：我们使用OpenAI的Embedding模型对表格内容进行嵌入处理，然后利用FAISS向量数据库对嵌入后的数据进行存储和检索，从中返回与查询最相关的表格行和列。</li>
+<li><strong>利用ColBERT模型</strong>：我们也使用ColBERT模型对表格内容进行嵌入，并在检索过程中使用ColBERT进行更细粒度的检索。通过与OpenAI Embedding模型的结果进行对比，我们能够选择更适合特定任务的语义采样方法。</li>
+</ul>
+</li>
+<li><strong>基于LLM的采样</strong>：除了语义采样，我们还使用大规模语言模型（LLM）对表格进行智能采样。通过分析表格内容与查询之间的深层语义关联，LLM能够更精准地选择出最相关的表格片段，进一步提高检索的准确性。</li>
+<li><strong>增强处理</strong>：在采样后的表格基础上，我们引入了两个增强模块：<ul>
+<li><strong>术语解释</strong>：对于表格中的领域特定术语或缩写，系统可以选择性地使用外部资源（如Google）进行解释，帮助LLM更好地理解问题和表格内容。</li>
+<li><strong>文档参考</strong>：系统通过查询外部文档（如维基百科），为问题提供额外的上下文支持，进一步增强生成答案的准确性。</li>
+</ul>
+</li>
+</ol>
+<p>上述架构与增强机制有效地应对了当前表格问答任务中存在的挑战，特别是在多表格环境下的实际应用。通过结合先进的检索技术、语义与LLM采样，以及大规模语言模型，我们的系统能够从大量表格中迅速找到相关信息并生成精确的答案，为各类复杂数据分析任务提供了有力的支持。</p>
+<p>目前，我们所提出的方案看起来非常合理，似乎可以有效应对多表格问答任务中的挑战。然而，事实真的如此简单吗？在实践中，我们可能会遇到比预期更多的问题和复杂性。为了深入探讨这些潜在的难点，我们将在下一步的实验设计中详细说明这些挑战以及我们如何应对它们。</p>
+<h1 id="数据集的选择"><a href="#数据集的选择" class="headerlink" title="数据集的选择"></a>数据集的选择</h1><p>在现有的表格问答数据集中，我们已经进行了广泛的尝试和研究。关于详细的数据集整理，请参阅这篇博客：（这里加上链接）。通过这些经验，我们在使用数据集进行表格问答的检索增强生成时，发现主要面临以下几个问题：</p>
+<ol>
+<li><strong>问题简短导致召回效果不佳</strong>：<ul>
+<li>许多问答数据集中的问题通常非常简短，仅由几个单词组成。这种简短的提问在相似度检索或其他密集型检索过程中，往往导致相关表格的召回效果不佳。</li>
+</ul>
+</li>
+<li><strong>问题形式单一</strong>：<ul>
+<li>问题通常以相似的疑问词和连词开头。例如，在SQA数据集中，”What are the schools?” 和 “What are the countries?” 这两个问题尽管涉及完全不同的内容，但它们的开头 “What are the” 是相同的。如果数据集中有近500个以 “What are the” 开头的问题，这种形式上的重复会使得相关表格的准确召回变得非常困难。</li>
+</ul>
+</li>
+<li><strong>缺乏表标题</strong>：<ul>
+<li>大量问答数据集不包含表标题，通常一个表格仅对应一个问题，完全不涉及检索阶段。在这种情况下，每次输入时将表格和问题直接一起输入模型。然而，当缺乏表标题时，从大量表格中精准返回相关表格的难度大大增加。</li>
+</ul>
+</li>
+</ol>
+<p>基于这些挑战，我们在最初的实验中选择了使用TableFact数据集，并在后续实验中将会使用更多数据集对我们的TableRAG的Pipeline进行评估。</p>
+<p>TableFact是一个大规模的数据集，包含117,854条手动标注的声明，涉及16,573个维基百科表格。这些表格和声明之间的关系被分类为“ENTAILMENT”（蕴含）和“REFUTATION”（反驳）。该数据集首次提出在结构化数据上评估语言推理能力，涉及符号推理和语义推理的混合推理技能。这种复杂性使得TableFact成为评估深度学习模型在同时处理语义和符号推理任务时的能力的理想数据集。</p>
+<table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>Sentence</th>
+<th>Table</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Simple (r1)</td>
+<td>50,244</td>
+<td>9,189</td>
+</tr>
+<tr>
+<td>Complex (r2)</td>
+<td>68,031</td>
+<td>7,392</td>
+</tr>
+<tr>
+<td>Total (r1 + r2)</td>
+<td>118,275</td>
+<td>16,573</td>
+</tr>
+<tr>
+<td>Split</td>
+<td>Sentence</td>
+<td>Table</td>
+</tr>
+<tr>
+<td>Train</td>
+<td>92,283</td>
+<td>13,182</td>
+</tr>
+<tr>
+<td>Val</td>
+<td>12,792</td>
+<td>1,696</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>12,779</td>
+<td>1,695</td>
+</tr>
+</tbody></table>
+<p>该数据集的示例如下：</p>
+<p><img src="/Proposal%20Archive%2048dc98ad75da4a95a41839ae1b8a0912/Untitled%202.png" alt="Proposal%20Archive%2048dc98ad75da4a95a41839ae1b8a0912/Untitled%202.png"></p>
+<p>TableFact数据集的主要优势在于其专注于表格事实验证这一任务，能够有效地评估模型在推理和判断方面的能力。具体任务是：给定一个表格和一个声明，要求模型判断该声明是否与表格中的信息一致。模型需要对表格内容进行深入推理，并对声明标记“True”（真实）或“False”（虚假）。</p>
+<p>TableFact数据集不仅包含大量复杂的表格和声明对，覆盖多种领域和主题，能够很好地模拟现实中可能遇到的多表格问答场景。这为我们提供了一个具有挑战性的测试平台，可以帮助我们更全面地评估和优化我们的多表格问答系统。使用这个数据集的另一个重要原因是，它能够更好地控制LLM的输出，使我们能够精确评估模型的表现。</p>
+<p>我们选择使用<a target="_blank" rel="noopener" href="https://tabfact.github.io/">TableFact数据集</a>的原因如下：</p>
+<ol>
+<li><strong>纯表格数据集</strong>：TableFact的数据主要以表格形式呈现，声明内容的相似性较低，使得在检索和召回过程中难度相对较小，有助于模型准确定位相关信息。</li>
+<li><strong>明确的分类任务</strong>：TableFact的数据集任务明确，即判断声明的真假。这种任务设置使得在生成答案时更容易控制大模型的输出，从而更准确地评估模型的推理能力。</li>
+</ol>
+<h1 id="实施方案"><a href="#实施方案" class="headerlink" title="实施方案"></a>实施方案</h1><h2 id="第一部分：表格采样"><a href="#第一部分：表格采样" class="headerlink" title="第一部分：表格采样"></a>第一部分：表格采样</h2><ol>
+<li><strong>基于语义的采样</strong><ul>
+<li><strong>生成嵌入向量</strong>：为表格中的每一行和列生成语义嵌入向量，并为用户的查询生成相应的嵌入向量。我们采用两种方法来实现这一过程：<ol>
+<li><strong>向量数据库匹配</strong>：使用OpenAI或其他嵌入模型生成嵌入向量，然后通过FAISS等向量数据库计算相似度，快速返回与查询相关的行列。</li>
+<li><strong>细粒度匹配</strong>：使用ColBERT预训练模型对表格数据和查询进行嵌入和匹配，以实现更高的细粒度匹配，从而选择最相关的行列。</li>
+</ol>
+</li>
+<li><strong>选择相关行列</strong>：根据相似度得分，选取与查询最相关的前k行和前k列，构建新的子表格。</li>
+</ul>
+</li>
+<li><strong>基于大型语言模型（LLM）的采样</strong><ul>
+<li><strong>转换为字符串</strong>：将查询和表格内容转化为字符串并拼接，形成上下文。</li>
+<li><strong>调用GPT过滤</strong>：使用GPT模型过滤并提取与查询相关的行列，同时生成相应的Python代码以实现筛选。为了提高代码生成的准确性和一致性，采用了自一致性策略：<ol>
+<li><strong>自一致性策略</strong>：让GPT生成5次代码，选择出现频率最高的代码作为最终筛选代码。如果生成的代码版本各不相同，则选择第一次生成的结果。</li>
+<li><strong>执行和错误处理</strong>：执行最终选择的代码段，更新表格。如果代码执行过程中出现错误，则捕获错误信息并返回原始表格，以确保流程的鲁棒性。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="采样过程中的难点及解决方案"><a href="#采样过程中的难点及解决方案" class="headerlink" title="采样过程中的难点及解决方案"></a>采样过程中的难点及解决方案</h3><p>在表格采样过程中，尤其是基于LLM的采样方法中，存在以下几个主要难点：</p>
+<ol>
+<li><p><strong>列名的一致性问题</strong>：GPT在生成筛选代码时，有时会误识别列名，导致生成的代码与原始表格中的列名不一致，从而引发错误。例如，把scheduled’, ‘capacity (mw)理解为scheduled capacity (mw)是一个列名，LLM将多个列名合并为一个，或者将单个列名错误分拆。</p>
+<p> <strong>解决方案</strong>：为了解决这一问题，可以在Prompt中明确提供整理后的列名作为参数传递给GPT，以确保生成的代码使用的列名与原始表格完全一致。这种方式能够从根本上减少列名识别错误的发生。</p>
+</li>
+<li><p><strong>数据类型不匹配导致的筛选问题</strong>：在处理表格数据时，尤其是在筛选数值类型的数据时，可能会因为数据类型不一致而导致筛选结果为空或不准确。</p>
+<p> <strong>解决方案</strong>：即使是在处理数值数据时，也建议通过字符串匹配的方式进行筛选。这种做法可以避免由于数据类型不匹配引起的筛选错误，从而提高筛选的准确性和可靠性。</p>
+</li>
+<li><p><strong>Prompt设计的有效性</strong>：为了让GPT能够准确理解任务并生成正确的筛选代码，Prompt的设计至关重要。一个不明确的Prompt可能导致GPT生成不符合预期的代码。</p>
+<p> <strong>解决方案</strong>：在设计Prompt时，应确保其清晰、具体，并包含足够的上下文信息，以便GPT能够准确理解任务要求。同时，可以通过反复测试和调整Prompt，找到最适合的表达方式，提高代码生成的准确性。</p>
+</li>
+<li><p><strong>代码生成的一致性问题</strong>：GPT在生成代码时可能会产生多个不同版本的代码，导致结果不一致。</p>
+<p> <strong>解决方案</strong>：通过自一致性策略，生成多个版本的代码并选择出现频率最高的版本，确保结果的一致性和可靠性。如果所有生成的代码都不一致，则使用第一次生成的代码并进行错误捕获处理，以确保流程的稳定性。</p>
+</li>
+</ol>
+<p>最后我们使用的详细的设置如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">call_llm_code_generation</span>(<span class="params">self, context: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Synthesize code snippet from the table context.&quot;&quot;&quot;</span></span><br><span class="line">    prompt = <span class="string">f&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Example: Synthesize code snippet from the table context to select the proper rows and columns for verifying a statement.</span></span><br><span class="line"><span class="string">    The generated code must use the exact column names provided, including spaces, capitalization, and punctuation.</span></span><br><span class="line"><span class="string">    The generated code should treat all data as strings, even if they look like numbers.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    User 1:</span></span><br><span class="line"><span class="string">    I need an expert to help me verify the statement by filtering the table to make it smaller. Statement: The scheduled date for the farm with 17 turbines be 2012.</span></span><br><span class="line"><span class="string">    Columns: [&#x27;wind farm&#x27;, &#x27;scheduled&#x27;, &#x27;capacity (mw)&#x27;, &#x27;turbines&#x27;, &#x27;type&#x27;, &#x27;location&#x27;]</span></span><br><span class="line"><span class="string">    df = pd.DataFrame(&#123;&#123;</span></span><br><span class="line"><span class="string">        &#x27;wind farm&#x27;: [&#x27;codling&#x27;, &#x27;carrowleagh&#x27;, &#x27;dublin array&#x27;, &#x27;glenmore&#x27;, &#x27;glenough&#x27;, &#x27;gortahile&#x27;, &#x27;grouse lodge&#x27;, &#x27;moneypoint&#x27;, &#x27;mount callan&#x27;, &#x27;oriel&#x27;, &#x27;skerd rocks&#x27;, &#x27;shragh&#x27;, &#x27;garracummer&#x27;, &#x27;knockacummer&#x27;, &#x27;monaincha&#x27;, &#x27;gibbet hill&#x27;, &#x27;glenough extension&#x27;],</span></span><br><span class="line"><span class="string">        &#x27;scheduled&#x27;: [&#x27;unknown&#x27;, &#x27;2012&#x27;, &#x27;2015&#x27;, &#x27;2009 summer&#x27;, &#x27;2010 winter&#x27;, &#x27;2010 autumn&#x27;, &#x27;2011 summer&#x27;, &#x27;unknown&#x27;, &#x27;unknown&#x27;, &#x27;2013&#x27;, &#x27;unknown&#x27;, &#x27;planning submitted oct 2011&#x27;, &#x27;2012&#x27;, &#x27;2013&#x27;, &#x27;2013&#x27;, &#x27;2013&#x27;, &#x27;2013&#x27;],</span></span><br><span class="line"><span class="string">        &#x27;capacity (mw)&#x27;: [1100, 36.8, 364, 30, 32.5, 20, 20, 22.5, 90, 330, 100, 135, 42.5, 87.5, 36, 15, 2.5],</span></span><br><span class="line"><span class="string">        &#x27;turbines&#x27;: [220, 16, 145, 10, 13, 8, 8, 9, 30, 55, 20, 45, 17, 35, 15, 6, 1],</span></span><br><span class="line"><span class="string">        &#x27;type&#x27;: [&#x27;unknown&#x27;, &#x27;enercon e - 70 2.3&#x27;, &#x27;unknown&#x27;, &#x27;vestas v90&#x27;, &#x27;nordex n80 / n90&#x27;, &#x27;nordex n90&#x27;, &#x27;nordex n90&#x27;, &#x27;unknown&#x27;, &#x27;3 mw&#x27;, &#x27;unknown&#x27;, &#x27;5 mw&#x27;, &#x27;enercon e82 3.0 mw&#x27;, &#x27;nordex n90 2.5 mw&#x27;, &#x27;nordex n90 2.5 mw&#x27;, &#x27;nordex n117 2.4 mw&#x27;, &#x27;nordex n90 2.5 mw&#x27;, &#x27;nordex n90 2.5 mw&#x27;],</span></span><br><span class="line"><span class="string">        &#x27;location&#x27;: [&#x27;county wicklow&#x27;, &#x27;county cork&#x27;, &#x27;county dublin&#x27;, &#x27;county clare&#x27;, &#x27;county tipperary&#x27;, &#x27;county laois&#x27;, &#x27;county tipperary&#x27;, &#x27;county clare&#x27;, &#x27;county clare&#x27;, &#x27;county louth&#x27;, &#x27;county galway&#x27;, &#x27;county clare&#x27;, &#x27;county tipperary&#x27;, &#x27;county cork&#x27;, &#x27;county tipperary&#x27;, &#x27;county wexford&#x27;, &#x27;county tipperary&#x27;]</span></span><br><span class="line"><span class="string">    &#125;&#125;)</span></span><br><span class="line"><span class="string">    User 2:</span></span><br><span class="line"><span class="string">    To verify the statement &#x27;The scheduled date for the farm with 17 turbines be 2012&#x27;, we need to filter the rows and columns to focus on relevant information. </span></span><br><span class="line"><span class="string">    Since we are interested in the &#x27;wind farm&#x27;, &#x27;scheduled&#x27;, &#x27;capacity (mw)&#x27;, and &#x27;turbines&#x27; columns, the most impactful change will be to filter the rows and columns as follows:</span></span><br><span class="line"><span class="string">    filtered_table = df[[&#x27;wind farm&#x27;, &#x27;scheduled&#x27;, &#x27;capacity (mw)&#x27;, &#x27;turbines&#x27;]].query(&quot;turbines == &#x27;17&#x27;&quot;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    User 1:</span></span><br><span class="line"><span class="string">    I need an expert to help me verify the statement by filtering the table to make it smaller. Statement: All 12 club play a total of 22 game for the wru division one east.</span></span><br><span class="line"><span class="string">    Columns: [&#x27;club&#x27;, &#x27;played&#x27;, &#x27;drawn&#x27;, &#x27;lost&#x27;, &#x27;points for&#x27;, &#x27;points against&#x27;, &#x27;tries for&#x27;, &#x27;tries against&#x27;, &#x27;try bonus&#x27;, &#x27;losing bonus&#x27;, &#x27;points&#x27;]</span></span><br><span class="line"><span class="string">    df = pd.DataFrame(&#123;&#123;</span></span><br><span class="line"><span class="string">        &#x27;club&#x27;: [&#x27;pontypool rfc&#x27;, &#x27;caerphilly rfc&#x27;, &#x27;blackwood rfc&#x27;, &#x27;bargoed rfc&#x27;, &#x27;uwic rfc&#x27;, &#x27;llanharan rfc&#x27;, &#x27;newbridge rfc&#x27;, &#x27;rumney rfc&#x27;, &#x27;newport saracens rfc&#x27;, &#x27;beddau rfc&#x27;, &#x27;fleur de lys rfc&#x27;, &#x27;llantrisant rfc&#x27;],</span></span><br><span class="line"><span class="string">        &#x27;played&#x27;: [22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],</span></span><br><span class="line"><span class="string">        &#x27;drawn&#x27;: [2, 2, 2, 0, 2, 1, 2, 2, 0, 0, 1, 0],</span></span><br><span class="line"><span class="string">        &#x27;lost&#x27;: [2, 4, 6, 8, 7, 12, 11, 12, 14, 15, 16, 18],</span></span><br><span class="line"><span class="string">        &#x27;points for&#x27;: [648, 482, 512, 538, 554, 436, 355, 435, 344, 310, 300, 402],</span></span><br><span class="line"><span class="string">        &#x27;points against&#x27;: [274, 316, 378, 449, 408, 442, 400, 446, 499, 483, 617, 592],</span></span><br><span class="line"><span class="string">        &#x27;tries for&#x27;: [81, 56, 60, 72, 71, 44, 36, 56, 45, 32, 34, 55],</span></span><br><span class="line"><span class="string">        &#x27;tries against&#x27;: [32, 37, 42, 52, 50, 51, 47, 52, 64, 61, 77, 77],</span></span><br><span class="line"><span class="string">        &#x27;try bonus&#x27;: [12, 7, 8, 10, 6, 1, 2, 5, 2, 2, 2, 4],</span></span><br><span class="line"><span class="string">        &#x27;losing bonus&#x27;: [1, 3, 3, 4, 2, 7, 3, 3, 3, 4, 4, 6],</span></span><br><span class="line"><span class="string">        &#x27;points&#x27;: [89, 78, 71, 70, 64, 46, 45, 44, 37, 34, 28, 26]</span></span><br><span class="line"><span class="string">    &#125;&#125;)</span></span><br><span class="line"><span class="string">    User 2:</span></span><br><span class="line"><span class="string">    To verify the statement &#x27;All 12 club play a total of 22 game for the wru division one east&#x27;, we need to filter the rows and columns to focus on relevant information. </span></span><br><span class="line"><span class="string">    Since we are interested in the &#x27;club&#x27;, &#x27;played&#x27;, &#x27;drawn&#x27;, and &#x27;lost&#x27; columns, the most impactful change will be to filter the rows and columns as follows:</span></span><br><span class="line"><span class="string">    filtered_table = df[[&#x27;club&#x27;, &#x27;played&#x27;, &#x27;drawn&#x27;, &#x27;lost&#x27;]].query(&quot;played == &#x27;22&#x27;&quot;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    User 1:</span></span><br><span class="line"><span class="string">    I need an expert to help me verify the statement by filtering the table to make it smaller. Statement: Touchdown Atlantic, in the category of sporting, be established in 2010.</span></span><br><span class="line"><span class="string">    Columns: [&#x27;event name&#x27;, &#x27;established&#x27;, &#x27;category&#x27;, &#x27;sub category&#x27;, &#x27;main venue&#x27;]</span></span><br><span class="line"><span class="string">    df = pd.DataFrame(&#123;&#123;</span></span><br><span class="line"><span class="string">        &#x27;event name&#x27;: [&#x27;dieppe kite international&#x27;, &#x27;the frye festival&#x27;, &#x27;hubcap comedy festival&#x27;, &#x27;touchdown atlantic&#x27;, &#x27;atlantic nationals automotive extravaganza&#x27;, &#x27;world wine &amp; food expo&#x27;, &#x27;shediac lobster festival&#x27;, &#x27;mosaïq multicultural festival&#x27;],</span></span><br><span class="line"><span class="string">        &#x27;established&#x27;: [2001, 2000, 2000, 2010, 2000, 1990, 1950, 2004],</span></span><br><span class="line"><span class="string">        &#x27;category&#x27;: [&#x27;sporting&#x27;, &#x27;arts&#x27;, &#x27;arts&#x27;, &#x27;sporting&#x27;, &#x27;transportation&#x27;, &#x27;arts&#x27;, &#x27;arts&#x27;, &#x27;festival&#x27;],</span></span><br><span class="line"><span class="string">        &#x27;sub category&#x27;: [&#x27;kite flying&#x27;, &#x27;literary&#x27;, &#x27;comedy&#x27;, &#x27;football&#x27;, &#x27;automotive&#x27;, &#x27;food &amp; drink&#x27;, &#x27;food &amp; drink&#x27;, &#x27;multicultural&#x27;],</span></span><br><span class="line"><span class="string">        &#x27;main venue&#x27;: [&#x27;dover park&#x27;, &#x27;university of moncton&#x27;, &#x27;various&#x27;, &#x27;moncton stadium&#x27;, &#x27;moncton coliseum&#x27;, &#x27;moncton coliseum&#x27;, &#x27;shediac festival grounds&#x27;, &#x27;moncton city hall plaza&#x27;]</span></span><br><span class="line"><span class="string">    &#125;&#125;)</span></span><br><span class="line"><span class="string">    User 2:</span></span><br><span class="line"><span class="string">    To verify the statement &#x27;Touchdown Atlantic, in the category of sporting, be established in 2010&#x27;, we need to filter the rows and columns to focus on relevant information. </span></span><br><span class="line"><span class="string">    Since we are interested in the &#x27;event name&#x27;, &#x27;category&#x27;, and &#x27;established&#x27; columns, the most impactful change will be to filter the rows and columns as follows:</span></span><br><span class="line"><span class="string">    filtered_table = df[[&#x27;event name&#x27;, &#x27;established&#x27;, &#x27;category&#x27;]].query(&quot;`event name` == &#x27;touchdown atlantic&#x27; and category == &#x27;sporting&#x27; and established == &#x27;2010&#x27;&quot;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Now, generate a code snippet from the table context to select the proper rows and columns to verify the given statement.</span></span><br><span class="line"><span class="string">    Use the existing column names from the provided DataFrame.</span></span><br><span class="line"><span class="string">    The column names in the generated code must match the provided column names exactly, including spaces, capitalization, and punctuation.</span></span><br><span class="line"><span class="string">    Only return the code.</span></span><br><span class="line"><span class="string">    <span class="subst">&#123;context&#125;</span></span></span><br><span class="line"><span class="string">    \n\n:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="variable language_">self</span>.USE_SELF_CONSISTENCY:</span><br><span class="line">        generated_codes = [<span class="variable language_">self</span>.generate_text(prompt) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Generated codes:&quot;</span>, generated_codes)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Find the most common code</span></span><br><span class="line">        code_counter = Counter(generated_codes)</span><br><span class="line">        most_common_code, count = code_counter.most_common(<span class="number">1</span>)[<span class="number">0</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> count &gt; <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> most_common_code</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> generated_codes[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.generate_text(prompt)</span><br></pre></td></tr></table></figure>
+
+<h2 id="第二部分：表格增强"><a href="#第二部分：表格增强" class="headerlink" title="第二部分：表格增强"></a>第二部分：表格增强</h2><h3 id="术语解释"><a href="#术语解释" class="headerlink" title="术语解释"></a><strong>术语解释</strong></h3><ul>
+<li>使用大型语言模型（LLM）筛选表格中需要进行解释的术语，并通过提示（prompt）指导LLM完成此任务。</li>
+<li>在筛选出需要解释的术语后，利用Google API进行搜索，获取相关解释，并将其附加到表格中（可以使用Langchain中的GoogleSearchAPIWrapper()来实现此功能）。</li>
+</ul>
+<h3 id="文档参考"><a href="#文档参考" class="headerlink" title="文档参考"></a><strong>文档参考</strong></h3><ul>
+<li>根据表格的标题、上下文或表头信息，构建Wikipedia查询，检索相关内容。如果表格中缺乏标题和上下文信息，则仅使用表头构建查询（可以借助Langchain中的WikipediaRetriever.get_relevant_documents()实现）。</li>
+<li>检索到相关文档后，提取其元数据，并将这些信息作为增强数据附加到表格中。</li>
+</ul>
+<p>具体来说，对于第一种方法，我们使用了下面的Prompt：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">You are an expert <span class="keyword">in</span> data analysis <span class="keyword">and</span> natural language processing. Your task <span class="keyword">is</span> to <span class="built_in">help</span> identify terms <span class="keyword">in</span> a table that may need further explanation <span class="keyword">for</span> better understanding. The table contains various fields, some of which might include technical jargon, abbreviations, <span class="keyword">or</span> specialized terms that are <span class="keyword">not</span> commonly understood by a general audience.</span><br><span class="line"></span><br><span class="line">Here <span class="keyword">is</span> the table:</span><br><span class="line">[Insert table here]</span><br><span class="line"></span><br><span class="line">Please follow these steps:</span><br><span class="line"><span class="number">1.</span> Analyze the content of each cell <span class="keyword">in</span> the table.</span><br><span class="line"><span class="number">2.</span> Identify <span class="built_in">any</span> terms that are technical, specialized, <span class="keyword">or</span> abbreviations that may need further explanation.</span><br><span class="line"><span class="number">3.</span> Generate a <span class="built_in">list</span> of these terms along <span class="keyword">with</span> the corresponding cell reference (row <span class="keyword">and</span> column).</span><br><span class="line"></span><br><span class="line">Consider the following when identifying terms:</span><br><span class="line">- Technical terms related to specific industries (e.g., finance, healthcare, technology).</span><br><span class="line">- Abbreviations that are <span class="keyword">not</span> universally known.</span><br><span class="line">- Jargon that may be specific to a particular field <span class="keyword">or</span> context.</span><br><span class="line"></span><br><span class="line">Output the terms that need explanation <span class="keyword">in</span> the following <span class="built_in">format</span>:</span><br><span class="line">- Term: [Term]</span><br><span class="line">  Cell Reference: [Row, Column]</span><br><span class="line"></span><br><span class="line">Example output:</span><br><span class="line">- Term: Revenue (million dollars)</span><br><span class="line">  Cell Reference: [<span class="number">2</span>, <span class="number">2</span>]</span><br><span class="line">- Term: Market Cap (billion dollars)</span><br><span class="line">  Cell Reference: [<span class="number">2</span>, <span class="number">4</span>]</span><br><span class="line"></span><br><span class="line">Be thorough <span class="keyword">and</span> ensure that <span class="built_in">all</span> potentially confusing <span class="keyword">or</span> specialized terms are included <span class="keyword">in</span> the <span class="built_in">list</span>.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后我们将其传递给Lanchain，利用GoogleSearchAPIWrapper()实现检索，并将结果加入作为增强信息。</p>
+<p>对于Wikipedia的方法，我们具体实现如下：</p>
+<p>例如，下列表格：</p>
+<table>
+<thead>
+<tr>
+<th>Company Name</th>
+<th>Revenue (Million USD)</th>
+<th>Number of Employees</th>
+<th>Market Cap (Billion USD)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Company A</td>
+<td>1000</td>
+<td>5000</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Company B</td>
+<td>2000</td>
+<td>10000</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Company C</td>
+<td>1500</td>
+<td>7500</td>
+<td>75</td>
+</tr>
+</tbody></table>
+<p>利用表头信息构建查询：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;company revenue employees market capitalization&quot;</span><br></pre></td></tr></table></figure>
+
+<p>查询到的信息如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;List of largest technology companies by revenue&quot;</span>,</span><br><span class="line">    <span class="string">&quot;summary&quot;</span>: <span class="string">&quot;This is a list of the largest technology companies in the world by revenue.&quot;</span>,</span><br><span class="line">    <span class="string">&quot;url&quot;</span>: <span class="string">&quot;&lt;https://en.wikipedia.org/wiki/List_of_largest_technology_companies_by_revenue&gt;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将上述文档原数据内容与表格结合，作为增强数据。</p>
+<p>然而，在进一步探讨表格增强方法时，我们需要审慎考虑一些潜在的问题。正如我们之前所提到的，这种方法在实际应用中可能会遇到以下挑战：</p>
+<p>首先，<strong>Google API的结果准确性问题</strong>。尽管通过Google API检索术语解释在处理某些专有术语时可能较为有效，因为这些术语通常具有唯一的定义。但当面对缩写或多义词时，问题就变得复杂了。例如，“ABC”这一缩写可能对应多个不同的概念，如“美国广播公司”（American Broadcasting Company）或“活动为基础的成本核算”（Activity-Based Costing），甚至还有其他可能的解释。在这种情况下，从Google检索到的术语解释可能会存在不一致性，不仅无法达到预期的增强效果，反而可能导致信息混淆，使结果变得更加复杂和不可靠。</p>
+<p>其次，<strong>检索内容的冗长性问题</strong>。Google检索到的查询内容和Wikipedia返回的文档可能过于冗长，包含大量与表格内容相关但与实际查询需求无关的信息。这些冗长的文档在进一步处理时，可能对数据管道（pipeline）的检索效果产生负面影响。目前的研究主要侧重于将每条查询分别传入LLM或预训练模型中进行处理，而我们当前的任务有所不同，这种方法可能会导致效果不佳。如果文档过长且包含过多无关信息，可能会降低模型的准确性和效率，从而影响最终的结果质量。</p>
+<h1 id="从理论到实践：表格增强策略的改进与完善"><a href="#从理论到实践：表格增强策略的改进与完善" class="headerlink" title="从理论到实践：表格增强策略的改进与完善"></a>从理论到实践：表格增强策略的改进与完善</h1><h2 id="术语解释模块的精准优化"><a href="#术语解释模块的精准优化" class="headerlink" title="术语解释模块的精准优化"></a>术语解释模块的精准优化</h2><p>基于上述原因，在对大量文献的阅读和深思熟虑之后，我们对表格增强信息提出了以下两个关键要求：</p>
+<ol>
+<li><p><strong>增强信息必须提升对表格的理解能力</strong></p>
+<p> 增强信息的首要目标是帮助模型更好地理解表格内容。信息的添加应当是精准且有助于模型在处理表格时，能够更准确地把握其结构和含义，从而提高整体的理解水平。</p>
+</li>
+<li><p><strong>增强信息必须提高对表格的召回能力</strong></p>
+<p> 其次，增强信息应当有助于提高模型对表格相关内容的召回能力。这意味着在面对查询或分析任务时，模型能够更有效地提取和利用表格中的关键信息。</p>
+</li>
+</ol>
+<p>在提出这些要求的同时，我们实际上也明确了两个必须避免的情况：</p>
+<ol>
+<li><p><strong>增强后的信息有误，影响了LLM对表格的理解能力</strong></p>
+<p> 如果增强信息存在错误，可能会导致模型对表格的误解，从而降低其对表格内容的正确解析。这不仅违背了增强信息的初衷，还可能使模型的输出结果产生偏差。</p>
+</li>
+<li><p><strong>增强信息过长，过多冗余，影响模型对相关表格的召回能力</strong></p>
+<p> 过长或冗余的信息可能会增加模型处理时的负担，干扰其对核心内容的关注，从而削弱模型在召回相关表格信息时的效率和准确性。</p>
+</li>
+</ol>
+<h2 id="文档参考模块的有效增强"><a href="#文档参考模块的有效增强" class="headerlink" title="文档参考模块的有效增强"></a>文档参考模块的有效增强</h2><p>基于前述对表格增强信息的要求和潜在问题的分析，我们提出了进一步的改进方案，以优化表格增强的方法。这些改进旨在确保增强信息既能提升模型的理解能力，又能提高相关信息的召回效率，从而避免常见的误解和冗余问题。</p>
+<h3 id="术语解释模块的改进"><a href="#术语解释模块的改进" class="headerlink" title="术语解释模块的改进"></a><strong>术语解释模块的改进</strong></h3><p>针对术语解释模块，我们决定直接利用LLM从表格中提取术语并进行解释，而不再依赖GoogleSearchAPIWrap进行外部检索。尽管这一方法无法获得网络上更为广泛的综合信息，但LLM已经能够理解大部分术语和缩写，并且能够结合具体情境提供解释。这样做不仅提高了对表格的理解能力，还有效避免了可能由于外部检索带来的误导信息和冗余信息的问题，确保增强信息的精准和简洁。</p>
+<h3 id="文档参考模块的改进"><a href="#文档参考模块的改进" class="headerlink" title="文档参考模块的改进"></a><strong>文档参考模块的改进</strong></h3><ol>
+<li><p><strong>表格用途的复述增强</strong></p>
+<p> 我们引入了一个新的增强信息，即复述表格的用途，即明确指出该表格是用来回答哪些查询的问题。这种通过明确表格目的生成的方式，可以在使用ColBERT进行信息检索时，显著提高召回率。通过这种方式，我们实现了增强信息对表格召回能力的提升，确保模型在面对特定查询时能更准确地提取相关数据。具体使用prompt和用例如下：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">generate_terms_explanation</span>(<span class="params">self, table: <span class="built_in">dict</span>, statement: <span class="built_in">str</span>, caption: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    prompt = <span class="string">f&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Example: You will be given a table, a statement, and the table&#x27;s caption. Your task is to identify difficult to understand column names, terms, or abbreviations in the table and provide simple explanations for each. Only explain terms related to the statement.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    User 1:</span></span><br><span class="line"><span class="string">    I need an expert to help me explain the terms in this table. Here is the statement: The scheduled date for the farm with 17 turbines be 2012.</span></span><br><span class="line"><span class="string">    Here is the table caption: Wind Farm Details in Ireland</span></span><br><span class="line"><span class="string">    Here is the table:</span></span><br><span class="line"><span class="string">    &#123;&#123;</span></span><br><span class="line"><span class="string">        &quot;wind farm&quot;: [&quot;codling&quot;, &quot;carrowleagh&quot;, &quot;dublin array&quot;, &quot;glenmore&quot;, &quot;glenough&quot;, &quot;gortahile&quot;, &quot;grouse lodge&quot;, &quot;moneypoint&quot;, &quot;mount callan&quot;, &quot;oriel&quot;, &quot;skerd rocks&quot;, &quot;shragh&quot;, &quot;garracummer&quot;, &quot;knockacummer&quot;, &quot;monaincha&quot;, &quot;gibbet hill&quot;, &quot;glenough extension&quot;],</span></span><br><span class="line"><span class="string">        &quot;scheduled&quot;: [&quot;unknown&quot;, &quot;2012&quot;, &quot;2015&quot;, &quot;2009 summer&quot;, &quot;2010 winter&quot;, &quot;2010 autumn&quot;, &quot;2011 summer&quot;, &quot;unknown&quot;, &quot;unknown&quot;, &quot;2013&quot;, &quot;unknown&quot;, &quot;planning submitted oct 2011&quot;, &quot;2012&quot;, &quot;2013&quot;, &quot;2013&quot;, &quot;2013&quot;, &quot;2013&quot;],</span></span><br><span class="line"><span class="string">        &quot;capacity (mw)&quot;: [1100, 36.8, 364, 30, 32.5, 20, 20, 22.5, 90, 330, 100, 135, 42.5, 87.5, 36, 15, 2.5],</span></span><br><span class="line"><span class="string">        &quot;turbines&quot;: [220, 16, 145, 10, 13, 8, 8, 9, 30, 55, 20, 45, 17, 35, 15, 6, 1],</span></span><br><span class="line"><span class="string">        &quot;type&quot;: [&quot;unknown&quot;, &quot;enercon e - 70 2.3&quot;, &quot;unknown&quot;, &quot;vestas v90&quot;, &quot;nordex n80 / n90&quot;, &quot;nordex n90&quot;, &quot;nordex n90&quot;, &quot;unknown&quot;, &quot;3 mw&quot;, &quot;unknown&quot;, &quot;5 mw&quot;, &quot;enercon e82 3.0 mw&quot;, &quot;nordex n90 2.5 mw&quot;, &quot;nordex n90 2.5 mw&quot;, &quot;nordex n117 2.4 mw&quot;, &quot;nordex n90 2.5 mw&quot;, &quot;nordex n90 2.5 mw&quot;],</span></span><br><span class="line"><span class="string">        &quot;location&quot;: [&quot;county wicklow&quot;, &quot;county cork&quot;, &quot;county dublin&quot;, &quot;county clare&quot;, &quot;county tipperary&quot;, &quot;county laois&quot;, &quot;county tipperary&quot;, &quot;county clare&quot;, &quot;county clare&quot;, &quot;county louth&quot;, &quot;county galway&quot;, &quot;county clare&quot;, &quot;county tipperary&quot;, &quot;county cork&quot;, &quot;county tipperary&quot;, &quot;county wexford&quot;, &quot;county tipperary&quot;]</span></span><br><span class="line"><span class="string">    &#125;&#125;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    User 2:</span></span><br><span class="line"><span class="string">    Explanations:</span></span><br><span class="line"><span class="string">    &quot;scheduled&quot;: &quot;The planned date for the wind farm to be operational.&quot;,</span></span><br><span class="line"><span class="string">    &quot;turbines&quot;: &quot;The number of wind turbines in the wind farm.&quot;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    User 1:</span></span><br><span class="line"><span class="string">    I need an expert to help me explain the terms in this table. Here is the statement: All 12 clubs play a total of 22 games for the WRU Division One East.</span></span><br><span class="line"><span class="string">    Here is the table caption: WRU Division One East Standings</span></span><br><span class="line"><span class="string">    Here is the table:</span></span><br><span class="line"><span class="string">    &#123;&#123;</span></span><br><span class="line"><span class="string">        &quot;club&quot;: [&quot;pontypool rfc&quot;, &quot;caerphilly rfc&quot;, &quot;blackwood rfc&quot;, &quot;bargoed rfc&quot;, &quot;uwic rfc&quot;, &quot;llanharan rfc&quot;, &quot;newbridge rfc&quot;, &quot;rumney rfc&quot;, &quot;newport saracens rfc&quot;, &quot;beddau rfc&quot;, &quot;fleur de lys rfc&quot;, &quot;llantrisant rfc&quot;],</span></span><br><span class="line"><span class="string">        &quot;played&quot;: [22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],</span></span><br><span class="line"><span class="string">        &quot;drawn&quot;: [2, 2, 2, 0, 2, 1, 2, 2, 0, 0, 1, 0],</span></span><br><span class="line"><span class="string">        &quot;lost&quot;: [2, 4, 6, 8, 7, 12, 11, 12, 14, 15, 16, 18],</span></span><br><span class="line"><span class="string">        &quot;points for&quot;: [648, 482, 512, 538, 554, 436, 355, 435, 344, 310, 300, 402],</span></span><br><span class="line"><span class="string">        &quot;points against&quot;: [274, 316, 378, 449, 408, 442, 400, 446, 499, 483, 617, 592],</span></span><br><span class="line"><span class="string">        &quot;tries for&quot;: [81, 56, 60, 72, 71, 44, 36, 56, 45, 32, 34, 55],</span></span><br><span class="line"><span class="string">        &quot;tries against&quot;: [32, 37, 42, 52, 50, 51, 47, 52, 64, 61, 77, 77],</span></span><br><span class="line"><span class="string">        &quot;try bonus&quot;: [12, 7, 8, 10, 6, 1, 2, 5, 2, 2, 2, 4],</span></span><br><span class="line"><span class="string">        &quot;losing bonus&quot;: [1, 3, 3, 4, 2, 7, 3, 3, 3, 4, 4, 6],</span></span><br><span class="line"><span class="string">        &quot;points&quot;: [89, 78, 71, 70, 64, 46, 45, 44, 37, 34, 28, 26]</span></span><br><span class="line"><span class="string">    &#125;&#125;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    User 2:</span></span><br><span class="line"><span class="string">    Explanations:</span></span><br><span class="line"><span class="string">    &quot;played&quot;: &quot;The number of games played by the club.&quot;,</span></span><br><span class="line"><span class="string">    &quot;points for&quot;: &quot;The total points scored by the club.&quot;,</span></span><br><span class="line"><span class="string">    &quot;points against&quot;: &quot;The total points scored against the club.&quot;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Now, explain the terms in the following table.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Table caption:</span></span><br><span class="line"><span class="string">    <span class="subst">&#123;caption&#125;</span></span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Statement:</span></span><br><span class="line"><span class="string">    <span class="subst">&#123;statement&#125;</span></span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Table:</span></span><br><span class="line"><span class="string">    <span class="subst">&#123;json.dumps(table, indent=<span class="number">2</span>)&#125;</span></span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Please return the result in the following format:</span></span><br><span class="line"><span class="string">    &#123;&#123;</span></span><br><span class="line"><span class="string">        &quot;explanations&quot;: &#123;&#123;</span></span><br><span class="line"><span class="string">            &quot;term1&quot;: &quot;explanation1&quot;,</span></span><br><span class="line"><span class="string">            &quot;term2&quot;: &quot;explanation2&quot;,</span></span><br><span class="line"><span class="string">            ...</span></span><br><span class="line"><span class="string">        &#125;&#125;</span></span><br><span class="line"><span class="string">    &#125;&#125;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    generated_text = <span class="variable language_">self</span>.generate_text(prompt)</span><br><span class="line">    <span class="keyword">return</span> generated_text  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>WikiPedia外部信息增强的优化</strong></p>
+<ul>
+<li>首先基于表格标题进行WikiPedia检索，获取相关增强信息。如果标题检索失败，则使用表头信息进行检索，以提供与表格内容相关的增强信息。</li>
+<li>在获取WikiPedia的增强信息后，提取其元数据信息，但不直接将这些信息加入增强内容中，以避免冗余。</li>
+<li>然后，将提取的元数据信息与查询语句、表格（包括筛选后的表格或原始表格）以及表格标题一起打包，发送给LLM进行处理。</li>
+<li>通过这种综合处理方式，LLM可以生成一个简短的摘要或总结，特别是在处理没有标题或其他辅助信息的表格时，仍能有效理解和处理表格内容。</li>
+</ul>
+<p> 具体来说我们的详细实现如下：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_docs_references</span>(<span class="params">self, parsed_example: <span class="built_in">dict</span></span>) -&gt; <span class="built_in">dict</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Starting get_docs_references method&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    retriever = WikipediaRetriever(lang=<span class="string">&quot;en&quot;</span>, load_max_docs=<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Use caption for document retrieval if available</span></span><br><span class="line">        <span class="keyword">if</span> parsed_example[<span class="string">&quot;table&quot;</span>].get(<span class="string">&quot;caption&quot;</span>):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;Using caption for document retrieval:&quot;</span>, parsed_example[<span class="string">&quot;table&quot;</span>][<span class="string">&quot;caption&quot;</span>])</span><br><span class="line">            docs = retriever.get_relevant_documents(parsed_example[<span class="string">&quot;table&quot;</span>][<span class="string">&quot;caption&quot;</span>])</span><br><span class="line">        <span class="comment"># If caption is also not available, use table headers</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;No caption found, using header instead:&quot;</span>, parsed_example[<span class="string">&#x27;table&#x27;</span>][<span class="string">&#x27;header&#x27;</span>])</span><br><span class="line">            docs = retriever.get_relevant_documents(<span class="string">&quot; &quot;</span>.join(parsed_example[<span class="string">&quot;table&quot;</span>][<span class="string">&quot;header&quot;</span>]))</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Extract relevant metadata from the retrieved documents</span></span><br><span class="line">        metadata_list = []</span><br><span class="line">        <span class="keyword">for</span> doc <span class="keyword">in</span> docs:</span><br><span class="line">            metadata = &#123;</span><br><span class="line">                <span class="string">&#x27;title&#x27;</span>: doc.metadata.get(<span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;N/A&#x27;</span>),</span><br><span class="line">                <span class="string">&#x27;summary&#x27;</span>: doc.metadata.get(<span class="string">&#x27;summary&#x27;</span>, <span class="string">&#x27;N/A&#x27;</span>),</span><br><span class="line">                <span class="string">&#x27;source&#x27;</span>: doc.metadata.get(<span class="string">&#x27;source&#x27;</span>, <span class="string">&#x27;N/A&#x27;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            metadata_list.append(metadata)</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Print the metadata for debugging</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Retrieved metadata: &quot;</span>, metadata_list)</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Extract table, statement, and caption from parsed_example</span></span><br><span class="line">        table = &#123;</span><br><span class="line">            <span class="string">&quot;header&quot;</span>: parsed_example.get(<span class="string">&quot;table&quot;</span>, &#123;&#125;).get(<span class="string">&quot;header&quot;</span>, []),</span><br><span class="line">            <span class="string">&quot;rows&quot;</span>: parsed_example.get(<span class="string">&quot;table&quot;</span>, &#123;&#125;).get(<span class="string">&quot;rows&quot;</span>, [])</span><br><span class="line">        &#125;</span><br><span class="line">        statement = parsed_example.get(<span class="string">&quot;query&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">        caption = parsed_example.get(<span class="string">&quot;table&quot;</span>, &#123;&#125;).get(<span class="string">&quot;caption&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">    </span><br><span class="line">        <span class="comment"># Call the method to generate table summary using metadata</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Calling generate_table_summary with metadata&quot;</span>)</span><br><span class="line">        generated_summary = <span class="variable language_">self</span>.call_llm.generate_table_summary(metadata_list, table, statement, caption)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Generated summary:&quot;</span>, generated_summary)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Return the generated summary in a dictionary under the &#x27;table_summary&#x27; key</span></span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;table_summary&quot;</span>: generated_summary&#125;</span><br><span class="line">    <span class="keyword">except</span> requests.exceptions.RequestException <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;An error occurred while retrieving documents: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;table_summary&quot;</span>: <span class="string">&quot;Document retrieval failed&quot;</span>&#125;</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;An unexpected error occurred: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&quot;table_summary&quot;</span>: <span class="string">&quot;An unexpected error occurred&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+<p> 使用的具体prompt以及用例内容如下：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">generate_table_summary</span>(<span class="params">self, metadata_list: <span class="built_in">list</span>, table: <span class="built_in">dict</span>, statement: <span class="built_in">str</span>, caption: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    prompt = <span class="string">f&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Example: You will be given a table, a statement, the table&#x27;s caption, and metadata from related Wikipedia documents. Your task is to generate a concise summary for the table that directly addresses the statement, using the Wikipedia metadata to enhance understanding. Ensure the summary starts with the phrase &#x27;This table is used to determine the truth of the statement: [statement]&#x27; and includes only content related to the statement.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    User 1:</span></span><br><span class="line"><span class="string">    I need an expert to help me create a concise summary of the table. Here is the statement: The scheduled date for the farm with 17 turbines be 2012.</span></span><br><span class="line"><span class="string">    Here is the table caption: Wind Farm Details in Ireland</span></span><br><span class="line"><span class="string">    Here is the table:</span></span><br><span class="line"><span class="string">    &#123;&#123;</span></span><br><span class="line"><span class="string">        &quot;wind farm&quot;: [&quot;codling&quot;, &quot;carrowleagh&quot;, &quot;dublin array&quot;, &quot;glenmore&quot;, &quot;glenough&quot;, &quot;gortahile&quot;, &quot;grouse lodge&quot;, &quot;moneypoint&quot;, &quot;mount callan&quot;, &quot;oriel&quot;, &quot;skerd rocks&quot;, &quot;shragh&quot;, &quot;garracummer&quot;, &quot;knockacummer&quot;, &quot;monaincha&quot;, &quot;gibbet hill&quot;, &quot;glenough extension&quot;],</span></span><br><span class="line"><span class="string">        &quot;scheduled&quot;: [&quot;unknown&quot;, &quot;2012&quot;, &quot;2015&quot;, &quot;2009 summer&quot;, &quot;2010 winter&quot;, &quot;2010 autumn&quot;, &quot;2011 summer&quot;, &quot;unknown&quot;, &quot;unknown&quot;, &quot;2013&quot;, &quot;unknown&quot;, &quot;planning submitted oct 2011&quot;, &quot;2012&quot;, &quot;2013&quot;, &quot;2013&quot;, &quot;2013&quot;, &quot;2013&quot;],</span></span><br><span class="line"><span class="string">        &quot;capacity (mw)&quot;: [1100, 36.8, 364, 30, 32.5, 20, 20, 22.5, 90, 330, 100, 135, 42.5, 87.5, 36, 15, 2.5],</span></span><br><span class="line"><span class="string">        &quot;turbines&quot;: [220, 16, 145, 10, 13, 8, 8, 9, 30, 55, 20, 45, 17, 35, 15, 6, 1],</span></span><br><span class="line"><span class="string">        &quot;type&quot;: [&quot;unknown&quot;, &quot;enercon e - 70 2.3&quot;, &quot;unknown&quot;, &quot;vestas v90&quot;, &quot;nordex n80 / n90&quot;, &quot;nordex n90&quot;, &quot;nordex n90&quot;, &quot;unknown&quot;, &quot;3 mw&quot;, &quot;unknown&quot;, &quot;5 mw&quot;, &quot;enercon e82 3.0 mw&quot;, &quot;nordex n90 2.5 mw&quot;, &quot;nordex n90 2.5 mw&quot;, &quot;nordex n117 2.4 mw&quot;, &quot;nordex n90 2.5 mw&quot;, &quot;nordex n90 2.5 mw&quot;],</span></span><br><span class="line"><span class="string">        &quot;location&quot;: [&quot;county wicklow&quot;, &quot;county cork&quot;, &quot;county dublin&quot;, &quot;county clare&quot;, &quot;county tipperary&quot;, &quot;county laois&quot;, &quot;county tipperary&quot;, &quot;county clare&quot;, &quot;county clare&quot;, &quot;county louth&quot;, &quot;county galway&quot;, &quot;county clare&quot;, &quot;county tipperary&quot;, &quot;county cork&quot;, &quot;county tipperary&quot;, &quot;county wexford&quot;, &quot;county tipperary&quot;]</span></span><br><span class="line"><span class="string">    &#125;&#125;</span></span><br><span class="line"><span class="string">    Here is the metadata from related Wikipedia documents:</span></span><br><span class="line"><span class="string">    [</span></span><br><span class="line"><span class="string">        &#123;&#123;</span></span><br><span class="line"><span class="string">            &quot;title&quot;: &quot;Wind power in Ireland&quot;,</span></span><br><span class="line"><span class="string">            &quot;summary&quot;: &quot;As of 2021 the island of Ireland has 5,585 megawatt and the Republic of Ireland has 4,309 MW of installed wind power nameplate capacity...&quot;,</span></span><br><span class="line"><span class="string">            &quot;source&quot;: &quot;https://en.wikipedia.org/wiki/Wind_power_in_Ireland&quot;</span></span><br><span class="line"><span class="string">        &#125;&#125;,</span></span><br><span class="line"><span class="string">        &#123;&#123;</span></span><br><span class="line"><span class="string">            &quot;title&quot;: &quot;List of wind farms in the Republic of Ireland&quot;,</span></span><br><span class="line"><span class="string">            &quot;summary&quot;: &quot;This is a list of wind farms in the Republic of Ireland...&quot;,</span></span><br><span class="line"><span class="string">            &quot;source&quot;: &quot;https://en.wikipedia.org/wiki/List_of_wind_farms_in_the_Republic_of_Ireland&quot;</span></span><br><span class="line"><span class="string">        &#125;&#125;</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    User 2:</span></span><br><span class="line"><span class="string">    Summary:</span></span><br><span class="line"><span class="string">    &quot;This table is used to determine the truth of the statement: The scheduled date for the farm with 17 turbines be 2012. The farm with 17 turbines, Garracummer, is scheduled for 2012 according to the table. Wind power in the Republic of Ireland is significant, with over 300 wind farms generating electricity. As of 2021, the Republic of Ireland has 4,309 MW of installed wind power capacity, contributing to a high wind power penetration in the country.&quot;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Now, generate a summary for the given table, addressing the statement and using the Wikipedia metadata for enhanced understanding. Ensure the summary starts with the phrase &#x27;This table is used to determine the truth of the statement: [statement]&#x27; and includes only content related to the statement.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Statement:</span></span><br><span class="line"><span class="string">    <span class="subst">&#123;statement&#125;</span></span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    This table is used to determine the truth of the statement: <span class="subst">&#123;statement&#125;</span></span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Table caption:</span></span><br><span class="line"><span class="string">    <span class="subst">&#123;caption&#125;</span></span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Table:</span></span><br><span class="line"><span class="string">    <span class="subst">&#123;json.dumps(table, indent=<span class="number">2</span>)&#125;</span></span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Wikipedia metadata:</span></span><br><span class="line"><span class="string">    <span class="subst">&#123;json.dumps(metadata_list, indent=<span class="number">2</span>)&#125;</span></span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Please return the result in the following format:</span></span><br><span class="line"><span class="string">    &#123;&#123;</span></span><br><span class="line"><span class="string">        &quot;summary&quot;: &quot;The summary that includes the statement, context from the caption, and relevant Wikipedia information.&quot;</span></span><br><span class="line"><span class="string">    &#125;&#125;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    generated_text = <span class="variable language_">self</span>.generate_text(prompt)</span><br><span class="line">    <span class="keyword">return</span> generated_text   </span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>我们对表格增强方法进行了深入的思考和优化，通过上述方法，我们基本可以确保在处理复杂数据时，模型能够更加准确地理解和召回表格中的关键信息。通过改进术语解释模块和文档参考模块，我们成功避免了外部信息可能带来的误导和冗余问题，提升了模型在不同场景下的整体性能。这些改进不仅为增强信息的质量提供了保障，也为模型在实际应用中的可靠性和效率奠定了坚实基础。</p>
+<h1 id="第三部分：检索过程增强"><a href="#第三部分：检索过程增强" class="headerlink" title="第三部分：检索过程增强"></a>第三部分：检索过程增强</h1><p>在TableRAG的系统中，我们最终选择在检索过程中使用ColBERT进行增强。这一选择不仅基于ColBERT独特的创新点和优点，还因为其在实际应用中展现出的高效性和准确性。目前，ColBERT的实现可以通过<a target="_blank" rel="noopener" href="https://github.com/bclavie/RAGatouille">RAGatouille</a>轻松集成到RAG管道中，而Llamaindex也提供了对该仓库的集成，这使得其应用变得更加便捷。</p>
+<h2 id="ColBERT-的创新与优点"><a href="#ColBERT-的创新与优点" class="headerlink" title="ColBERT 的创新与优点"></a>ColBERT 的创新与优点</h2><h3 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a><strong>创新点</strong></h3><ol>
+<li><strong>延迟交互框架</strong>：ColBERT通过将查询和文档的编码过程分离，并在编码后再进行相似度计算，减少了在线查询时的计算量。这使得系统能够预先计算文档的表示，大大提高了计算效率。</li>
+<li><strong>最大相似度操作（MaxSim）</strong>：ColBERT采用最大相似度操作来评估查询和文档之间的相关性，每个查询嵌入与文档嵌入之间的最大余弦相似度或L2距离相加，简单高效。</li>
+<li><strong>BERT编码器共享</strong>：通过共享BERT编码器，并在输入前分别加上特殊标记（[Q]和[D]），ColBERT在节省计算资源的同时，保留了上下文理解能力。</li>
+<li><strong>文档的分段和过滤</strong>：过滤掉无关信息，如标点符号，减少计算和存储负担。</li>
+<li><strong>基于向量相似性的检索</strong>：利用向量相似性搜索库（如faiss），ColBERT能够高效地从大型文档集合中进行端到端检索。</li>
+</ol>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h3><ol>
+<li><strong>计算效率高</strong>：预计算文档表示和延迟交互机制使ColBERT在查询处理时的计算量大幅降低，速度提高了两个数量级。</li>
+<li><strong>空间利用率高</strong>：通过归一化和降维处理，ColBERT有效地减少了存储空间需求，提升了实际应用的可行性。</li>
+<li><strong>强大的扩展性</strong>：ColBERT的架构设计允许其处理大规模文档集合而不牺牲精度，尤其是在向量相似性搜索中的高效剪枝操作中表现突出。</li>
+<li><strong>端到端检索能力</strong>：ColBERT能够直接从大型文档集合中检索，提高了系统的召回率和精度。</li>
+</ol>
+<h3 id="ColBERTv2-的改进"><a href="#ColBERTv2-的改进" class="headerlink" title="ColBERTv2 的改进"></a>ColBERTv2 的改进</h3><p>在ColBERTv2中，这些优势得到了进一步增强。特别是引入的<strong>残差压缩机制</strong>和<strong>降噪监督</strong>，显著降低了存储需求并提高了训练效果。此外，ColBERTv2通过优化索引和检索过程，实现了更高效的候选生成和段落排序，进一步提升了检索性能。</p>
+<h3 id="检索过程中的实际应用"><a href="#检索过程中的实际应用" class="headerlink" title="检索过程中的实际应用"></a>检索过程中的实际应用</h3><p>在我们的TableRAG系统中，ColBERT不仅用于重新排序预检索的文档集，还通过其端到端的检索能力直接提升了系统的召回率和精度。这一功能特别适合处理表格增强过程中遇到的复杂查询场景。</p>
+<p>例如，当我们使用ColBERT进行查询时，系统首先对表格中的所有文档进行预处理和编码，生成高效的向量表示。在查询过程中，ColBERT利用这些预先生成的文档向量，通过最大相似度操作快速找到最相关的文档，并根据相似度进行排序。这样，我们能够确保检索结果的高准确性，同时避免了传统方法中高计算成本和长响应时间的问题。</p>
+<p>通过集成ColBERT到我们的TableRAG系统中，我们实现了检索过程中增强信息的有效利用。ColBERT及其改进版本不仅提升了系统的计算效率和存储利用率，还通过其创新的检索机制，在不牺牲精度的情况下，大幅度提高了检索速度和准确性。最终，这种增强策略确保了我们的系统在处理复杂表格查询时，能够快速且准确地返回最相关的信息，从而大大提高了用户的体验和系统的整体性能。</p>
+<h1 id="传入格式增强"><a href="#传入格式增强" class="headerlink" title="传入格式增强"></a>传入格式增强</h1><h1 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h1><h2 id="实验评估"><a href="#实验评估" class="headerlink" title="实验评估"></a>实验评估</h2><h3 id="表格采样方法比较"><a href="#表格采样方法比较" class="headerlink" title="表格采样方法比较"></a><strong>表格采样方法比较</strong></h3><ul>
+<li><strong>基于语义的表格采样</strong>：通过生成嵌入向量和计算相似度，选择相关的表格行列。</li>
+<li><strong>基于LLM的表格采样</strong>：通过LLM生成过滤代码，筛选相关的表格行列。</li>
+</ul>
+<h3 id="表格增强方法比较"><a href="#表格增强方法比较" class="headerlink" title="表格增强方法比较"></a><strong>表格增强方法比较</strong></h3><ul>
+<li>在基线采样方法的基础上，分别进行以下增强实验：<ol>
+<li><strong>仅使用LLM术语解释增强</strong>：利用LLM筛选术语并进行解释，附加到表格中。</li>
+<li><strong>仅使用文档增强</strong>：基于表格标题、上下文或表头，使用Wikipedia检索相关文档并提取元数据，附加到表格中。</li>
+<li><strong>同时使用术语解释和文档增强</strong>：综合以上两种增强方法，全面提升表格信息的丰富度。</li>
+</ol>
+</li>
+</ul>
+<h3 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a><strong>消融实验</strong></h3><ul>
+<li>为评估各个模块对整体系统的影响，进行以下消融实验：<ol>
+<li><strong>去掉表格采样</strong>：直接使用原始表格进行实验，评估表格采样模块的作用。</li>
+<li><strong>去掉ColBERT</strong>：使用其他检索方法，评估ColBERT在检索过程中的贡献。</li>
+<li><strong>去掉表格增强</strong>：不进行任何增强处理，评估增强模块的影响。</li>
+</ol>
+</li>
+</ul>
+<h3 id="扩展数据集测试"><a href="#扩展数据集测试" class="headerlink" title="扩展数据集测试"></a><strong>扩展数据集测试</strong></h3><ul>
+<li>添加更多的数据集，如不同领域或不同类型的表格数据集，进行实验。</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li>Zhang, T., Li, Y., Jin, Y. and Li, J., 2020. Autoalpha: an efficient hierarchical evolutionary algorithm for mining alpha factors in quantitative investment. <em>arXiv preprint arXiv:2002.08245</em>.</li>
+<li>Li, L., Wang, H., Zha, L., Huang, Q., Wu, S., Chen, G. and Zhao, J., 2023. Learning a data-driven policy network for pre-training automated feature engineering. In <em>The Eleventh International Conference on Learning Representations</em>.</li>
+<li>Chen, Z., Chen, W., Smiley, C., Shah, S., Borova, I., Langdon, D., Moussa, R., Beane, M., Huang, T.H., Routledge, B. and Wang, W.Y., 2021. Finqa: A dataset of numerical reasoning over financial data. <em>arXiv preprint arXiv:2109.00122</em>.</li>
+<li>Chen, W., Zha, H., Chen, Z., Xiong, W., Wang, H. and Wang, W., 2020. Hybridqa: A dataset of multi-hop question answering over tabular and textual data. <em>arXiv preprint arXiv:2004.07347</em>.</li>
+<li>Zhu, F., Lei, W., Huang, Y., Wang, C., Zhang, S., Lv, J., Feng, F. and Chua, T.S., 2021. TAT-QA: A question answering benchmark on a hybrid of tabular and textual content in finance. <em>arXiv preprint arXiv:2105.07624</em>.</li>
+<li>Babaev, D., Savchenko, M., Tuzhilin, A. and Umerenkov, D., 2019, July. Et-rnn: Applying deep learning to credit loan applications. In <em>Proceedings of the 25th ACM SIGKDD international conference on knowledge discovery &amp; data mining</em> (pp. 2183-2190).</li>
+<li>Ye, Y., Hui, B., Yang, M., Li, B., Huang, F. and Li, Y., 2023, July. Large language models are versatile decomposers: Decomposing evidence and questions for table-based reasoning. In <em>Proceedings of the 46th International ACM SIGIR Conference on Research and Development in Information Retrieval</em> (pp. 174-184).</li>
+<li>Cheng, Z., Xie, T., Shi, P., Li, C., Nadkarni, R., Hu, Y., Xiong, C., Radev, D., Ostendorf, M., Zettlemoyer, L. and Smith, N.A., 2022. Binding language models in symbolic languages.<em>arXiv preprint arXiv:2210.02875</em>.</li>
+<li>Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., Dai, Y., Sun, J. and Wang, H., 2023.<br>Retrieval-augmented generation for large language models: A survey. <em>arXiv preprint arXiv:2312.10997</em>.</li>
+<li>Lu, W., Zhang, J., Zhang, J. and Chen, Y., 2024. Large language model for table processing: A survey. <em>arXiv preprint arXiv:2402.05121</em>.</li>
+<li>Jiang, J., Zhou, K., Dong, Z., Ye, K., Zhao, W.X. and Wen, J.R., 2023. Structgpt: A general framework for large language model to reason over structured data. <em>arXiv preprint arXiv:2305.09645</em>.</li>
+<li>Sui, Y., Zou, J., Zhou, M., He, X., Du, L., Han, S. and Zhang, D., 2023. Tap4llm: Table provider on sampling, augmenting, and packing semi-structured data for large language model reasoning. <em>arXiv preprint arXiv:2312.09039</em>.</li>
+<li>Bian, N., Han, X., Sun, L., Lin, H., Lu, Y., He, B., Jiang, S. and Dong, B., 2023. Chatgpt is a knowledgeable but inexperienced solver: An investigation of commonsense problem in large language models. <em>arXiv preprint arXiv:2303.16421</em>.</li>
+<li>Lin, W., Blloshmi, R., Byrne, B., de Gispert, A. and Iglesias, G., 2023, July. LI-RAGE: Late Interaction Retrieval Augmented Generation with Explicit Signals for Open-Domain Table Question Answering. In <em>Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</em> (pp. 1557-1566).</li>
+<li>Li, X., Chan, S., Zhu, X., Pei, Y., Ma, Z., Liu, X. and Shah, S., 2023.  Are ChatGPT and GPT-4 general-purpose solvers for financial text analytics? A study on several typical tasks. <em>arXiv preprint arXiv:2305.05862</em>.</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Proposal-Archive"><span class="toc-number">1.</span> <span class="toc-text">Proposal Archive</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">2.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%A6%82%E5%86%B5%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.</span> <span class="toc-text">项目概况介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8ERAG%E7%9A%84%E5%A4%9A%E8%A1%A8%E6%A0%BC%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="toc-number">3.0.1.</span> <span class="toc-text">基于RAG的多表格问答系统架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%A1%A8%E6%A0%BC%E9%97%AE%E7%AD%94%E7%9A%84%E5%A2%9E%E5%BC%BA%E6%9C%BA%E5%88%B6"><span class="toc-number">3.0.2.</span> <span class="toc-text">多表格问答的增强机制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">4.</span> <span class="toc-text">数据集的选择</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E6%96%BD%E6%96%B9%E6%A1%88"><span class="toc-number">5.</span> <span class="toc-text">实施方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9A%E8%A1%A8%E6%A0%BC%E9%87%87%E6%A0%B7"><span class="toc-number">5.1.</span> <span class="toc-text">第一部分：表格采样</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%87%E6%A0%B7%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E9%9A%BE%E7%82%B9%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">5.1.1.</span> <span class="toc-text">采样过程中的难点及解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E8%A1%A8%E6%A0%BC%E5%A2%9E%E5%BC%BA"><span class="toc-number">5.2.</span> <span class="toc-text">第二部分：表格增强</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A"><span class="toc-number">5.2.1.</span> <span class="toc-text">术语解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E5%8F%82%E8%80%83"><span class="toc-number">5.2.2.</span> <span class="toc-text">文档参考</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8E%E7%90%86%E8%AE%BA%E5%88%B0%E5%AE%9E%E8%B7%B5%EF%BC%9A%E8%A1%A8%E6%A0%BC%E5%A2%9E%E5%BC%BA%E7%AD%96%E7%95%A5%E7%9A%84%E6%94%B9%E8%BF%9B%E4%B8%8E%E5%AE%8C%E5%96%84"><span class="toc-number">6.</span> <span class="toc-text">从理论到实践：表格增强策略的改进与完善</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A%E6%A8%A1%E5%9D%97%E7%9A%84%E7%B2%BE%E5%87%86%E4%BC%98%E5%8C%96"><span class="toc-number">6.1.</span> <span class="toc-text">术语解释模块的精准优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E5%8F%82%E8%80%83%E6%A8%A1%E5%9D%97%E7%9A%84%E6%9C%89%E6%95%88%E5%A2%9E%E5%BC%BA"><span class="toc-number">6.2.</span> <span class="toc-text">文档参考模块的有效增强</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AF%E8%AF%AD%E8%A7%A3%E9%87%8A%E6%A8%A1%E5%9D%97%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">6.2.1.</span> <span class="toc-text">术语解释模块的改进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E5%8F%82%E8%80%83%E6%A8%A1%E5%9D%97%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">6.2.2.</span> <span class="toc-text">文档参考模块的改进</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%A3%80%E7%B4%A2%E8%BF%87%E7%A8%8B%E5%A2%9E%E5%BC%BA"><span class="toc-number">7.</span> <span class="toc-text">第三部分：检索过程增强</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ColBERT-%E7%9A%84%E5%88%9B%E6%96%B0%E4%B8%8E%E4%BC%98%E7%82%B9"><span class="toc-number">7.1.</span> <span class="toc-text">ColBERT 的创新与优点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E6%96%B0%E7%82%B9"><span class="toc-number">7.1.1.</span> <span class="toc-text">创新点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">7.1.2.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ColBERTv2-%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">7.1.3.</span> <span class="toc-text">ColBERTv2 的改进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E7%B4%A2%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-number">7.1.4.</span> <span class="toc-text">检索过程中的实际应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BC%A0%E5%85%A5%E6%A0%BC%E5%BC%8F%E5%A2%9E%E5%BC%BA"><span class="toc-number">8.</span> <span class="toc-text">传入格式增强</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%84%E4%BC%B0"><span class="toc-number">9.</span> <span class="toc-text">评估</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AF%84%E4%BC%B0"><span class="toc-number">9.1.</span> <span class="toc-text">实验评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83"><span class="toc-number">9.1.1.</span> <span class="toc-text">表格采样方法比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83"><span class="toc-number">9.1.2.</span> <span class="toc-text">表格增强方法比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-number">9.1.3.</span> <span class="toc-text">消融实验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E6%95%B0%E6%8D%AE%E9%9B%86%E6%B5%8B%E8%AF%95"><span class="toc-number">9.1.4.</span> <span class="toc-text">扩展数据集测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">9.2.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&text=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&is_video=false&description=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)&body=Check out this article: http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&title=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&name=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yuhangwuai.github.io/2024/08/08/RAGTab-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/&t=RAGTab: Advanced Retrieval Augmented Generation with Sampling and Enhancement for Table Reasoning(CN)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    YuhangWu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
