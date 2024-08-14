@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TableRAG/filter_overview.png">
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TableRAG/clarifier_overview.png">
 <meta property="article:published_time" content="2024-08-07T23:00:17.000Z">
-<meta property="article:modified_time" content="2024-08-13T16:26:58.614Z">
+<meta property="article:modified_time" content="2024-08-14T15:28:46.211Z">
 <meta property="article:author" content="YuhangWu">
 <meta property="article:tag" content="CN_blog">
 <meta name="twitter:card" content="summary">
@@ -33,17 +33,17 @@
     
       
         
-          <link rel="shortcut icon" href="/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/logo.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/logo.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
         
       
     
@@ -212,7 +212,7 @@
 </li>
 </ol>
 <p>上述架构与增强机制有效地应对了当前表格问答任务中存在的挑战，特别是在多表格环境下的实际应用。通过结合先进的检索技术、语义与LLM过滤，以及大规模语言模型，我们的系统能够从大量表格中迅速找到相关信息并生成精确的答案，为各类复杂数据分析任务提供了有力的支持。</p>
-<h1 id="数据集的选择"><a href="#数据集的选择" class="headerlink" title="数据集的选择"></a>数据集的选择</h1><h2 id="Tablefact"><a href="#Tablefact" class="headerlink" title="Tablefact"></a><a target="_blank" rel="noopener" href="https://tabfact.github.io/">Tablefact</a></h2><p>在现有的表格问答数据集中，我们已经进行了广泛的尝试和研究。关于详细的数据集整理，请参阅我的另一篇博客：<a href="http://yuhangwuai.github.io/">博客</a>：。通过这些经验，我们在使用数据集进行表格问答的检索增强生成时，发现主要面临以下几个问题：</p>
+<h1 id="数据集的选择"><a href="#数据集的选择" class="headerlink" title="数据集的选择"></a>数据集的选择</h1><h2 id="Tablefact"><a href="#Tablefact" class="headerlink" title="Tablefact"></a><a target="_blank" rel="noopener" href="https://tabfact.github.io/">Tablefact</a></h2><p>在现有的表格问答数据集中，我们已经进行了广泛的尝试和研究。关于详细的数据集整理，请参阅我的另一篇博客：<a href="https://yuhangwuai.github.io/2024/08/14/Dataset-for-Question-Answering/">Dataset for Question Answering</a>：。通过这些经验，我们在使用数据集进行表格问答的检索增强生成时，发现主要面临以下几个问题：</p>
 <ol>
 <li><strong>问题简短导致召回效果不佳</strong>：<ul>
 <li>许多问答数据集中的问题通常非常简短，仅由几个单词组成。这种简短的提问在相似度检索或其他密集型检索过程中，往往导致相关表格的召回效果不佳。</li>

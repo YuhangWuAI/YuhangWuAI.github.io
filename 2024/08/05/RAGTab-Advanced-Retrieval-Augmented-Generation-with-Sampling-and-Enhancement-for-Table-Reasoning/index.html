@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TableRAG/filter_overview.png">
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TableRAG/clarifier_overview.png">
 <meta property="article:published_time" content="2024-08-05T14:23:58.000Z">
-<meta property="article:modified_time" content="2024-08-13T16:29:10.640Z">
+<meta property="article:modified_time" content="2024-08-14T15:35:11.341Z">
 <meta property="article:author" content="YuhangWu">
 <meta property="article:tag" content="RAG">
 <meta name="twitter:card" content="summary">
@@ -33,17 +33,17 @@
     
       
         
-          <link rel="shortcut icon" href="/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/logo.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/logo.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
         
       
     
@@ -210,7 +210,7 @@
 </li>
 </ol>
 <p>The above architecture and enhancement mechanisms effectively address the challenges present in current TableQA tasks, especially in the real-world application of multi-table environments. By combining advanced retrieval technology, semantic and LLM filtering, and large-scale language models, our system can quickly find relevant information from a large number of tables and generate accurate answers, providing strong support for various complex data analysis tasks.</p>
-<h1 id="Dataset-Selection"><a href="#Dataset-Selection" class="headerlink" title="Dataset Selection"></a>Dataset Selection</h1><h2 id="Tablefact"><a href="#Tablefact" class="headerlink" title="Tablefact"></a><a target="_blank" rel="noopener" href="https://tabfact.github.io/">Tablefact</a></h2><p>In the existing TableQA datasets, we have conducted extensive attempts and research. For detailed dataset organization, please refer to my other blog: <a href="http://yuhangwuai.github.io/">Blog</a>. Through these experiences, we found that when using datasets for retrieval-augmented generation in TableQA, we mainly face the following issues:</p>
+<h1 id="Dataset-Selection"><a href="#Dataset-Selection" class="headerlink" title="Dataset Selection"></a>Dataset Selection</h1><h2 id="Tablefact"><a href="#Tablefact" class="headerlink" title="Tablefact"></a><a target="_blank" rel="noopener" href="https://tabfact.github.io/">Tablefact</a></h2><p>In the existing TableQA datasets, we have conducted extensive attempts and research. For detailed dataset organization, please refer to my other blog: <a href="https://yuhangwuai.github.io/2024/08/14/Dataset-for-Question-Answering/">Dataset for Question Answering</a>. Through these experiences, we found that when using datasets for retrieval-augmented generation in TableQA, we mainly face the following issues:</p>
 <ol>
 <li><strong>Short Questions Lead to Poor Recall</strong>:<ul>
 <li>Questions in many QA datasets are typically very short, consisting of only a few words. Such short queries often lead to poor recall of relevant tables in similarity-based retrieval or other dense retrieval processes.</li>
