@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="© Wuyuhang, 2024. All rights reserved. This article is entirely the work of Wuyuhang from the University of Manchester. It may not be reproduced, distributed, or used without explicit permission from">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLM for table data enhancement">
+<meta property="og:url" content="http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/index.html">
+<meta property="og:site_name" content="Yuhang&#39;s AI Journey">
+<meta property="og:description" content="© Wuyuhang, 2024. All rights reserved. This article is entirely the work of Wuyuhang from the University of Manchester. It may not be reproduced, distributed, or used without explicit permission from">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-14T11:40:53.000Z">
+<meta property="article:modified_time" content="2024-08-14T11:58:00.318Z">
+<meta property="article:author" content="YuhangWu">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>LLM for table data enhancement</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/08/13/LLM-for-Table-data-enhancement-CN/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&text=LLM for table data enhancement"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&title=LLM for table data enhancement"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&is_video=false&description=LLM for table data enhancement"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LLM for table data enhancement&body=Check out this article: http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&title=LLM for table data enhancement"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&title=LLM for table data enhancement"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&title=LLM for table data enhancement"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&title=LLM for table data enhancement"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&name=LLM for table data enhancement&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&t=LLM for table data enhancement"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LLM-for-Table"><span class="toc-number">1.</span> <span class="toc-text">LLM for Table</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Classification-of-LLM-Methods-for-Table-Processing"><span class="toc-number">1.1.</span> <span class="toc-text">1. Classification of LLM Methods for Table Processing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-of-Specific-Methods"><span class="toc-number">1.2.</span> <span class="toc-text">Summary of Specific Methods</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLM-on-Tabular-Data-Retriever"><span class="toc-number">2.</span> <span class="toc-text">LLM on Tabular Data (Retriever)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-General-Capabilities-of-Large-Language-Models-in-Question-Answering-Tasks"><span class="toc-number">2.1.</span> <span class="toc-text">5.2 General Capabilities of Large Language Models in Question Answering Tasks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Numerical-QA"><span class="toc-number">2.2.</span> <span class="toc-text">Numerical QA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Text2SQL"><span class="toc-number">2.3.</span> <span class="toc-text">Text2SQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Impact-of-Model-Size-on-Performance"><span class="toc-number">2.4.</span> <span class="toc-text">The Impact of Model Size on Performance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#To-Fine-tune-or-Not-to-Fine-tune"><span class="toc-number">2.5.</span> <span class="toc-text">To Fine-tune or Not to Fine-tune?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Special-Data-Considerations"><span class="toc-number">2.6.</span> <span class="toc-text">5.3 Special Data Considerations</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LI-RAGE"><span class="toc-number">3.</span> <span class="toc-text">LI-RAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-of-the-Article"><span class="toc-number">3.1.</span> <span class="toc-text">Summary of the Article</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Question"><span class="toc-number">3.2.</span> <span class="toc-text">Example Question</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Table-Dataset"><span class="toc-number">3.3.</span> <span class="toc-text">Table Dataset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#End-to-End-Example"><span class="toc-number">3.4.</span> <span class="toc-text">End-to-End Example</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Table-Retrieval-Retriever"><span class="toc-number">3.4.1.</span> <span class="toc-text">1. Table Retrieval (Retriever)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Answer-Generation-Reader"><span class="toc-number">3.4.2.</span> <span class="toc-text">2. Answer Generation (Reader)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Binary-Relevance-Token"><span class="toc-number">3.4.3.</span> <span class="toc-text">3. Binary Relevance Token</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Filtering-and-Final-Answer-Determination"><span class="toc-number">3.4.4.</span> <span class="toc-text">4. Filtering and Final Answer Determination</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion"><span class="toc-number">3.5.</span> <span class="toc-text">Conclusion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TAP4LLM"><span class="toc-number">4.</span> <span class="toc-text">TAP4LLM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Detailed-Summary-of-TAP4LLM"><span class="toc-number">4.1.</span> <span class="toc-text">Detailed Summary of TAP4LLM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Application-of-Large-Language-Models-to-Tabular-Data"><span class="toc-number">4.2.</span> <span class="toc-text">Application of Large Language Models to Tabular Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Table-Augmentation-Techniques"><span class="toc-number">4.3.</span> <span class="toc-text">Table Augmentation Techniques</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Core-Components-of-TAP4LLM"><span class="toc-number">4.4.</span> <span class="toc-text">Core Components of TAP4LLM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion-1"><span class="toc-number">4.5.</span> <span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Limitations"><span class="toc-number">4.6.</span> <span class="toc-text">Limitations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Using-TAP4LLM-for-Table-Data-Analysis"><span class="toc-number">4.7.</span> <span class="toc-text">Example: Using TAP4LLM for Table Data Analysis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Table-Sampling"><span class="toc-number">4.8.</span> <span class="toc-text">1. Table Sampling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Table-Augmentation"><span class="toc-number">4.9.</span> <span class="toc-text">2. Table Augmentation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Table-Packing-and-Serialization"><span class="toc-number">4.10.</span> <span class="toc-text">3. Table Packing and Serialization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion-2"><span class="toc-number">4.11.</span> <span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-of-Processing-with-TAP4LLM"><span class="toc-number">4.12.</span> <span class="toc-text">Example of Processing with TAP4LLM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ColBERT"><span class="toc-number">5.</span> <span class="toc-text">ColBERT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Innovations"><span class="toc-number">5.1.</span> <span class="toc-text">Innovations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advantages"><span class="toc-number">5.2.</span> <span class="toc-text">Advantages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Problems-Addressed"><span class="toc-number">5.3.</span> <span class="toc-text">Problems Addressed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Detailed-and-Vivid-Example-of-ColBERT-Usage"><span class="toc-number">5.4.</span> <span class="toc-text">Detailed and Vivid Example of ColBERT Usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Background"><span class="toc-number">5.5.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Offline-Preprocessing-and-Encoding-of-Documents"><span class="toc-number">5.6.</span> <span class="toc-text">1. Offline Preprocessing and Encoding of Documents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Query-Preprocessing-and-Encoding"><span class="toc-number">5.7.</span> <span class="toc-text">2. Query Preprocessing and Encoding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Delayed-Interaction-and-Similarity-Computation"><span class="toc-number">5.8.</span> <span class="toc-text">3. Delayed Interaction and Similarity Computation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Document-Ranking-and-Retrieval"><span class="toc-number">5.9.</span> <span class="toc-text">4. Document Ranking and Retrieval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vivid-Example"><span class="toc-number">5.10.</span> <span class="toc-text">Vivid Example</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ColBERT-v2"><span class="toc-number">6.</span> <span class="toc-text">ColBERT v2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Improvements-and-Optimizations-in-ColBERTv2-Effective-and-Efficient-Retrieval-via-Lightweight-Late-Interaction"><span class="toc-number">6.1.</span> <span class="toc-text">Key Improvements and Optimizations in ColBERTv2: Effective and Efficient Retrieval via Lightweight Late Interaction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Full-Process-Example-of-ColBERT"><span class="toc-number">6.2.</span> <span class="toc-text">Full Process Example of [ColBERT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Background-1"><span class="toc-number">6.3.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Offline-Preprocessing-and-Encoding-of-Documents-1"><span class="toc-number">6.4.</span> <span class="toc-text">1. Offline Preprocessing and Encoding of Documents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Query-Processing-and-Encoding"><span class="toc-number">6.5.</span> <span class="toc-text">2. Query Processing and Encoding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Efficient-Retrieval"><span class="toc-number">6.6.</span> <span class="toc-text">3. Efficient Retrieval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vivid-Example-1"><span class="toc-number">6.7.</span> <span class="toc-text">Vivid Example</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DPR"><span class="toc-number">7.</span> <span class="toc-text">DPR</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Scenario"><span class="toc-number">7.1.</span> <span class="toc-text">Example Scenario</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-1-Query-Encoding"><span class="toc-number">7.2.</span> <span class="toc-text">Step 1: Query Encoding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-2-Document-Encoding"><span class="toc-number">7.3.</span> <span class="toc-text">Step 2: Document Encoding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-3-Vector-Similarity-Calculation"><span class="toc-number">7.4.</span> <span class="toc-text">Step 3: Vector Similarity Calculation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4-Selecting-Top-Documents"><span class="toc-number">7.5.</span> <span class="toc-text">Step 4: Selecting Top Documents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-5-Answer-Generation"><span class="toc-number">7.6.</span> <span class="toc-text">Step 5: Answer Generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-6-Output-Final-Answer"><span class="toc-number">7.7.</span> <span class="toc-text">Step 6: Output Final Answer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAFT"><span class="toc-number">8.</span> <span class="toc-text">RAFT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">9.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        LLM for table data enhancement
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">YuhangWu</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-08-14T11:40:53.000Z" class="dt-published" itemprop="datePublished">2024-08-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>© Wuyuhang, 2024. All rights reserved. This article is entirely the work of Wuyuhang from the University of Manchester. It may not be reproduced, distributed, or used without explicit permission from the author. For inquiries, please contact me at yuhang.wu-4 [at] postgrad.manchester.ac.uk.</p>
+<p>With the widespread application of large language models (LLMs) in the field of natural language processing (NLP), these models have demonstrated remarkable capabilities across various tasks, including text generation, question answering systems, and sentiment analysis. However, despite their outstanding performance in handling unstructured data, LLMs still face numerous challenges when processing structured data, particularly tabular data. The structured nature of tabular data and its rich semantic information impose higher demands on LLMs, rendering traditional text processing methods often inapplicable to such data.</p>
+<p>This article aims to summarize and discuss the key technologies and methodologies for processing tabular data. We conduct an in-depth analysis of significant literature and methods related to LLMs’ handling of tabular data. These studies attempt to address the challenges encountered by LLMs in processing tabular data, including encoding, querying, and generating tabular data. Through a detailed exploration of technologies such as ColBERT, ColBERTv2, DPR, and RAFT, we present the major advancements and innovations in the field of tabular data processing by LLMs. These technologies not only enhance the understanding and retrieval capabilities of tabular data but also provide important references for future research.</p>
+<h2 id="LLM-for-Table"><a href="#LLM-for-Table" class="headerlink" title="LLM for Table"></a>LLM for Table</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2402.05121">Large Language Model for Table Processing</a></p>
+<h3 id="1-Classification-of-LLM-Methods-for-Table-Processing"><a href="#1-Classification-of-LLM-Methods-for-Table-Processing" class="headerlink" title="1. Classification of LLM Methods for Table Processing"></a>1. Classification of LLM Methods for Table Processing</h3><p>Research on processing tabular data primarily focuses on two major approaches: training-based methods and prompt-based methods, specifically including:</p>
+<ol>
+<li><p><strong>Training-based Methods</strong>:</p>
+<ul>
+<li><strong>Task-specific fine-tuning</strong>: Examples include TaPas and TaBERT, which enhance the performance of table-related tasks by adjusting the model architecture and training objectives.</li>
+<li><strong>Instruction fine-tuning</strong>: Techniques like TableLlama and Table-GPT improve the model’s performance on unseen tasks through fine-tuning on multiple datasets.</li>
+<li><strong>Retrieval-augmented methods</strong>: ITR and LI-RAGE, for instance, split large tables into sub-tables and jointly train retrievers and readers.</li>
+</ul>
+</li>
+<li><p><strong>Prompt-based Methods</strong>:</p>
+<ul>
+<li><strong>Table serialization</strong>: This involves converting tables into a linear text format to make them more accessible to LLMs.</li>
+<li><strong>Example selection for few-shot learning</strong>: Selecting examples most relevant to the target task to improve model performance.</li>
+</ul>
+</li>
+<li><p><strong>Agent-based Methods</strong>:</p>
+<ul>
+<li><strong>Decomposition of complex tasks</strong>: Techniques like DIN-SQL enhance accuracy by breaking down complex tasks into smaller sub-tasks.</li>
+<li><strong>Action definition</strong>: Abstracting software tools’ APIs into actions, facilitating LLMs in making calls.</li>
+<li><strong>Reflection and correction</strong>: Improving model accuracy by generating multiple reasoning paths and selecting the most consistent answer or through self-correction.</li>
+<li><strong>Multi-task framework</strong>: StructGPT, for example, can handle multiple table-related tasks.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Summary-of-Specific-Methods"><a href="#Summary-of-Specific-Methods" class="headerlink" title="Summary of Specific Methods"></a>Summary of Specific Methods</h3><ol>
+<li><p><strong>Task-specific Fine-tuning</strong>:</p>
+<ul>
+<li><strong>TaPas</strong>: Extends the BERT model architecture with table pre-training and fine-tuning.</li>
+<li><strong>TaBERT</strong>: Encodes table content related to the input statement using a vertical attention mechanism.</li>
+<li><strong>TURL</strong>: Encodes information from table components as separate input embeddings and integrates them.</li>
+</ul>
+</li>
+<li><p><strong>Instruction Fine-tuning</strong>:</p>
+<ul>
+<li><strong>Table-GPT</strong>: Constructs instruction fine-tuning datasets using a synthesis-enhanced approach.</li>
+<li><strong>TableLlama</strong>: Utilizes real data from existing datasets for instruction fine-tuning.</li>
+<li><strong>Magicoder</strong>: Collects open-source code snippets and generates programming problems and solutions for instruction fine-tuning.</li>
+</ul>
+</li>
+<li><p><strong>Retrieval-augmented Methods</strong>:</p>
+<ul>
+<li><strong>ITR</strong>: Splits large tables into sub-tables and jointly trains retrievers and readers.</li>
+<li><strong>DB-GPT</strong>: Supports various functions such as retrieval-augmented generation, fine-tuning, and agents.</li>
+</ul>
+</li>
+<li><p><strong>Table Serialization</strong>:</p>
+<ul>
+<li>Linearizes table content and inserts column delimiters.</li>
+<li>The table schema can be represented as plain text or through a CREATE TABLE statement.</li>
+</ul>
+</li>
+<li><p><strong>Example Selection for Few-shot Learning</strong>:</p>
+<ul>
+<li>Selects examples most relevant to the target task, balancing quality and quantity.</li>
+</ul>
+</li>
+<li><p><strong>Decomposition of Complex Tasks</strong>:</p>
+<ul>
+<li><strong>DIN-SQL</strong>: Breaks down text-to-SQL tasks into sub-tasks, generating intermediate sub-queries.</li>
+</ul>
+</li>
+<li><p><strong>Action Definition</strong>:</p>
+<ul>
+<li><strong>SheetCopilot</strong>: Models existing spreadsheet software APIs as atomic actions through embedding and clustering methods.</li>
+<li><strong>ReAcTable</strong>: Extends the ReAct framework, defining three actions: generating SQL queries, generating Python code, and directly answering questions.</li>
+</ul>
+</li>
+<li><p><strong>Reflection and Correction</strong>:</p>
+<ul>
+<li>Generates multiple reasoning paths and selects the most consistent answer.</li>
+<li>Adopts a proposal and correction mechanism, reflecting and improving past actions.</li>
+</ul>
+</li>
+<li><p><strong>Multi-task Framework</strong>:</p>
+<ul>
+<li><strong>StructGPT</strong>: Addresses multiple table tasks by developing three actions for web tables, databases, and knowledge graphs.</li>
+</ul>
+</li>
+</ol>
+<p>This review systematically summarizes the latest advancements and specific methods of LLMs in table processing tasks, providing references for future research and applications.</p>
+<h2 id="LLM-on-Tabular-Data-Retriever"><a href="#LLM-on-Tabular-Data-Retriever" class="headerlink" title="LLM on Tabular Data (Retriever)"></a>LLM on Tabular Data (Retriever)</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2402.17944">Large Language Models (LLMs) on Tabular Data: Prediction, Generation, and Understanding</a></p>
+<h3 id="5-2-General-Capabilities-of-Large-Language-Models-in-Question-Answering-Tasks"><a href="#5-2-General-Capabilities-of-Large-Language-Models-in-Question-Answering-Tasks" class="headerlink" title="5.2 General Capabilities of Large Language Models in Question Answering Tasks"></a>5.2 General Capabilities of Large Language Models in Question Answering Tasks</h3><p>Table 8 lists papers that study the performance of large language models (LLMs) in question answering (QA) and reasoning tasks, along with the models explored. While GPT-3.5 and GPT-4 are the most popular LLMs, these models have not been specifically optimized for table tasks. However, when combined with certain prompt engineering techniques (e.g., Chain of Thought, CoT), they perform well in executing complex table reasoning tasks.</p>
+<h3 id="Numerical-QA"><a href="#Numerical-QA" class="headerlink" title="Numerical QA"></a>Numerical QA</h3><p>Numerical QA tasks involve mathematical reasoning, such as “What is the average payment per transaction by American Express?” This type of mathematical reasoning task is prevalent in many practical applications, such as processing financial documents and annual reports. Akhtar et al. (2023) found that FlanT5 and GPT-3.5 outperform other models in various numerical reasoning tasks. On the DOCMATH-EVAL (Zhao et al., 2023d) dataset, GPT-4 with CoT significantly outperforms other LLMs, while open-source LLMs (e.g., LLaMa-2, Vicuna, Mistral, Starcoder, MPT, Qwen, AquilaChat2, etc.) perform poorly.</p>
+<h3 id="Text2SQL"><a href="#Text2SQL" class="headerlink" title="Text2SQL"></a>Text2SQL</h3><p>Liu et al. (2023c) designed a question matcher that identifies three types of keywords: 1) column-related terms, 2) restriction-related phrases (e.g., “Top 10”), and 3) algorithm or module keywords. Once these keywords are identified, the module merges the specific restrictions associated with each column into a unified combination, then matches it with the SQL algorithm or module indicated by the third keyword type. Zhang et al. (2023d) chose a more straightforward approach, allowing LLaMa-2 to generate SQL statements based on the question and table schema. Sun et al. (2023b) fine-tuned PaLM-2 on the Text2SQL task, achieving remarkable results on the Spider dataset. OpenTab (Kong et al., 2024) developed an open-domain table QA framework based on LLMs, combining it with a SQL generation module. Today, top models on Spider include those by Dong et al. (2023), Gao et al. (2024), and Pourreza &amp; Rafiei (2023), all of which build on OpenAI’s GPT model. SQL generation is highly popular in the industry, with many open-source fine-tuned models available.</p>
+<h3 id="The-Impact-of-Model-Size-on-Performance"><a href="#The-Impact-of-Model-Size-on-Performance" class="headerlink" title="The Impact of Model Size on Performance"></a>The Impact of Model Size on Performance</h3><p>Chen (2023) found that model size does indeed matter: on WebTableQuestions, comparing GPT-3 models of 6.7B and 175B, the smaller model achieved only half the score of the larger model. On TabFact, they found that the accuracy of smaller models (&lt;&#x3D;6.7B) was almost random.</p>
+<h3 id="To-Fine-tune-or-Not-to-Fine-tune"><a href="#To-Fine-tune-or-Not-to-Fine-tune" class="headerlink" title="To Fine-tune or Not to Fine-tune?"></a>To Fine-tune or Not to Fine-tune?</h3><p>Some larger models have been fine-tuned on various table tasks, including QA and fact verification tasks. Li et al. (2023d) found that fine-tuning always helps improve performance on various table tasks, especially in zero-shot settings where the improvement is most significant. Ye et al. (2023b) used the PASTA (Gu et al., 2022) model to achieve a higher score (93.00%) on TabFact compared to GPT-3 Codex (code-davinci-002) with a score of 85.60%. PASTA was pre-trained on a synthetic corpus of 1.2 million entries composed of Wikipedia tables for six types of sentence-table fill-in-the-blank tasks. This suggests that fine-tuning LLMs on table tasks still offers some advantages.</p>
+<p>However, fine-tuning is less common compared to other methods working on prediction and generation tasks. This might be because LLMs (such as GPT-3.5, GPT-4) perform well in out-of-the-box QA tasks. In SQL generation on Spider, DIN-SQL (Pourreza &amp; Rafiei, 2023) and DAIL-S</p>
+<p>QL (Sun et al., 2023b) each achieve scores above 90% with limited fine-tuning, indicating that prompt engineering techniques and retrieval methods could replace fine-tuning to some extent.</p>
+<h3 id="5-3-Special-Data-Considerations"><a href="#5-3-Special-Data-Considerations" class="headerlink" title="5.3 Special Data Considerations"></a>5.3 Special Data Considerations</h3><p>When selecting training and evaluation data, it’s essential to account for specific table characteristics. Some datasets use manually annotated data, but others use synthetic or heuristic methods to generate labels. As a result, future research should pay attention to annotation quality, given that annotation standards vary across different domains and regions.</p>
+<h2 id="LI-RAGE"><a href="#LI-RAGE" class="headerlink" title="LI-RAGE"></a>LI-RAGE</h2><p><a target="_blank" rel="noopener" href="https://aclanthology.org/2023.acl-short.133.pdf">LI-RAGE: Late Interaction Retrieval Augmented Generation with Explicit Signals for Open-Domain Table Question Answering</a></p>
+<h3 id="Summary-of-the-Article"><a href="#Summary-of-the-Article" class="headerlink" title="Summary of the Article"></a>Summary of the Article</h3><p>The LI-RAGE framework is a novel approach to open-domain table question answering (TableQA). By combining a late interaction (LI) model with retrieval-augmented generation (RAGE) loss incorporating explicit signals, this method significantly improves the performance of table question answering. Compared to traditional retriever-reader pipelines, LI-RAGE offers enhanced accuracy and reliability through the following improvements:</p>
+<ol>
+<li><strong>Late Interaction Model (LI):</strong> Utilizes the ColBERT model to encode both the query and the table on a word-by-word basis, capturing more fine-grained interaction information and thereby improving table retrieval effectiveness.</li>
+<li><strong>Joint Training with RAGE Loss:</strong> Combines the signals from the retriever and reader in joint training to optimize the effectiveness of both table retrieval and answer generation.</li>
+<li><strong>Binary Relevance Token:</strong> Introduces a binary relevance token (yes&#x2F;no) before generating the answer to indicate whether the table is relevant to the query, thereby enhancing the reliability of the generated answer.</li>
+</ol>
+<h3 id="Example-Question"><a href="#Example-Question" class="headerlink" title="Example Question"></a>Example Question</h3><p>Consider the question: “Which country has the largest population?”</p>
+<h3 id="Table-Dataset"><a href="#Table-Dataset" class="headerlink" title="Table Dataset"></a>Table Dataset</h3><p>Assume the following table data:</p>
+<p><strong>Table 1:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Country</th>
+<th>Population</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>China</td>
+<td>1,411 million</td>
+</tr>
+<tr>
+<td>India</td>
+<td>1,366 million</td>
+</tr>
+<tr>
+<td>USA</td>
+<td>331 million</td>
+</tr>
+</tbody></table>
+<p><strong>Table 2:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Country</th>
+<th>Area</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Russia</td>
+<td>17 million km²</td>
+</tr>
+<tr>
+<td>Canada</td>
+<td>9.98 million km²</td>
+</tr>
+<tr>
+<td>China</td>
+<td>9.6 million km²</td>
+</tr>
+</tbody></table>
+<p><strong>Table 3:</strong></p>
+<table>
+<thead>
+<tr>
+<th>City</th>
+<th>Population</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>New York</td>
+<td>8 million</td>
+</tr>
+<tr>
+<td>Tokyo</td>
+<td>14 million</td>
+</tr>
+<tr>
+<td>Shanghai</td>
+<td>24 million</td>
+</tr>
+</tbody></table>
+<h3 id="End-to-End-Example"><a href="#End-to-End-Example" class="headerlink" title="End-to-End Example"></a>End-to-End Example</h3><h4 id="1-Table-Retrieval-Retriever"><a href="#1-Table-Retrieval-Retriever" class="headerlink" title="1. Table Retrieval (Retriever)"></a>1. Table Retrieval (Retriever)</h4><p>The retriever selects the table most relevant to the query from the table corpus. In this example, the retriever might select Table 1 since it contains information related to countries and their populations.</p>
+<p><strong>Retrieval Result:</strong><br>Selected Table 1:</p>
+<table>
+<thead>
+<tr>
+<th>Country</th>
+<th>Population</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>China</td>
+<td>1,411 million</td>
+</tr>
+<tr>
+<td>India</td>
+<td>1,366 million</td>
+</tr>
+<tr>
+<td>USA</td>
+<td>331 million</td>
+</tr>
+</tbody></table>
+<h4 id="2-Answer-Generation-Reader"><a href="#2-Answer-Generation-Reader" class="headerlink" title="2. Answer Generation (Reader)"></a>2. Answer Generation (Reader)</h4><p>The answer generator model takes the query and the retrieved table as input and generates the answer. In this example, the answer generator combines the question “Which country has the largest population?” with Table 1, identifying the maximum value corresponding to the population and generating the answer: “China.”</p>
+<h4 id="3-Binary-Relevance-Token"><a href="#3-Binary-Relevance-Token" class="headerlink" title="3. Binary Relevance Token"></a>3. Binary Relevance Token</h4><p>To ensure that the selected table by the answer generator is reliable, a binary relevance token is added before generating the answer. During training, the system learns that answers generated from a golden table are prefixed with “yes,” whereas those from a non-golden table are prefixed with “no.” In this case, since the generated answer is derived from the golden table (Table 1), the answer is prefixed with “yes.”</p>
+<p><strong>Final Output:</strong><br>The answer generator outputs: “yes China.”</p>
+<h4 id="4-Filtering-and-Final-Answer-Determination"><a href="#4-Filtering-and-Final-Answer-Determination" class="headerlink" title="4. Filtering and Final Answer Determination"></a>4. Filtering and Final Answer Determination</h4><p>During inference, if the answer generator’s output is prefixed with “yes,” the answer is deemed reliable. The system prioritizes answers marked with “yes”; if all candidate answers are prefixed with “no,” the system selects the final answer based on the confidence score of the answer generator. In this case, the system identifies the “yes” prefix, confirms the answer’s reliability, and outputs the final answer: “China.”</p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>The above process demonstrates the complete workflow of an open-domain table question answering system from input query to final answer generation. Through the LI-RAGE framework, the system not only efficiently retrieves relevant information from vast table data but also ensures the reliability of the answer through binary relevance tokens.</p>
+<h2 id="TAP4LLM"><a href="#TAP4LLM" class="headerlink" title="TAP4LLM"></a>TAP4LLM</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2312.09039">TAP4LLM: Table Provider on Sampling, Augmenting, and Packing Semi-structured Data for Large Language Model Reasoning</a></p>
+<h3 id="Detailed-Summary-of-TAP4LLM"><a href="#Detailed-Summary-of-TAP4LLM" class="headerlink" title="Detailed Summary of TAP4LLM"></a>Detailed Summary of TAP4LLM</h3><h3 id="Application-of-Large-Language-Models-to-Tabular-Data"><a href="#Application-of-Large-Language-Models-to-Tabular-Data" class="headerlink" title="Application of Large Language Models to Tabular Data"></a>Application of Large Language Models to Tabular Data</h3><p>As large language models (LLMs) advance in natural language processing, researchers have begun exploring their application to other modalities, such as vision and speech. However, directly applying traditional LLMs to the tabular domain presents two main challenges:</p>
+<ol>
+<li><strong>Global Table Understanding:</strong> LLMs like GPT have a token length limitation, making it difficult to read and understand large tables comprehensively, thereby restricting their ability to grasp global information.</li>
+<li><strong>Generalization to the Tabular Domain:</strong> These models are primarily trained on natural language, resulting in weaker generalization when handling tabular data.</li>
+</ol>
+<p>Despite some research attempting to combine natural language processing with table data analysis, the performance of LLMs in table question answering remains limited.</p>
+<h3 id="Table-Augmentation-Techniques"><a href="#Table-Augmentation-Techniques" class="headerlink" title="Table Augmentation Techniques"></a>Table Augmentation Techniques</h3><p>Table augmentation techniques aim to improve the generalization performance and robustness of machine learning models. To enhance LLMs’ performance in the tabular domain, researchers have explored various augmentation methods, including the integration of structured knowledge, common sense knowledge, and analytical knowledge. Studies have shown that leveraging domain-specific metadata or knowledge graphs can significantly improve LLMs’ understanding of tabular data. For example:</p>
+<ul>
+<li><strong>Jena et al. (2022)</strong> proposed semi-automatically converting existing table data to create diversified natural language inference instances, improving zero-shot performance.</li>
+<li><strong>He et al. (2023)</strong> introduced a multi-task metadata model that accurately infers analytical metadata for tables using field distribution and knowledge graph information, demonstrating its application in intelligent data analysis products.</li>
+</ul>
+<h3 id="Core-Components-of-TAP4LLM"><a href="#Core-Components-of-TAP4LLM" class="headerlink" title="Core Components of TAP4LLM"></a>Core Components of TAP4LLM</h3><p>TAP4LLM addresses the main challenges of comprehensive table understanding through three core components:</p>
+<ol>
+<li><strong>Table Sampling:</strong> Selecting and extracting the most relevant rows and columns from the table based on the query.<ul>
+<li><strong>Rule-based Sampling:</strong> Uses predefined criteria or rules, such as random sampling, uniform sampling, and content snapshot sampling.</li>
+<li><strong>Embedding-based Sampling:</strong> Selects rows and columns based on semantic and contextual representation, employing methods such as semantic-based sampling and centroid-based sampling.</li>
+<li><strong>LLM-based Sampling:</strong> Utilizes powerful LLMs to predict the indices of table rows and columns, though this approach is computationally expensive.</li>
+</ul>
+</li>
+<li><strong>Table Augmentation:</strong> Enriching table information by adding external knowledge and metadata.<ul>
+<li><strong>Metadata-based Augmentation:</strong> Includes the addition of information like dimensions&#x2F;metrics, semantic field types, table size, statistical features, and header hierarchies.</li>
+<li><strong>Retrieval-based Augmentation:</strong> Acquires relevant content from external knowledge bases through a document retrieval system to reduce hallucination or factual errors.</li>
+<li><strong>Self-consistency Augmentation:</strong> Enhances the model’s reasoning capability through iterative generation and refinement of queries and responses.</li>
+</ul>
+</li>
+<li><strong>Table Packing and Serialization:</strong> Manages token allocation by packing tables and augmented information into sequences suitable for LLMs.<ul>
+<li>Empirical studies show that a sub-table length to augmentation information length ratio of 5:5 or 4:6 generally yields the best performance.</li>
+<li>Supports multiple serialization formats, such as HTML, XML, JSON, CSV, NL+Sep, and Markdown.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Conclusion-1"><a href="#Conclusion-1" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>TAP4LLM addresses the main challenges of comprehensive table understanding through table sampling, table augmentation, and table packing and serialization, enhancing the effectiveness of LLMs in table reasoning tasks. This method is not only applicable to table modeling but can also play a significant role in fields such as finance and transportation, promoting research based on tabular data.</p>
+<h3 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h3><p>Code generation methods have been proposed to convert natural language queries into executable code or structured representations (Cheng et al., 2023; Gemmell and Dalton, 2023). This research direction is important, but due to space constraints, it is not explored in depth in this study. Current empirical research is primarily focused on English scenarios, with discussions on multilingual capabilities left for future research.</p>
+<h3 id="Example-Using-TAP4LLM-for-Table-Data-Analysis"><a href="#Example-Using-TAP4LLM-for-Table-Data-Analysis" class="headerlink" title="Example: Using TAP4LLM for Table Data Analysis"></a>Example: Using TAP4LLM for Table Data Analysis</h3><p>Suppose there is a financial data table containing a company’s quarterly financial reports over the past few years. The columns of the table include year, quarter, revenue, expenditure, net profit, and debt-to-equity ratio. The goal is to generate an accurate analysis based on the natural language query, “What is the trend of the company’s quarterly net profit over the past five years?”</p>
+<h3 id="1-Table-Sampling"><a href="#1-Table-Sampling" class="headerlink" title="1. Table Sampling"></a>1. Table Sampling</h3><p><strong>Initial Table (T):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Quarter</th>
+<th>Revenue</th>
+<th>Expenditure</th>
+<th>Net Profit</th>
+<th>Debt-to-Equity Ratio</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2019</td>
+<td>Q1</td>
+<td>1000</td>
+<td>800</td>
+<td>200</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>Q2</td>
+<td>1100</td>
+<td>850</td>
+<td>250</td>
+<td>48%</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>Q3</td>
+<td>1050</td>
+<td>820</td>
+<td>230</td>
+<td>49%</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>Q4</td>
+<td>1200</td>
+<td>900</td>
+<td>300</td>
+<td>47%</td>
+</tr>
+<tr>
+<td>2020</td>
+<td>Q1</td>
+<td>1300</td>
+<td>950</td>
+<td>350</td>
+<td>46%</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>Q4</td>
+<td>1600</td>
+<td>1200</td>
+<td>400</td>
+<td>45%</td>
+</tr>
+</tbody></table>
+<p>To answer the query “What is the trend of the company’s quarterly net profit over the past five years?” the</p>
+<p> model applies TAP4LLM’s table sampling techniques. Using embedding-based sampling, it extracts the rows corresponding to the net profit column, which are most relevant to the query.</p>
+<p><strong>Sampled Table:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Quarter</th>
+<th>Net Profit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2019</td>
+<td>Q1</td>
+<td>200</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>Q2</td>
+<td>250</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>Q3</td>
+<td>230</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>Q4</td>
+<td>300</td>
+</tr>
+<tr>
+<td>2020</td>
+<td>Q1</td>
+<td>350</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>Q4</td>
+<td>400</td>
+</tr>
+</tbody></table>
+<h3 id="2-Table-Augmentation"><a href="#2-Table-Augmentation" class="headerlink" title="2. Table Augmentation"></a>2. Table Augmentation</h3><p>To enhance the model’s reasoning capabilities, TAP4LLM applies self-consistency augmentation, iteratively generating and refining queries to ensure accurate analysis. This might involve integrating the financial performance trends for each quarter into a broader context, perhaps by incorporating external knowledge about the economic climate during these years.</p>
+<h3 id="3-Table-Packing-and-Serialization"><a href="#3-Table-Packing-and-Serialization" class="headerlink" title="3. Table Packing and Serialization"></a>3. Table Packing and Serialization</h3><p>Finally, the augmented table information is packed into a format suitable for LLMs. In this case, the financial data might be serialized into a JSON or Markdown format, enabling efficient token management and allowing the LLM to process the data effectively.</p>
+<p><strong>Packed and Serialized Table (in JSON format):</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;Year&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Quarter&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Q4&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Net Profit&quot;</span><span class="punctuation">:</span> <span class="string">&quot;400&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Previous_Trend&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;Year&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Quarter&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Q3&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Net Profit&quot;</span><span class="punctuation">:</span> <span class="string">&quot;380&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;Year&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Quarter&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Q2&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Net Profit&quot;</span><span class="punctuation">:</span> <span class="string">&quot;370&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span><span class="attr">&quot;Year&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2023&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Quarter&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Q1&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;Net Profit&quot;</span><span class="punctuation">:</span> <span class="string">&quot;360&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Contextual_Info&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Company&#x27;s net profit has shown a consistent upward trend over the past five years.&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Conclusion-2"><a href="#Conclusion-2" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>The final output provides a comprehensive analysis of the company’s quarterly net profit trend, supported by augmented and packed table data. By employing TAP4LLM, LLMs can accurately and efficiently handle complex queries over large tables, ensuring reliable and insightful results in financial data analysis.</p>
+<h3 id="Example-of-Processing-with-TAP4LLM"><a href="#Example-of-Processing-with-TAP4LLM" class="headerlink" title="Example of Processing with TAP4LLM"></a>Example of Processing with TAP4LLM</h3><p><strong>Task:</strong> Identify the upward or downward trend of the company’s quarterly net profit.</p>
+<p><strong>Query:</strong> “What is the trend of the company’s quarterly net profit over the past five years?”</p>
+<p><strong>Processed Answer:</strong> “The company’s quarterly net profit has shown a consistent upward trend over the past five years, with the highest profit recorded in Q4 2023.”</p>
+<h2 id="ColBERT"><a href="#ColBERT" class="headerlink" title="ColBERT"></a><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3397271.3401075">ColBERT</a></h2><h3 id="Innovations"><a href="#Innovations" class="headerlink" title="Innovations"></a>Innovations</h3><ol>
+<li><strong>Delayed Interaction Framework</strong>: <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3397271.3401075">ColBERT</a> introduces a delayed interaction framework by decoupling the encoding processes of queries and documents. This allows document representations to be precomputed, thereby reducing the computation required during online queries.</li>
+<li><strong>MaxSim Operation</strong>: When assessing the relevance between queries and documents, <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3397271.3401075">ColBERT</a> employs the MaxSim operation, which computes the maximum cosine similarity or L2 distance between each query embedding and document embedding, summing these maximum similarity values. This approach is both simple and efficient.</li>
+<li><strong>Shared BERT Encoder</strong>: <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3397271.3401075">ColBERT</a> utilizes a single BERT model shared between the query and document encoders, distinguishing inputs with special tokens ([Q] and [D]) for queries and documents respectively. This method conserves computational resources while maintaining the model’s contextual understanding.</li>
+<li><strong>Segmentation and Filtering</strong>: The document encoder filters out embeddings of punctuation to reduce computational load and storage space.</li>
+<li><strong>Vector-based Retrieval</strong>: By leveraging existing vector similarity search libraries (such as Faiss), <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3397271.3401075">ColBERT</a> achieves efficient end-to-end retrieval through pruning operations from large document collections.</li>
+</ol>
+<h3 id="Advantages"><a href="#Advantages" class="headerlink" title="Advantages"></a>Advantages</h3><ol>
+<li><strong>High Computational Efficiency</strong>: By precomputing document representations and employing a delayed interaction mechanism, ColBERT significantly reduces computation during query processing, achieving two orders of magnitude speed improvement compared to other BERT-based models.</li>
+<li><strong>Efficient Space Utilization</strong>: Through normalization and dimensionality reduction of document embeddings, ColBERT markedly decreases storage requirements, making it more feasible for practical applications.</li>
+<li><strong>Scalability</strong>: The architecture of ColBERT allows for processing large-scale document collections without sacrificing accuracy, especially when using vector similarity search for pruning, greatly enhancing retrieval efficiency.</li>
+<li><strong>End-to-End Retrieval Capability</strong>: ColBERT can be used not only for re-ranking pre-retrieved document sets but also for direct end-to-end retrieval from large document collections, improving the overall recall and precision of the retrieval system.</li>
+</ol>
+<h3 id="Problems-Addressed"><a href="#Problems-Addressed" class="headerlink" title="Problems Addressed"></a>Problems Addressed</h3><ol>
+<li><strong>High Computational Cost</strong>: Traditional BERT-based ranking models are extremely time-consuming for query-document pairs. ColBERT reduces online computation costs through delayed interaction and precomputation mechanisms.</li>
+<li><strong>Long Response Time</strong>: High computational costs result in lengthy query response times, negatively impacting user experience. ColBERT significantly reduces query latency through more efficient computation and retrieval mechanisms.</li>
+<li><strong>Large Storage Space</strong>: Deep language models typically require substantial storage for document representations. ColBERT reduces storage requirements through normalization and dimensionality reduction.</li>
+<li><strong>Trade-off Between Retrieval Accuracy and Efficiency</strong>: Existing methods often sacrifice accuracy to improve retrieval efficiency. ColBERT enhances retrieval efficiency without compromising accuracy through efficient delayed interaction and vector similarity search.</li>
+</ol>
+<h3 id="Detailed-and-Vivid-Example-of-ColBERT-Usage"><a href="#Detailed-and-Vivid-Example-of-ColBERT-Usage" class="headerlink" title="Detailed and Vivid Example of ColBERT Usage"></a>Detailed and Vivid Example of ColBERT Usage</h3><h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>Suppose you are using an academic paper database containing millions of papers. You are researching “the benefits of machine learning” and want to find the most relevant papers. This is where ColBERT can assist you.</p>
+<h3 id="1-Offline-Preprocessing-and-Encoding-of-Documents"><a href="#1-Offline-Preprocessing-and-Encoding-of-Documents" class="headerlink" title="1. Offline Preprocessing and Encoding of Documents"></a>1. Offline Preprocessing and Encoding of Documents</h3><p>Before any queries are made, we preprocess and encode each paper in the database. This is an offline process, akin to cataloging and numbering all the books in a library.</p>
+<ol>
+<li><strong>Segmentation</strong>: Break down each paper into words. For instance, “Machine learning is a method of data analysis that can automatically build analytical models” is segmented into “Machine,” “learning,” “is,” “a,” “method,” “of,” “data,” “analysis,” “that,” “can,” “automatically,” “build,” “analytical,” “models,” etc.</li>
+<li><strong>Adding Markers</strong>: Add special markers at the beginning of each paper, such as “[D],” to indicate that it is a document.</li>
+<li><strong>BERT Encoding</strong>: Use the BERT model to encode each word, converting them into contextually meaningful vector representations. This is like generating a unique numerical signature for each word.</li>
+<li><strong>Filtering Unrelated Information</strong>: Remove punctuation and other irrelevant information to retain important words.</li>
+<li><strong>Normalization and Dimensionality Reduction</strong>: Normalize and reduce the dimensionality of these vectors to make their representation more compact and efficient, similar to compressing large files into smaller ones for easier storage and processing.</li>
+<li><strong>Storing Embeddings</strong>: Store the processed vectors in a database for future use.</li>
+</ol>
+<h3 id="2-Query-Preprocessing-and-Encoding"><a href="#2-Query-Preprocessing-and-Encoding" class="headerlink" title="2. Query Preprocessing and Encoding"></a>2. Query Preprocessing and Encoding</h3><p>When you enter the query “the benefits of machine learning,” ColBERT processes this query immediately, which is an online operation.</p>
+<ol>
+<li><strong>Segmentation</strong>: Break down the query into words, such as “Machine,” “learning,” “benefits,” “of.”</li>
+<li><strong>Adding Markers</strong>: Add special markers at the beginning of the query, such as “[Q],” to indicate that it is a query.</li>
+<li><strong>Padding and BERT Encoding</strong>: Pad the query to a fixed length and input it into the BERT model to generate context vectors for each word. These vectors represent the meaning of each word in the query and their relationships.</li>
+<li><strong>Normalization and Dimensionality Reduction</strong>: Normalize and reduce the dimensionality of these vectors to match the format of document vectors.</li>
+</ol>
+<h3 id="3-Delayed-Interaction-and-Similarity-Computation"><a href="#3-Delayed-Interaction-and-Similarity-Computation" class="headerlink" title="3. Delayed Interaction and Similarity Computation"></a>3. Delayed Interaction and Similarity Computation</h3><p>Next, ColBERT finds the most relevant papers using delayed interaction and similarity computation.</p>
+<ol>
+<li><strong>Loading Document Embeddings</strong>: Load all precomputed document vector representations from the database.</li>
+<li><strong>MaxSim Calculation</strong>: For each query word vector, find the maximum similarity with all word vectors in the document. This is like finding the best matching puzzle pieces.</li>
+<li><strong>Summing Similarities</strong>: Sum the maximum similarity values for each query word with document words to obtain an overall similarity score. This score represents how relevant the document is to the query.</li>
+</ol>
+<h3 id="4-Document-Ranking-and-Retrieval"><a href="#4-Document-Ranking-and-Retrieval" class="headerlink" title="4. Document Ranking and Retrieval"></a>4. Document Ranking and Retrieval</h3><p>Finally, rank documents based on similarity scores and return the top k documents.</p>
+<ol>
+<li><strong>Document Ranking</strong>: Sort all candidate documents by similarity score, similar to ranking exam results from highest to lowest.</li>
+<li><strong>Returning Results</strong>: Return the top k documents with the highest scores, which are the most relevant papers to your query.</li>
+</ol>
+<h3 id="Vivid-Example"><a href="#Vivid-Example" class="headerlink" title="Vivid Example"></a>Vivid Example</h3><p>Imagine you are in a library looking for books related to “the benefits of machine learning.” The librarian (ColBERT) has previously cataloged and tagged all the books in detail. When you make your request, the librarian quickly reviews the digital content of each book (query encoding and similarity computation), finds the most relevant ones, ranks them, and provides you with the best matches. This all happens very swiftly because the librarian has done a lot of preparation in advance.</p>
+<p>In this way, ColBERT ensures efficient handling of large datasets while providing fast response times and high-quality results.</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.12832">ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT</a></p>
+<h2 id="ColBERT-v2"><a href="#ColBERT-v2" class="headerlink" title="ColBERT v2"></a>ColBERT v2</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.01488">ColBERTv2: Effective and Efficient Retrieval via Lightweight Late Interaction</a></p>
+<h3 id="Key-Improvements-and-Optimizations-in-ColBERTv2-Effective-and-Efficient-Retrieval-via-Lightweight-Late-Interaction"><a href="#Key-Improvements-and-Optimizations-in-ColBERTv2-Effective-and-Efficient-Retrieval-via-Lightweight-Late-Interaction" class="headerlink" title="Key Improvements and Optimizations in ColBERTv2: Effective and Efficient Retrieval via Lightweight Late Interaction"></a>Key Improvements and Optimizations in <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.01488">ColBERTv2: Effective and Efficient Retrieval via Lightweight Late Interaction</a></h3><ol>
+<li><strong>Residual Compression Mechanism</strong>: A major innovation in <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.01488">ColBERTv2</a> is the residual compression mechanism. By encoding each embedding vector as an index of its nearest centroid and quantization residual, ColBERTv2 significantly reduces storage requirements. This improvement lowers storage costs considerably without sacrificing model quality.</li>
+<li><strong>Denoising Supervision</strong>: <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.01488">ColBERTv2</a> introduces a new supervision strategy, including cross-encoder distillation and hard negative mining. This method selects challenging negative samples to avoid rewarding false positives or penalizing false negatives, thus enhancing training effectiveness and model quality.</li>
+<li><strong>Efficient Indexing and Retrieval</strong>:<ul>
+<li><strong>Centroid Selection</strong>: During indexing, <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.01488">ColBERTv2</a> optimizes paragraph representations through centroid selection.</li>
+<li><strong>Paragraph Encoding</strong>: The BERT encoder is used to compress output embeddings, assigning each embedding to the nearest centroid and computing quantization residuals.</li>
+<li><strong>Inverted Index</strong>: To support fast nearest neighbor search, <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.01488">ColBERTv2</a> groups embedding IDs corresponding to each centroid and maintains inverted lists, enabling rapid retrieval of similar token-level embeddings.</li>
+</ul>
+</li>
+<li><strong>Optimized Retrieval Process</strong>:<ul>
+<li><strong>Candidate Generation</strong>: For each vector in the query, the nearest centroids are found, and inverted lists are used to identify paragraph embeddings close to these centroids. These embeddings are decompressed, and cosine similarity with query vectors is computed.</li>
+<li><strong>Scoring and Maximization</strong>: Scores are grouped by paragraph ID, and scores for the same paragraph are maximized and reduced. This is similar to finding the best matching pieces in a puzzle.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Full-Process-Example-of-ColBERT"><a href="#Full-Process-Example-of-ColBERT" class="headerlink" title="Full Process Example of [ColBERT"></a>Full Process Example of [ColBERT</h3><p>v2](<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.01488">https://arxiv.org/pdf/2112.01488</a>)</p>
+<h3 id="Background-1"><a href="#Background-1" class="headerlink" title="Background"></a>Background</h3><p>Consider a scenario where you are searching for recent research papers on “machine learning advancements” in a database. Here’s how <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.01488">ColBERTv2</a> would enhance this process:</p>
+<h3 id="1-Offline-Preprocessing-and-Encoding-of-Documents-1"><a href="#1-Offline-Preprocessing-and-Encoding-of-Documents-1" class="headerlink" title="1. Offline Preprocessing and Encoding of Documents"></a>1. Offline Preprocessing and Encoding of Documents</h3><ol>
+<li><p><strong>Preprocessing and Encoding</strong>:</p>
+<ul>
+<li><strong>Segmentation and Encoding</strong>: Similar to <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3397271.3401075">ColBERT</a>, segment and encode each paper, but with residual compression for space efficiency.</li>
+<li><strong>Storing Quantized Embeddings</strong>: Store embeddings efficiently using centroids and quantization residuals.</li>
+</ul>
+</li>
+<li><p><strong>Index Construction</strong>:</p>
+<ul>
+<li><strong>Optimized Indexing</strong>: Create an inverted index grouping embeddings by their nearest centroids for fast retrieval.</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-Query-Processing-and-Encoding"><a href="#2-Query-Processing-and-Encoding" class="headerlink" title="2. Query Processing and Encoding"></a>2. Query Processing and Encoding</h3><ol>
+<li><strong>Encoding</strong>: Encode the query with BERT, and perform similar normalization and quantization as with documents.</li>
+</ol>
+<h3 id="3-Efficient-Retrieval"><a href="#3-Efficient-Retrieval" class="headerlink" title="3. Efficient Retrieval"></a>3. Efficient Retrieval</h3><ol>
+<li><p><strong>Centroid-based Candidate Generation</strong>:</p>
+<ul>
+<li><strong>Find Nearest Centroids</strong>: Identify centroids closest to the query vectors.</li>
+<li><strong>Retrieve Embeddings</strong>: Use inverted lists to gather candidate embeddings, decompress, and score them based on similarity to the query.</li>
+</ul>
+</li>
+<li><p><strong>Scoring and Ranking</strong>:</p>
+<ul>
+<li><strong>Maximizing Scores</strong>: Rank and maximize scores to retrieve the most relevant papers efficiently.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Vivid-Example-1"><a href="#Vivid-Example-1" class="headerlink" title="Vivid Example"></a>Vivid Example</h3><p>Imagine you are a researcher looking for the latest papers on “machine learning advancements.” Instead of manually reviewing each paper, <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.01488">ColBERTv2</a> preprocesses and indexes the papers in advance, using efficient storage techniques. When you make a query, it quickly finds and retrieves the most relevant papers by leveraging optimized indexing and centroid-based retrieval.</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.01488">ColBERTv2</a> further refines the retrieval process, improving both efficiency and accuracy while reducing storage requirements, thus providing a highly effective tool for handling extensive document collections.</p>
+<h2 id="DPR"><a href="#DPR" class="headerlink" title="DPR"></a>DPR</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2004.04906">Dense Passage Retrieval for Open-Domain Question Answering</a></p>
+<h3 id="Example-Scenario"><a href="#Example-Scenario" class="headerlink" title="Example Scenario"></a>Example Scenario</h3><p>Suppose a user asks the system a question: “What is photosynthesis?” The following steps illustrate how DPR retrieves relevant information:</p>
+<h3 id="Step-1-Query-Encoding"><a href="#Step-1-Query-Encoding" class="headerlink" title="Step 1: Query Encoding"></a>Step 1: Query Encoding</h3><ul>
+<li><strong>Input</strong>: User’s question “What is photosynthesis?”</li>
+<li><strong>Processing</strong>: The question is first fed into a pre-trained Transformer model (e.g., BERT). This model transforms the text into a high-dimensional vector (typically 768 dimensions or more, depending on the model architecture).</li>
+<li><strong>Output</strong>: Dense vector representation of the question.</li>
+</ul>
+<h3 id="Step-2-Document-Encoding"><a href="#Step-2-Document-Encoding" class="headerlink" title="Step 2: Document Encoding"></a>Step 2: Document Encoding</h3><ul>
+<li><strong>Preprocessing</strong>: Prior to this step, the system has already encoded potential answers or information sources (e.g., Wikipedia entries, textbook paragraphs) into vectors and stored them in a vector database.</li>
+<li><strong>Database</strong>: Contains precomputed vector representations of numerous documents.</li>
+</ul>
+<h3 id="Step-3-Vector-Similarity-Calculation"><a href="#Step-3-Vector-Similarity-Calculation" class="headerlink" title="Step 3: Vector Similarity Calculation"></a>Step 3: Vector Similarity Calculation</h3><ul>
+<li><strong>Comparison</strong>: The system now compares the query vector with each document vector in the database. Comparison typically uses cosine similarity.</li>
+<li><strong>Ranking</strong>: Documents are ranked based on similarity scores, from highest to lowest.</li>
+</ul>
+<h3 id="Step-4-Selecting-Top-Documents"><a href="#Step-4-Selecting-Top-Documents" class="headerlink" title="Step 4: Selecting Top Documents"></a>Step 4: Selecting Top Documents</h3><ul>
+<li><strong>Selection</strong>: The system typically selects the top N documents (e.g., the top 5 or 10) with the highest similarity scores, considering these documents to be the most relevant to the query.</li>
+<li><strong>Output</strong>: The text content of these top documents is sent to a generation model for the next step in answer generation.</li>
+</ul>
+<h3 id="Step-5-Answer-Generation"><a href="#Step-5-Answer-Generation" class="headerlink" title="Step 5: Answer Generation"></a>Step 5: Answer Generation</h3><ul>
+<li><strong>Generation Model Input</strong>: The selected document contents are used as context for a generation model (e.g., GPT).</li>
+<li><strong>Generating Answer</strong>: The generation model synthesizes these textual inputs to produce a comprehensive and relevant answer.</li>
+</ul>
+<h3 id="Step-6-Output-Final-Answer"><a href="#Step-6-Output-Final-Answer" class="headerlink" title="Step 6: Output Final Answer"></a>Step 6: Output Final Answer</h3><ul>
+<li><strong>User Reception</strong>: The system outputs the answer to the user, for example: “Photosynthesis is the process by which plants, algae, and some bacteria use sunlight to convert water and carbon dioxide into oxygen and glucose.”</li>
+</ul>
+<p>This example demonstrates how DPR precisely retrieves relevant content from a vast amount of information in a RAG system and assists the generation model in providing accurate and useful answers.</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.01585">Tabular Embedding Model (TEM): Finetuning Embedding Models For Tabular RAG Applications</a></p>
+<blockquote>
+<p>No code</p>
+</blockquote>
+<h2 id="RAFT"><a href="#RAFT" class="headerlink" title="RAFT"></a>RAFT</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2403.10131">RAFT: Adapting Language Model to Domain-Specific RAG</a></p>
+<p>The paper introduces a method called <strong>Retrieval Augmented Fine Tuning (RAFT)</strong> designed to enhance pre-trained language models’ retrieval-augmented generation (RAG) capabilities, particularly in domain-specific settings under the “open-book” scenario. This approach integrates fine-tuning with RAG to improve model performance on domain-specific question answering tasks.</p>
+<p><strong>Data Preparation</strong>: The RAFT method prepares a set of documents for each question, including “oracle” documents containing the answers and irrelevant distractor documents. For questions with correct documents, RAFT generates Chain-of-Thought (CoT) style answers, directly referencing relevant fragments of the documents to minimize hallucination issues during the generation process. This data structure trains the model to better recognize and utilize relevant information.</p>
+<p><strong>Training Strategy</strong>: During training, the model is fine-tuned to handle scenarios with distractor documents. The model is tasked with accurately extracting useful information and generating answers amidst these distractors. Additionally, some training questions contain only distractor documents to encourage the model to rely on learned domain knowledge for answering. This strategy not only strengthens the model’s domain-specific knowledge but also enhances its ability to respond effectively in noisy contexts.</p>
+<p><strong>Integration of Fine-Tuning and RAG</strong>: RAFT improves the model’s effectiveness in open-book settings by fine-tuning it to efficiently handle domain-specific documents. The model learns to ignore irrelevant information and accurately cite relevant document content when generating answers. Unlike traditional RAG methods, RAFT focuses on domain-specific applications, further enhancing retrieval and generation capabilities.</p>
+<p>Experimental results show that RAFT significantly outperforms other baseline models on several datasets (e.g., PubMed, HotpotQA, Gorilla API Bench), demonstrating its strong potential for domain-specific question answering tasks. The paper provides an effective training strategy for achieving high performance in domain-specific QA tasks and showcases the benefits of combining fine-tuning with RAG to enhance model performance.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li>Lu, W., Zhang, J., Zhang, J. and Chen, Y., 2024. Large language model for table processing: A survey. arXiv preprint arXiv:2402.05121.</li>
+<li>Fang, X., Xu, W., Tan, F.A., Zhang, J., Hu, Z., Qi, Y., Nickleach, S., Socolinsky, D., Sengamedu, S. and Faloutsos, C., 2024. Large Language Models on Tabular Data–A Survey. arXiv preprint arXiv:2402.17944.</li>
+<li>Zhao, Y., Long, Y., Liu, H., Nan, L., Chen, L., Kamoi, R., Liu, Y., Tang, X., Zhang, R. and Cohan, A., 2023. Docmath-eval: Evaluating numerical reasoning capabilities of llms in understanding long documents with tabular data. arXiv preprint arXiv:2311.09805.</li>
+<li>Sui, Y., Zou, J., Zhou, M., He, X., Du, L., Han, S. and Zhang, D., 2023. Tap4llm: Table provider on sampling, augmenting, and packing semi-structured data for large language model reasoning. arXiv preprint arXiv:2312.09039.</li>
+<li>Dong, X., Zhang, C., Ge, Y., Mao, Y., Gao, Y., Lin, J. and Lou, D., 2023. C3: Zero-shot text-to-sql with chatgpt. arXiv preprint arXiv:2307.07306.</li>
+<li>Sundar, A.S. and Heck, L., 2023. cTBLS: Augmenting large language models with conversational tables. arXiv preprint arXiv:2303.12024.</li>
+<li>Gao, D., Wang, H., Li, Y., Sun, X., Qian, Y., Ding, B. and Zhou, J., 2023. Text-to-sql empowered by large language models: A benchmark evaluation. arXiv preprint arXiv:2308.15363.</li>
+<li>Lin, W., Blloshmi, R., Byrne, B., de Gispert, A. and Iglesias, G., 2023, July. LI-RAGE: Late Interaction Retrieval Augmented Generation with Explicit Signals for Open-Domain Table Question Answering. In Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers) (pp. 1557-1566).</li>
+<li>Khattab, O. and Zaharia, M., 2020, July. Colbert: Efficient and effective passage search via contextualized late interaction over bert. In Proceedings of the 43rd International ACM SIGIR conference on research and development in Information Retrieval (pp. 39-48).</li>
+<li>Santhanam, K., Khattab, O., Saad-Falcon, J., Potts, C. and Zaharia, M., 2021. Colbertv2: Effective and efficient retrieval via lightweight late interaction. arXiv preprint arXiv:2112.01488.</li>
+<li>Karpukhin, V., Oğuz, B., Min, S., Lewis, P., Wu, L., Edunov, S., Chen, D. and Yih, W.T., 2020. Dense passage retrieval for open-domain question answering. arXiv preprint arXiv:2004.04906.</li>
+<li>Khanna, S. and Subedi, S., 2024. Tabular Embedding Model (TEM): Finetuning Embedding Models For Tabular RAG Applications. arXiv preprint arXiv:2405.01585.</li>
+<li>Zhang, T., Patil, S.G., Jain, N., Shen, S., Zaharia, M., Stoica, I. and Gonzalez, J.E., 2024. Raft: Adapting language model to domain specific rag. arXiv preprint arXiv:2403.10131.</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LLM-for-Table"><span class="toc-number">1.</span> <span class="toc-text">LLM for Table</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Classification-of-LLM-Methods-for-Table-Processing"><span class="toc-number">1.1.</span> <span class="toc-text">1. Classification of LLM Methods for Table Processing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-of-Specific-Methods"><span class="toc-number">1.2.</span> <span class="toc-text">Summary of Specific Methods</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLM-on-Tabular-Data-Retriever"><span class="toc-number">2.</span> <span class="toc-text">LLM on Tabular Data (Retriever)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-General-Capabilities-of-Large-Language-Models-in-Question-Answering-Tasks"><span class="toc-number">2.1.</span> <span class="toc-text">5.2 General Capabilities of Large Language Models in Question Answering Tasks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Numerical-QA"><span class="toc-number">2.2.</span> <span class="toc-text">Numerical QA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Text2SQL"><span class="toc-number">2.3.</span> <span class="toc-text">Text2SQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Impact-of-Model-Size-on-Performance"><span class="toc-number">2.4.</span> <span class="toc-text">The Impact of Model Size on Performance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#To-Fine-tune-or-Not-to-Fine-tune"><span class="toc-number">2.5.</span> <span class="toc-text">To Fine-tune or Not to Fine-tune?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Special-Data-Considerations"><span class="toc-number">2.6.</span> <span class="toc-text">5.3 Special Data Considerations</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LI-RAGE"><span class="toc-number">3.</span> <span class="toc-text">LI-RAGE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Summary-of-the-Article"><span class="toc-number">3.1.</span> <span class="toc-text">Summary of the Article</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Question"><span class="toc-number">3.2.</span> <span class="toc-text">Example Question</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Table-Dataset"><span class="toc-number">3.3.</span> <span class="toc-text">Table Dataset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#End-to-End-Example"><span class="toc-number">3.4.</span> <span class="toc-text">End-to-End Example</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Table-Retrieval-Retriever"><span class="toc-number">3.4.1.</span> <span class="toc-text">1. Table Retrieval (Retriever)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Answer-Generation-Reader"><span class="toc-number">3.4.2.</span> <span class="toc-text">2. Answer Generation (Reader)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Binary-Relevance-Token"><span class="toc-number">3.4.3.</span> <span class="toc-text">3. Binary Relevance Token</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Filtering-and-Final-Answer-Determination"><span class="toc-number">3.4.4.</span> <span class="toc-text">4. Filtering and Final Answer Determination</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion"><span class="toc-number">3.5.</span> <span class="toc-text">Conclusion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TAP4LLM"><span class="toc-number">4.</span> <span class="toc-text">TAP4LLM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Detailed-Summary-of-TAP4LLM"><span class="toc-number">4.1.</span> <span class="toc-text">Detailed Summary of TAP4LLM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Application-of-Large-Language-Models-to-Tabular-Data"><span class="toc-number">4.2.</span> <span class="toc-text">Application of Large Language Models to Tabular Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Table-Augmentation-Techniques"><span class="toc-number">4.3.</span> <span class="toc-text">Table Augmentation Techniques</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Core-Components-of-TAP4LLM"><span class="toc-number">4.4.</span> <span class="toc-text">Core Components of TAP4LLM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion-1"><span class="toc-number">4.5.</span> <span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Limitations"><span class="toc-number">4.6.</span> <span class="toc-text">Limitations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Using-TAP4LLM-for-Table-Data-Analysis"><span class="toc-number">4.7.</span> <span class="toc-text">Example: Using TAP4LLM for Table Data Analysis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Table-Sampling"><span class="toc-number">4.8.</span> <span class="toc-text">1. Table Sampling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Table-Augmentation"><span class="toc-number">4.9.</span> <span class="toc-text">2. Table Augmentation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Table-Packing-and-Serialization"><span class="toc-number">4.10.</span> <span class="toc-text">3. Table Packing and Serialization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion-2"><span class="toc-number">4.11.</span> <span class="toc-text">Conclusion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-of-Processing-with-TAP4LLM"><span class="toc-number">4.12.</span> <span class="toc-text">Example of Processing with TAP4LLM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ColBERT"><span class="toc-number">5.</span> <span class="toc-text">ColBERT</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Innovations"><span class="toc-number">5.1.</span> <span class="toc-text">Innovations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Advantages"><span class="toc-number">5.2.</span> <span class="toc-text">Advantages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Problems-Addressed"><span class="toc-number">5.3.</span> <span class="toc-text">Problems Addressed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Detailed-and-Vivid-Example-of-ColBERT-Usage"><span class="toc-number">5.4.</span> <span class="toc-text">Detailed and Vivid Example of ColBERT Usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Background"><span class="toc-number">5.5.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Offline-Preprocessing-and-Encoding-of-Documents"><span class="toc-number">5.6.</span> <span class="toc-text">1. Offline Preprocessing and Encoding of Documents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Query-Preprocessing-and-Encoding"><span class="toc-number">5.7.</span> <span class="toc-text">2. Query Preprocessing and Encoding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Delayed-Interaction-and-Similarity-Computation"><span class="toc-number">5.8.</span> <span class="toc-text">3. Delayed Interaction and Similarity Computation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Document-Ranking-and-Retrieval"><span class="toc-number">5.9.</span> <span class="toc-text">4. Document Ranking and Retrieval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vivid-Example"><span class="toc-number">5.10.</span> <span class="toc-text">Vivid Example</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ColBERT-v2"><span class="toc-number">6.</span> <span class="toc-text">ColBERT v2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Improvements-and-Optimizations-in-ColBERTv2-Effective-and-Efficient-Retrieval-via-Lightweight-Late-Interaction"><span class="toc-number">6.1.</span> <span class="toc-text">Key Improvements and Optimizations in ColBERTv2: Effective and Efficient Retrieval via Lightweight Late Interaction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Full-Process-Example-of-ColBERT"><span class="toc-number">6.2.</span> <span class="toc-text">Full Process Example of [ColBERT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Background-1"><span class="toc-number">6.3.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Offline-Preprocessing-and-Encoding-of-Documents-1"><span class="toc-number">6.4.</span> <span class="toc-text">1. Offline Preprocessing and Encoding of Documents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Query-Processing-and-Encoding"><span class="toc-number">6.5.</span> <span class="toc-text">2. Query Processing and Encoding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Efficient-Retrieval"><span class="toc-number">6.6.</span> <span class="toc-text">3. Efficient Retrieval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vivid-Example-1"><span class="toc-number">6.7.</span> <span class="toc-text">Vivid Example</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DPR"><span class="toc-number">7.</span> <span class="toc-text">DPR</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-Scenario"><span class="toc-number">7.1.</span> <span class="toc-text">Example Scenario</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-1-Query-Encoding"><span class="toc-number">7.2.</span> <span class="toc-text">Step 1: Query Encoding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-2-Document-Encoding"><span class="toc-number">7.3.</span> <span class="toc-text">Step 2: Document Encoding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-3-Vector-Similarity-Calculation"><span class="toc-number">7.4.</span> <span class="toc-text">Step 3: Vector Similarity Calculation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4-Selecting-Top-Documents"><span class="toc-number">7.5.</span> <span class="toc-text">Step 4: Selecting Top Documents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-5-Answer-Generation"><span class="toc-number">7.6.</span> <span class="toc-text">Step 5: Answer Generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-6-Output-Final-Answer"><span class="toc-number">7.7.</span> <span class="toc-text">Step 6: Output Final Answer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAFT"><span class="toc-number">8.</span> <span class="toc-text">RAFT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">9.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&text=LLM for table data enhancement"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&title=LLM for table data enhancement"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&is_video=false&description=LLM for table data enhancement"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LLM for table data enhancement&body=Check out this article: http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&title=LLM for table data enhancement"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&title=LLM for table data enhancement"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&title=LLM for table data enhancement"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&title=LLM for table data enhancement"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&name=LLM for table data enhancement&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yuhangwuai.github.io/2024/08/14/LLM-for-table-data-enhancement/&t=LLM for table data enhancement"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    YuhangWu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
