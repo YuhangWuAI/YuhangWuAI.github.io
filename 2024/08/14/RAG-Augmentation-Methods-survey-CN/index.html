@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="© Wuyuhang, 2024. All rights reserved. This article is entirely the work of Wuyuhang from the University of Manchester. It may not be reproduced, distributed, or used without explicit permission from">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAG Augmentation Methods: survey (CN)">
+<meta property="og:url" content="http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/index.html">
+<meta property="og:site_name" content="Yuhang&#39;s AI Journey">
+<meta property="og:description" content="© Wuyuhang, 2024. All rights reserved. This article is entirely the work of Wuyuhang from the University of Manchester. It may not be reproduced, distributed, or used without explicit permission from">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-14T22:57:07.000Z">
+<meta property="article:modified_time" content="2024-08-14T23:04:13.167Z">
+<meta property="article:author" content="YuhangWu">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/logo.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/logo.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+        
+      
+    
+    <!-- title -->
+    <title>RAG Augmentation Methods: survey (CN)</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/08/14/RAG-Augmentation-Methods-survey/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary-CN/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&text=RAG Augmentation Methods: survey (CN)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&title=RAG Augmentation Methods: survey (CN)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&is_video=false&description=RAG Augmentation Methods: survey (CN)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RAG Augmentation Methods: survey (CN)&body=Check out this article: http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&title=RAG Augmentation Methods: survey (CN)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&title=RAG Augmentation Methods: survey (CN)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&title=RAG Augmentation Methods: survey (CN)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&title=RAG Augmentation Methods: survey (CN)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&name=RAG Augmentation Methods: survey (CN)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&t=RAG Augmentation Methods: survey (CN)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-RAG-%E5%9F%BA%E7%A1%80%E8%8C%83%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">1. RAG 基础范式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%A8%80%E7%96%8F%E6%A3%80%E7%B4%A2%E6%96%B9%E6%B3%95"><span class="toc-number">2.0.1.</span> <span class="toc-text">1.1 稀疏检索方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%AF%86%E9%9B%86%E6%A3%80%E7%B4%A2%E6%96%B9%E6%B3%95"><span class="toc-number">2.0.2.</span> <span class="toc-text">1.2 密集检索方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%A3%80%E7%B4%A2%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.0.3.</span> <span class="toc-text">1.3 检索器设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E5%85%B6%E4%BB%96%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95"><span class="toc-number">2.0.4.</span> <span class="toc-text">1.4 其他相关方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93"><span class="toc-number">2.0.5.</span> <span class="toc-text">方法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%89%8D%E6%A3%80%E7%B4%A2%E4%B8%8E%E5%90%8E%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA"><span class="toc-number">3.</span> <span class="toc-text">2. 前检索与后检索增强</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%89%8D%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95"><span class="toc-number">3.0.1.</span> <span class="toc-text">2.1 前检索增强方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%90%8E%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95"><span class="toc-number">3.0.2.</span> <span class="toc-text">2.2 后检索增强方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-1"><span class="toc-number">3.0.3.</span> <span class="toc-text">方法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%94%9F%E6%88%90%E4%B8%8E%E7%94%9F%E6%88%90%E5%A2%9E%E5%BC%BA"><span class="toc-number">4.</span> <span class="toc-text">3. 生成与生成增强</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E7%94%9F%E6%88%90%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.0.1.</span> <span class="toc-text">3.1 生成器类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E7%94%9F%E6%88%90%E5%99%A8%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95"><span class="toc-number">4.0.2.</span> <span class="toc-text">3.2 生成器增强方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%A3%80%E7%B4%A2%E4%B8%8E%E7%94%9F%E6%88%90%E7%9A%84%E9%9B%86%E6%88%90%E5%A2%9E%E5%BC%BA"><span class="toc-number">4.0.3.</span> <span class="toc-text">3.3 检索与生成的集成增强</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-2"><span class="toc-number">4.0.4.</span> <span class="toc-text">方法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%A3%80%E7%B4%A2%E4%B8%8E%E7%94%9F%E6%88%90%E6%B5%81%E7%A8%8B%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">4. 检索与生成流程优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%A3%80%E7%B4%A2%E5%BF%85%E8%A6%81%E6%80%A7%E4%B8%8E%E9%A2%91%E7%8E%87"><span class="toc-number">5.0.1.</span> <span class="toc-text">4.1 检索必要性与频率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%97%A0%E8%AE%AD%E7%BB%83%E4%B8%8E%E7%8B%AC%E7%AB%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">5.0.2.</span> <span class="toc-text">4.2 无训练与独立训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%A1%BA%E5%BA%8F%E8%AE%AD%E7%BB%83%E4%B8%8E%E8%81%94%E5%90%88%E8%AE%AD%E7%BB%83"><span class="toc-number">5.0.3.</span> <span class="toc-text">4.3 顺序训练与联合训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-3"><span class="toc-number">5.0.4.</span> <span class="toc-text">方法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-RAG-%E5%9C%A8%E5%BA%94%E7%94%A8%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-number">6.</span> <span class="toc-text">5. RAG 在应用中的实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-NLP-%E5%BA%94%E7%94%A8"><span class="toc-number">6.0.1.</span> <span class="toc-text">5.1 NLP 应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E4%B8%8B%E6%B8%B8%E4%BB%BB%E5%8A%A1%E5%BA%94%E7%94%A8"><span class="toc-number">6.0.2.</span> <span class="toc-text">5.2 下游任务应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E7%89%B9%E5%AE%9A%E9%A2%86%E5%9F%9F%E5%BA%94%E7%94%A8"><span class="toc-number">6.0.3.</span> <span class="toc-text">5.3 特定领域应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-4"><span class="toc-number">6.0.4.</span> <span class="toc-text">方法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E8%AE%A8%E8%AE%BA%E4%B8%8E%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91"><span class="toc-number">7.</span> <span class="toc-text">6. 讨论与未来研究方向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-RAG-%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="toc-number">7.0.1.</span> <span class="toc-text">6.1 RAG 的局限性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E6%9C%AA%E6%9D%A5%E6%BD%9C%E5%9C%A8%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91"><span class="toc-number">7.0.2.</span> <span class="toc-text">6.2 未来潜在研究方向</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        RAG Augmentation Methods: survey (CN)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">YuhangWu</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-08-14T22:57:07.000Z" class="dt-published" itemprop="datePublished">2024-08-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>© Wuyuhang, 2024. All rights reserved. This article is entirely the work of Wuyuhang from the University of Manchester. It may not be reproduced, distributed, or used without explicit permission from the author. For inquiries, please contact me at yuhang.wu-4 [at] postgrad.manchester.ac.uk.</p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
+<li><a href="#rag-%E5%9F%BA%E7%A1%80%E8%8C%83%E5%BC%8F">RAG 基础范式</a><ul>
+<li>1.1 <a href="#%E7%A8%80%E7%96%8F%E6%A3%80%E7%B4%A2%E6%96%B9%E6%B3%95">稀疏检索方法</a></li>
+<li>1.2 <a href="#%E5%AF%86%E9%9B%86%E6%A3%80%E7%B4%A2%E6%96%B9%E6%B3%95">密集检索方法</a></li>
+<li>1.3 <a href="#%E6%A3%80%E7%B4%A2%E5%99%A8%E8%AE%BE%E8%AE%A1">检索器设计</a></li>
+<li>1.4 <a href="#%E5%85%B6%E4%BB%96%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95">其他相关方法</a></li>
+</ul>
+</li>
+<li><a href="#%E5%89%8D%E6%A3%80%E7%B4%A2%E4%B8%8E%E5%90%8E%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA">前检索与后检索增强</a><ul>
+<li>2.1 <a href="#%E5%89%8D%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95">前检索增强方法</a></li>
+<li>2.2 <a href="#%E5%90%8E%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95">后检索增强方法</a></li>
+</ul>
+</li>
+<li><a href="#%E7%94%9F%E6%88%90%E4%B8%8E%E7%94%9F%E6%88%90%E5%A2%9E%E5%BC%BA">生成与生成增强</a><ul>
+<li>3.1 <a href="#%E7%94%9F%E6%88%90%E5%99%A8%E7%B1%BB%E5%9E%8B">生成器类型</a></li>
+<li>3.2 <a href="#%E7%94%9F%E6%88%90%E5%99%A8%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95">生成器增强方法</a></li>
+<li>3.3 <a href="#%E6%A3%80%E7%B4%A2%E4%B8%8E%E7%94%9F%E6%88%90%E7%9A%84%E9%9B%86%E6%88%90%E5%A2%9E%E5%BC%BA">检索与生成的集成增强</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A3%80%E7%B4%A2%E4%B8%8E%E7%94%9F%E6%88%90%E6%B5%81%E7%A8%8B%E4%BC%98%E5%8C%96">检索与生成流程优化</a><ul>
+<li>4.1 <a href="#%E6%A3%80%E7%B4%A2%E5%BF%85%E8%A6%81%E6%80%A7%E4%B8%8E%E9%A2%91%E7%8E%87">检索必要性与频率</a></li>
+<li>4.2 <a href="#%E6%97%A0%E8%AE%AD%E7%BB%83%E4%B8%8E%E7%8B%AC%E7%AB%8B%E8%AE%AD%E7%BB%83">无训练与独立训练</a></li>
+<li>4.3 <a href="#%E9%A1%BA%E5%BA%8F%E8%AE%AD%E7%BB%83%E4%B8%8E%E8%81%94%E5%90%88%E8%AE%AD%E7%BB%83">顺序训练与联合训练</a></li>
+</ul>
+</li>
+<li><a href="#rag-%E5%9C%A8%E5%BA%94%E7%94%A8%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B">RAG 在应用中的实例</a><ul>
+<li>5.1 <a href="#nlp-%E5%BA%94%E7%94%A8">NLP 应用</a></li>
+<li>5.2 <a href="#%E4%B8%8B%E6%B8%B8%E4%BB%BB%E5%8A%A1%E5%BA%94%E7%94%A8">下游任务应用</a></li>
+<li>5.3 <a href="#%E7%89%B9%E5%AE%9A%E9%A2%86%E5%9F%9F%E5%BA%94%E7%94%A8">特定领域应用</a></li>
+</ul>
+</li>
+<li><a href="#%E8%AE%A8%E8%AE%BA%E4%B8%8E%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91">讨论与未来研究方向</a><ul>
+<li>6.1 <a href="#rag-%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7">RAG 的局限性</a></li>
+<li>6.2 <a href="#%E6%9C%AA%E6%9D%A5%E6%BD%9C%E5%9C%A8%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91">未来潜在研究方向</a></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="1-RAG-基础范式"><a href="#1-RAG-基础范式" class="headerlink" title="1. RAG 基础范式"></a>1. RAG 基础范式</h1><p>RAG（Retrieval-Augmented Generation）系统在架构设计中涵盖了多种范式，将稀疏检索和密集检索方法有机结合。通过优化检索器设计，并引入前检索与后检索增强技术，可以显著提升生成器的表现。</p>
+<h3 id="1-1-稀疏检索方法"><a href="#1-1-稀疏检索方法" class="headerlink" title="1.1 稀疏检索方法"></a>1.1 稀疏检索方法</h3><ul>
+<li><p><strong>TF-IDF</strong>：一种基于词频和倒排索引的文本检索方法，利用词频和逆文档频率定位与查询最相关的文档。在RAG中，TF-IDF主要用于段落级别的检索，以增强生成器输入的质量。</p>
+</li>
+<li><p><strong>BM25</strong>：BM25是另一种基于词频和倒排索引的检索方法。它将文档表示为词袋模型，并根据词频和逆文档频率对文档进行排序。BM25在大规模文本数据库的查询中尤为有效，在RAG模型中广泛用于段落检索和上下文学习。</p>
+</li>
+</ul>
+<h3 id="1-2-密集检索方法"><a href="#1-2-密集检索方法" class="headerlink" title="1.2 密集检索方法"></a>1.2 密集检索方法</h3><ul>
+<li><p><strong>DPR（Dense Passage Retriever）</strong>：DPR是基于BERT结构的检索器，专为开放问答任务预训练。通过将查询和文档嵌入向量空间，并基于语义相似性进行检索，DPR展示了强大的预训练能力，是许多RAG模型成功的关键组件。</p>
+</li>
+<li><p><strong>Contriever</strong>：Contriever基于对比学习，采用单编码器结构，通过在大规模未对齐文档上进行预训练，在开放域问答任务中表现出色。特别是在与InstructGPT配合使用时，Contriever展示了卓越的检索能力。</p>
+</li>
+<li><p><strong>Spider</strong>：Spider与Contriever类似，是通用预训练的密集检索器。通过对比学习进行预训练，Spider能够适应多种任务和领域，已被广泛应用于多种RAG方法中。</p>
+</li>
+</ul>
+<h3 id="1-3-检索器设计"><a href="#1-3-检索器设计" class="headerlink" title="1.3 检索器设计"></a>1.3 检索器设计</h3><ul>
+<li><p><strong>双流编码器（Bi-Encoder）</strong>：双流编码器由两个独立的BERT结构编码器组成，一个处理查询，另一个处理文档。常用于句子嵌入的相似性检索和多样示例检索，能够通过冻结或部分冻结参数，实现一般级别的知识提取。</p>
+</li>
+<li><p><strong>单编码器（One-Encoder）</strong>：单编码器采用一个编码器来同时处理查询和文档，通常基于Transformer、BERT或其他序列建模结构。通过在大规模未对齐文档上进行对比学习预训练，单编码器展示了出色的适应性和泛化能力，适用于多种任务。</p>
+</li>
+</ul>
+<h3 id="1-4-其他相关方法"><a href="#1-4-其他相关方法" class="headerlink" title="1.4 其他相关方法"></a>1.4 其他相关方法</h3><ul>
+<li><p><strong>对比学习</strong>：对比学习用于单编码器结构的预训练，通过学习正负样本对的嵌入，使得模型能够在未对齐文档上进行有效训练。此方法提高了模型在新领域和任务中的表现，尤其在处理多样化和复杂语料时效果显著。</p>
+</li>
+<li><p><strong>大规模专门预训练</strong>：针对特定任务（如开放问答）的数据进行大规模预训练，可显著增强模型在知识密集型任务中的表现。例如，DPR通过开放问答任务的专门预训练，显著提高了模型处理特定领域问题的准确性。</p>
+</li>
+</ul>
+<h3 id="方法总结"><a href="#方法总结" class="headerlink" title="方法总结"></a>方法总结</h3><p>RAG中的检索方法主要分为稀疏检索和密集检索。稀疏检索方法（如TF-IDF和BM25）依赖于词频和倒排索引，适用于文本检索，但其性能受限于数据库和查询的质量。相比之下，密集检索方法（如DPR、Contriever和Spider）通过将查询和文档嵌入向量空间，利用语义相似性进行检索，展现出更大的灵活性和适应性。双流编码器和单编码器是常见的检索器设计，通过对比学习和大规模专门预训练，进一步提升了模型在各种任务中的表现。</p>
+<hr>
+<h1 id="2-前检索与后检索增强"><a href="#2-前检索与后检索增强" class="headerlink" title="2. 前检索与后检索增强"></a>2. 前检索与后检索增强</h1><p>为了提高检索质量并增强生成器的输入与输出，前检索与后检索增强策略被广泛应用。这些策略显著提升了RAG系统的整体性能。</p>
+<h3 id="2-1-前检索增强方法"><a href="#2-1-前检索增强方法" class="headerlink" title="2.1 前检索增强方法"></a>2.1 前检索增强方法</h3><p><strong>Query2doc</strong>：</p>
+<ul>
+<li>Wang等人提出的查询扩展方法，通过少量提示LLM生成伪文档，将伪文档中的相关信息扩展至原始查询，从而改进查询的消歧和引导检索器。这种方法在临时信息检索数据集上表现出色，有效提升了稀疏和密集检索器的表现。</li>
+</ul>
+<p>**Hypothetical Document Embedding (HyDE)**：</p>
+<ul>
+<li>Gao等人提出的HyDE方法，通过引导LLM生成假设文档，将这些文档作为新的查询嵌入，并搜索相关邻居，提升了检索的准确性和相关性。</li>
+</ul>
+<p><strong>Query Rewrite</strong>：</p>
+<ul>
+<li>Ma等人提出的Rewrite-Retrieve-Read框架，通过提示LLM生成检索查询，并改写原始问题，以更好地匹配检索需求。这种方法不仅提升了检索器对输入的理解，还增强了生成输出的相关性。</li>
+</ul>
+<p><strong>Query Augmentation</strong>：</p>
+<ul>
+<li>Yu等人提出的方法，将原始查询与初步生成的输出结合，形成新查询以进一步检索相关信息。这种方法在澄清查询-输出关系时表现尤为出色，能够帮助从语料库中提取更多相关信息。</li>
+</ul>
+<h3 id="2-2-后检索增强方法"><a href="#2-2-后检索增强方法" class="headerlink" title="2.2 后检索增强方法"></a>2.2 后检索增强方法</h3><p>**Pluggable Reward-driven Context Adapter (PRCA)**：</p>
+<ul>
+<li>Yang等人提出的方法，通过强化学习调整检索到的文档，并微调轻量级适配器，使其更好地与生成器对齐，从而提升生成内容的质量和一致性。</li>
+</ul>
+<p>**Retrieve-Rerank-Generate (R2G)**：</p>
+<ul>
+<li>Glass等人提出的方法，通过对不同检索方法获得的文档进行重新排序，提高检索结果的鲁棒性，并优化最终生成的答案。</li>
+</ul>
+<p><strong>BlendFilter</strong>：</p>
+<ul>
+<li>Wang等人提出的方法，结合前检索查询生成混合和后检索知识过滤，能够更好地处理复杂问题和噪声检索知识，增强生成的准确性。</li>
+</ul>
+<p>**Retrieve, Compress, Prepend (RECOMP)**：</p>
+<ul>
+<li>Xu等人提出的RECOMP方法，在生成过程的上下文增强之前，对检索到的文档进行文本摘要处理，从而减少生成过程中的冗余信息，提高内容的相关性。</li>
+</ul>
+<p><strong>FiD（Fusion-in-Decoder）模型的轻量版</strong>：</p>
+<ul>
+<li>Hofstätter等人提出的方法，通过在拼接和解码器处理之前压缩每个检索段落的编码向量，并对检索结果重新排序，优化生成器的性能。</li>
+</ul>
+<h3 id="方法总结-1"><a href="#方法总结-1" class="headerlink" title="方法总结"></a>方法总结</h3><p>前检索增强和后检索增强方法旨在提高检索质量和生成效果。前检索增强方法如Query2doc、HyDE、Query Rewrite和Query Augmentation通过改进查询表达，提升</p>
+<p>了检索器在处理复杂查询时的表现。而后检索增强方法如PRCA、R2G、BlendFilter、RECOMP和FiD轻量版则通过优化检索结果的排序和处理，进一步提升了生成器的输出质量。</p>
+<hr>
+<h1 id="3-生成与生成增强"><a href="#3-生成与生成增强" class="headerlink" title="3. 生成与生成增强"></a>3. 生成与生成增强</h1><p>生成器在RAG系统中扮演着关键角色。通过优化生成器的设计与增强，可以显著提高生成文本的准确性和相关性。</p>
+<h3 id="3-1-生成器类型"><a href="#3-1-生成器类型" class="headerlink" title="3.1 生成器类型"></a>3.1 生成器类型</h3><p><strong>参数可访问生成器（白盒）</strong>：</p>
+<ul>
+<li><strong>编码器-解码器结构（Encoder-Decoder）</strong>：此结构独立处理输入和目标，使用交叉注意力组件连接输入和目标标记。代表模型包括T5和BART。RAG通常使用BART作为生成器，而FiD则使用T5。</li>
+<li><strong>仅解码器结构（Decoder-only）</strong>：此结构将输入和目标连接，使两部分表示并行构建，允许模型在生成过程中灵活调整生成策略。</li>
+</ul>
+<p><strong>参数不可访问生成器（黑盒）</strong>：</p>
+<ul>
+<li>代表模型包括GPT系列、Codex和Claude。黑盒生成器仅允许输入查询并接收响应，无法修改内部结构或更新参数。</li>
+<li><strong>提示检索器</strong>：Rubin等人提出的训练提示检索器方法，利用语言模型生成的数据，提供更好的示例用于上下文学习。</li>
+<li><strong>文档压缩</strong>：Xu等人提出的方法，通过在上下文集成之前对检索到的文档进行压缩，减少计算成本和识别相关信息的负担。</li>
+</ul>
+<h3 id="3-2-生成器增强方法"><a href="#3-2-生成器增强方法" class="headerlink" title="3.2 生成器增强方法"></a>3.2 生成器增强方法</h3><p>生成器的性能直接影响RAG系统的最终输出质量。通过提示工程、解码调优和生成器微调，可以进一步提升生成器的表现。</p>
+<p><strong>提示工程：</strong></p>
+<ul>
+<li><strong>LLMLingua</strong>：通过一个小模型压缩查询长度，加快模型推理速度，减轻无关信息对模型的负面影响，并缓解“中间丢失”现象。</li>
+<li><strong>ReMoDiffuse</strong>：使用ChatGPT将复杂描述分解为清晰的文本脚本，提升文本生成的准确性。</li>
+<li><strong>ASAP</strong>：将示例元组（包括输入代码、函数定义、分析结果和相应的评论）整合到提示中，以提高生成质量。</li>
+</ul>
+<p><strong>解码调优：</strong></p>
+<ul>
+<li><strong>InferFix</strong>：通过调整解码器的温度平衡结果的多样性和质量，确保生成内容既准确又多样。</li>
+<li><strong>SYNCHROMESH</strong>：通过限制解码器的输出词汇，消除实现错误，提高生成器的可靠性。</li>
+</ul>
+<p><strong>生成器微调：</strong></p>
+<ul>
+<li><strong>RETRO</strong>：固定检索器参数，利用分块交叉注意机制将查询和检索内容结合，提高生成效果。</li>
+<li><strong>APICoder</strong>：通过混合API信息和代码块微调生成器，提升代码生成任务的准确性和一致性。</li>
+<li><strong>CARE</strong>：通过微调解码器，减少字幕和概念检测损失，同时保持编码器和检索器固定，优化多模态生成任务的性能。</li>
+</ul>
+<h3 id="3-3-检索与生成的集成增强"><a href="#3-3-检索与生成的集成增强" class="headerlink" title="3.3 检索与生成的集成增强"></a>3.3 检索与生成的集成增强</h3><p>检索与生成的集成是RAG系统的关键环节。通过在输入层、输出层和中间层进行增强设计，可以显著提升模型的整体性能。</p>
+<p><strong>输入层集成</strong>：</p>
+<ul>
+<li>在输入层集成中，常见的方法是将检索到的文档与原始输入或查询结合，传递给生成器。这种方法适用于In-Context RALM、FiD、Atlas和REPLUG等模型，通过串联输入和检索到的文档，生成器能够更好地处理复杂任务。</li>
+</ul>
+<p><strong>输出层集成</strong>：</p>
+<ul>
+<li>输出层集成方法通过结合检索和生成结果，提升生成内容的质量。kNN-LM在预测中插值两个下一个标记的分布，一个由语言模型引导，另一个由检索语料库中的最近邻引导，从而实现更灵活的生成过程。</li>
+</ul>
+<p><strong>中间层集成</strong>：</p>
+<ul>
+<li>中间层集成方法引入半参数模块，将检索到的信息引入生成模型的内部层，与生成过程中间的表示进行交互。这种集成方法虽然增加了复杂性，但通过有效的训练，可以显著增强生成模型的能力。例如，RETRO通过块状交叉注意层处理生成器块中的检索块，EAE和TOME则通过实体记忆和记忆注意层整合检索到的实体和提及。</li>
+</ul>
+<h3 id="方法总结-2"><a href="#方法总结-2" class="headerlink" title="方法总结"></a>方法总结</h3><p>生成器的设计与增强在RAG系统中至关重要。通过选择合适的生成器类型、优化提示工程、调优解码过程和微调生成器，可以有效提升生成器的性能。此外，通过输入层、输出层和中间层的集成增强设计，进一步优化了检索与生成的协同作用，从而提高了RAG系统的整体生成质量。</p>
+<hr>
+<h1 id="4-检索与生成流程优化"><a href="#4-检索与生成流程优化" class="headerlink" title="4. 检索与生成流程优化"></a>4. 检索与生成流程优化</h1><p>RAG系统中的检索与生成流程可以通过优化设计进一步提升模型的效率和准确性。以下内容介绍了检索必要性与频率、无训练与独立训练、顺序训练与联合训练等方面的流程优化方法。</p>
+<h3 id="4-1-检索必要性与频率"><a href="#4-1-检索必要性与频率" class="headerlink" title="4.1 检索必要性与频率"></a>4.1 检索必要性与频率</h3><p>在基于LLM的生成过程中，检索操作通常用于补充知识，以增强生成内容的准确性。然而，检索并非总是必要，且过度检索可能引入不相关信息，导致生成错误。因此，如何确定检索的必要性和频率，成为实现鲁棒RAG模型的关键。</p>
+<p><strong>Self-RAG</strong>：</p>
+<ul>
+<li>Self-RAG通过引入特殊标记，评估检索的必要性，并根据需要控制检索行为，从而减少不必要的资源消耗。</li>
+</ul>
+<p><strong>SKR（Self-Knowledge guided Retrieval）</strong>：</p>
+<ul>
+<li>SKR利用LLMs的自我判断能力来决定是否调用检索器，从而动态调整检索行为，减少不必要的查询和计算。</li>
+</ul>
+<p><strong>FLARE</strong>：</p>
+<ul>
+<li>FLARE在生成过程中基于概率主动决定是否以及何时进行搜索，以避免过度检索，优化计算资源的使用。</li>
+</ul>
+<p><strong>检索频率设计</strong>：</p>
+<ul>
+<li>在生成过程中，检索频率决定了RAG模型对检索结果的依赖程度，影响模型的效率和有效性。常见设置包括一次性检索、每n个标记检索和每个标记检索。不同频率的检索策略在性能和计算成本之间进行权衡，适用于诸如REALM、In-Context RALM和RETRO等模型。</li>
+</ul>
+<h3 id="4-2-无训练与独立训练"><a href="#4-2-无训练与独立训练" class="headerlink" title="4.2 无训练与独立训练"></a>4.2 无训练与独立训练</h3><p><strong>无需训练的方法</strong>：</p>
+<ul>
+<li>随着LLMs的发展，许多研究建议通过检索机制增强LLMs，而无需对模型参数进行微调。基于提示工程的方法直接将检索到的知识集成到原始提示中，从而改进生成质量。例如，In-Context RAG通过将检索到的文档与原始提示结合，提升生成效果。</li>
+</ul>
+<p><strong>独立训练方法</strong>：</p>
+<ul>
+<li>在独立训练中，检索器和生成器作为两个完全独立的模块进行训练，无需在训练过程中进行交互。DPR使用BERT进行对比学习训练，而CoG则通过前缀编码器和短语编码器的训练提升文本生成的准确性。</li>
+</ul>
+<h3 id="4-3-顺序训练与联合训练"><a href="#4-3-顺序训练与联合训练" class="headerlink" title="4.3 顺序训练与联合训练"></a>4.3 顺序训练与联合训练</h3><p><strong>顺序训练</strong>：</p>
+<ul>
+<li>顺序训练方法通过先独立预训练检索器或生成器，然后固定预训练模块，再进行另一个模块的训练。RETRO采用BERT模型作为预训练检索器，并使用编码器-解码器结构将检索块集成到模型的预测中。</li>
+</ul>
+<p><strong>联合训练</strong>：</p>
+<ul>
+<li>联合训练方法采用端到端训练范式，同时优化检索器和生成器。RAG通过最小化负对数似然损失，联合训练检索器和生成器，从而提升系统的整体性能。REALM采用类似的训练范式，并通过最大内积搜索技术定位最相关的文档。</li>
+</ul>
+<h3 id="方法总结-3"><a href="#方法总结-3" class="headerlink" title="方法总结"></a>方法总结</h3><p>通过控制检索的必要性与频率、选择无训练与独立训练策略，以及优化顺序训练与联合训练流程，可以显著提升RAG系统的整体性能。这些流程优化方法不仅增强了模型的生成效果，还在计算效率和资源利用上取得了良好的平衡。</p>
+<hr>
+<h1 id="5-RAG-在应用中的实例"><a href="#5-RAG-在应用中的实例" class="headerlink" title="5. RAG 在应用中的实例"></a>5. RAG 在应用中的实例</h1><p>RAG技术在自然语言处理（NLP）、下游任务和特定领域中的广泛应用展示了其强大的适应性和高效性。以下内容介绍了RAG在这些领域中的具体应用实例。</p>
+<h3 id="5-1-NLP-应用"><a href="#5-1-NLP-应用" class="headerlink" title="5.1 NLP 应用"></a>5.1 NLP 应用</h3><p><strong>问答系统</strong>：</p>
+<ul>
+<li>问答系统通过集成RAG技术，能够显著提升回答的准确性和上下文相关性。REALM在预训练、微调和推理过程中集成知识检索器，从大型语料库中检索信息，显著提高了系统的响应质量。Fusion-in-Decoder通过从支持文档中检索段落并与问题融合生成答案，实现了更高的准确性。</li>
+</ul>
+<p><strong>聊天机器人</strong></p>
+<p>：</p>
+<ul>
+<li>聊天机器人需要保持与用户的自然对话。通过集成RAG技术，聊天机器人可以从静态数据库或互联网中检索相关信息，增强对话的丰富性和连贯性。例如，BlenderBot3结合互联网信息和本地对话历史，显著提升了对话的生成质量。</li>
+</ul>
+<p><strong>事实验证</strong>：</p>
+<ul>
+<li>事实验证任务旨在验证信息的准确性。RAG技术通过检索外部知识，增强了事实验证的能力。Atlas在少样本学习下验证了RAG技术在事实验证中的性能，展示了显著的进步。</li>
+</ul>
+<h3 id="5-2-下游任务应用"><a href="#5-2-下游任务应用" class="headerlink" title="5.2 下游任务应用"></a>5.2 下游任务应用</h3><p><strong>推荐系统</strong>：</p>
+<ul>
+<li>RAG技术在推荐系统中展示了巨大的潜力，通过整合检索和生成过程，提供个性化和上下文相关的推荐。例如，Di Palma提出的检索增强推荐模型利用电影或书籍数据集中的知识进行推荐，显著提升了系统的推荐精度。</li>
+</ul>
+<p><strong>软件工程</strong>：</p>
+<ul>
+<li>RAG技术在软件工程中的应用包括代码生成和程序修复。例如，APICoder通过在代码库中检索相关代码片段并与输入聚合，提升了代码生成的准确性和效率。此外，RAG技术还在表格数据处理和Text-to-SQL语义解析方面展示了巨大的潜力。</li>
+</ul>
+<h3 id="5-3-特定领域应用"><a href="#5-3-特定领域应用" class="headerlink" title="5.3 特定领域应用"></a>5.3 特定领域应用</h3><p><strong>医疗领域</strong>：</p>
+<ul>
+<li>RAG技术在医疗领域的应用包括药物发现和分子分析。通过整合多种数据模态（如图像、文本、分子结构等），RAG技术能够提供更全面的分析和诊断支持。</li>
+</ul>
+<p><strong>法律领域</strong>：</p>
+<ul>
+<li>RAG技术在法律领域中的应用主要体现在法律文献的检索和判例的生成上。通过结合法律知识库和案例数据库，RAG系统能够为法律从业者提供准确的法律建议和参考。</li>
+</ul>
+<h3 id="方法总结-4"><a href="#方法总结-4" class="headerlink" title="方法总结"></a>方法总结</h3><p>RAG技术在自然语言处理、下游任务和特定领域的应用展示了其广泛的适应性和强大的处理能力。通过将检索与生成过程无缝结合，RAG系统能够在多种任务中提供高效且精准的支持。</p>
+<hr>
+<h1 id="6-讨论与未来研究方向"><a href="#6-讨论与未来研究方向" class="headerlink" title="6. 讨论与未来研究方向"></a>6. 讨论与未来研究方向</h1><h3 id="6-1-RAG-的局限性"><a href="#6-1-RAG-的局限性" class="headerlink" title="6.1 RAG 的局限性"></a>6.1 RAG 的局限性</h3><p>尽管RAG技术在众多领域展现出卓越的性能，但其自身也存在一些局限性：</p>
+<p><strong>检索结果中的噪声</strong>：</p>
+<ul>
+<li>信息检索过程可能会引入噪声，这些噪声在某些情况下可能干扰生成过程。然而，有研究表明，在某些情况下，噪声检索结果反而有助于提升生成质量。</li>
+</ul>
+<p><strong>额外开销</strong>：</p>
+<ul>
+<li>RAG系统的检索过程会带来额外的计算开销，尤其是在需要频繁检索大规模数据时。这种开销会影响系统的实时性和计算资源的利用效率。</li>
+</ul>
+<p><strong>检索器和生成器之间的差距</strong>：</p>
+<ul>
+<li>由于检索器和生成器的目标不完全一致，设计它们的交互需要精心的优化。尽管一些方法通过联合训练来减少这种差距，但这增加了系统的复杂性。</li>
+</ul>
+<p><strong>系统复杂性的增加</strong>：</p>
+<ul>
+<li>RAG系统中引入检索功能会增加整体系统的复杂性，尤其是在需要对系统进行调整和优化时，要求更高的技术知识和经验。</li>
+</ul>
+<p><strong>上下文长度的增加</strong>：</p>
+<ul>
+<li>基于查询的RAG系统会显著增加上下文长度，这可能会对生成器的性能产生负面影响，并减慢生成速度。</li>
+</ul>
+<h3 id="6-2-未来潜在研究方向"><a href="#6-2-未来潜在研究方向" class="headerlink" title="6.2 未来潜在研究方向"></a>6.2 未来潜在研究方向</h3><p>为了进一步提升RAG技术的应用价值，未来的研究可以从以下几个方向展开：</p>
+<p><strong>新型增强方法的设计</strong>：</p>
+<ul>
+<li>现有研究已经探索了多种检索器与生成器的交互模式。未来的研究可以探索更为先进的增强方法，以充分释放RAG系统的潜力。</li>
+</ul>
+<p><strong>灵活的RAG流程</strong>：</p>
+<ul>
+<li>通过递归、自适应和迭代RAG流程，未来的RAG系统可以实现更加精细化的任务处理和性能提升。</li>
+</ul>
+<p><strong>更广泛的应用</strong>：</p>
+<ul>
+<li>虽然RAG技术已经在多个领域得到了应用，但未来可以进一步推广到更多应用场景，特别是在一些尚未充分探索的领域。</li>
+</ul>
+<p><strong>高效的部署和处理</strong>：</p>
+<ul>
+<li>未来的研究应关注开发更加即插即用的RAG解决方案，以优化系统级别的部署效率和处理性能。</li>
+</ul>
+<p><strong>结合长尾和实时知识</strong>：</p>
+<ul>
+<li>为了提高个性化信息服务的能力，可以设计具有持续更新知识库和适应实时信息的RAG系统。</li>
+</ul>
+<p><strong>与其他技术结合</strong>：</p>
+<ul>
+<li>未来的研究可以探索RAG技术与其他提高AI生成内容（AIGC）有效性的技术（如微调、强化学习、链式思考等）的结合，以进一步提高生成效果。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-RAG-%E5%9F%BA%E7%A1%80%E8%8C%83%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">1. RAG 基础范式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%A8%80%E7%96%8F%E6%A3%80%E7%B4%A2%E6%96%B9%E6%B3%95"><span class="toc-number">2.0.1.</span> <span class="toc-text">1.1 稀疏检索方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%AF%86%E9%9B%86%E6%A3%80%E7%B4%A2%E6%96%B9%E6%B3%95"><span class="toc-number">2.0.2.</span> <span class="toc-text">1.2 密集检索方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%A3%80%E7%B4%A2%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.0.3.</span> <span class="toc-text">1.3 检索器设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E5%85%B6%E4%BB%96%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95"><span class="toc-number">2.0.4.</span> <span class="toc-text">1.4 其他相关方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93"><span class="toc-number">2.0.5.</span> <span class="toc-text">方法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%89%8D%E6%A3%80%E7%B4%A2%E4%B8%8E%E5%90%8E%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA"><span class="toc-number">3.</span> <span class="toc-text">2. 前检索与后检索增强</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%89%8D%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95"><span class="toc-number">3.0.1.</span> <span class="toc-text">2.1 前检索增强方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%90%8E%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95"><span class="toc-number">3.0.2.</span> <span class="toc-text">2.2 后检索增强方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-1"><span class="toc-number">3.0.3.</span> <span class="toc-text">方法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%94%9F%E6%88%90%E4%B8%8E%E7%94%9F%E6%88%90%E5%A2%9E%E5%BC%BA"><span class="toc-number">4.</span> <span class="toc-text">3. 生成与生成增强</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E7%94%9F%E6%88%90%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.0.1.</span> <span class="toc-text">3.1 生成器类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E7%94%9F%E6%88%90%E5%99%A8%E5%A2%9E%E5%BC%BA%E6%96%B9%E6%B3%95"><span class="toc-number">4.0.2.</span> <span class="toc-text">3.2 生成器增强方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%A3%80%E7%B4%A2%E4%B8%8E%E7%94%9F%E6%88%90%E7%9A%84%E9%9B%86%E6%88%90%E5%A2%9E%E5%BC%BA"><span class="toc-number">4.0.3.</span> <span class="toc-text">3.3 检索与生成的集成增强</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-2"><span class="toc-number">4.0.4.</span> <span class="toc-text">方法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%A3%80%E7%B4%A2%E4%B8%8E%E7%94%9F%E6%88%90%E6%B5%81%E7%A8%8B%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">4. 检索与生成流程优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%A3%80%E7%B4%A2%E5%BF%85%E8%A6%81%E6%80%A7%E4%B8%8E%E9%A2%91%E7%8E%87"><span class="toc-number">5.0.1.</span> <span class="toc-text">4.1 检索必要性与频率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%97%A0%E8%AE%AD%E7%BB%83%E4%B8%8E%E7%8B%AC%E7%AB%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">5.0.2.</span> <span class="toc-text">4.2 无训练与独立训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%A1%BA%E5%BA%8F%E8%AE%AD%E7%BB%83%E4%B8%8E%E8%81%94%E5%90%88%E8%AE%AD%E7%BB%83"><span class="toc-number">5.0.3.</span> <span class="toc-text">4.3 顺序训练与联合训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-3"><span class="toc-number">5.0.4.</span> <span class="toc-text">方法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-RAG-%E5%9C%A8%E5%BA%94%E7%94%A8%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-number">6.</span> <span class="toc-text">5. RAG 在应用中的实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-NLP-%E5%BA%94%E7%94%A8"><span class="toc-number">6.0.1.</span> <span class="toc-text">5.1 NLP 应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E4%B8%8B%E6%B8%B8%E4%BB%BB%E5%8A%A1%E5%BA%94%E7%94%A8"><span class="toc-number">6.0.2.</span> <span class="toc-text">5.2 下游任务应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E7%89%B9%E5%AE%9A%E9%A2%86%E5%9F%9F%E5%BA%94%E7%94%A8"><span class="toc-number">6.0.3.</span> <span class="toc-text">5.3 特定领域应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93-4"><span class="toc-number">6.0.4.</span> <span class="toc-text">方法总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E8%AE%A8%E8%AE%BA%E4%B8%8E%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91"><span class="toc-number">7.</span> <span class="toc-text">6. 讨论与未来研究方向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-RAG-%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="toc-number">7.0.1.</span> <span class="toc-text">6.1 RAG 的局限性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E6%9C%AA%E6%9D%A5%E6%BD%9C%E5%9C%A8%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91"><span class="toc-number">7.0.2.</span> <span class="toc-text">6.2 未来潜在研究方向</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&text=RAG Augmentation Methods: survey (CN)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&title=RAG Augmentation Methods: survey (CN)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&is_video=false&description=RAG Augmentation Methods: survey (CN)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RAG Augmentation Methods: survey (CN)&body=Check out this article: http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&title=RAG Augmentation Methods: survey (CN)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&title=RAG Augmentation Methods: survey (CN)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&title=RAG Augmentation Methods: survey (CN)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&title=RAG Augmentation Methods: survey (CN)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&name=RAG Augmentation Methods: survey (CN)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yuhangwuai.github.io/2024/08/14/RAG-Augmentation-Methods-survey-CN/&t=RAG Augmentation Methods: survey (CN)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    YuhangWu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
