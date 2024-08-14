@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="1. Oobabooga with Superboogav2详细介绍:Oobabooga 是一个开源的文本生成 Web 界面，允许用户在本地或远程主机上运行各种预训练的大型语言模型（LLM）。Superboogav2 是该项目的一个插件，旨在增强其功能。然而，对于需要实现本地化的检索增强生成（RAG）应用，该组合的功能相对有限。Oobabooga 更侧重于简单的文本生成，而非复杂的文档检索和问答任">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAG End2end Frame and Vector DB Summary">
+<meta property="og:url" content="http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/index.html">
+<meta property="og:site_name" content="Yuhang&#39;s AI Journey">
+<meta property="og:description" content="1. Oobabooga with Superboogav2详细介绍:Oobabooga 是一个开源的文本生成 Web 界面，允许用户在本地或远程主机上运行各种预训练的大型语言模型（LLM）。Superboogav2 是该项目的一个插件，旨在增强其功能。然而，对于需要实现本地化的检索增强生成（RAG）应用，该组合的功能相对有限。Oobabooga 更侧重于简单的文本生成，而非复杂的文档检索和问答任">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-14T16:18:07.000Z">
+<meta property="article:modified_time" content="2024-08-14T16:23:51.342Z">
+<meta property="article:author" content="YuhangWu">
+<meta property="article:tag" content="RAG Frame">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/logo.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/logo.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+        
+      
+    
+    <!-- title -->
+    <title>RAG End2end Frame and Vector DB Summary</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary-CN/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/08/14/Dataset-for-Question-Answering/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&text=RAG End2end Frame and Vector DB Summary"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&title=RAG End2end Frame and Vector DB Summary"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&is_video=false&description=RAG End2end Frame and Vector DB Summary"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RAG End2end Frame and Vector DB Summary&body=Check out this article: http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&title=RAG End2end Frame and Vector DB Summary"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&title=RAG End2end Frame and Vector DB Summary"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&title=RAG End2end Frame and Vector DB Summary"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&title=RAG End2end Frame and Vector DB Summary"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&name=RAG End2end Frame and Vector DB Summary&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&t=RAG End2end Frame and Vector DB Summary"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Oobabooga-with-Superboogav2"><span class="toc-number">1.</span> <span class="toc-text">1. Oobabooga with Superboogav2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-privateGPT"><span class="toc-number">2.</span> <span class="toc-text">2. privateGPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-localGPT"><span class="toc-number">3.</span> <span class="toc-text">3. localGPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-LMStudio"><span class="toc-number">4.</span> <span class="toc-text">4. LMStudio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-OLlama"><span class="toc-number">5.</span> <span class="toc-text">5. OLlama</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-LangChain"><span class="toc-number">6.</span> <span class="toc-text">6. LangChain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-MemGPT"><span class="toc-number">7.</span> <span class="toc-text">7. MemGPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-AutoGPT"><span class="toc-number">8.</span> <span class="toc-text">8. AutoGPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-GPT4All"><span class="toc-number">9.</span> <span class="toc-text">9. GPT4All</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-ChatDocs"><span class="toc-number">10.</span> <span class="toc-text">10. ChatDocs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-DocsGPT"><span class="toc-number">11.</span> <span class="toc-text">11. DocsGPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-Auto-RAG"><span class="toc-number">12.</span> <span class="toc-text">12. Auto RAG</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        RAG End2end Frame and Vector DB Summary
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">YuhangWu</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-08-14T16:18:07.000Z" class="dt-published" itemprop="datePublished">2024-08-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/RAG-Frame/" rel="tag">RAG Frame</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h3 id="1-Oobabooga-with-Superboogav2"><a href="#1-Oobabooga-with-Superboogav2" class="headerlink" title="1. Oobabooga with Superboogav2"></a>1. <a target="_blank" rel="noopener" href="https://github.com/oobabooga/text-generation-webui">Oobabooga with Superboogav2</a></h3><p><strong>详细介绍</strong>:<br>Oobabooga 是一个开源的文本生成 Web 界面，允许用户在本地或远程主机上运行各种预训练的大型语言模型（LLM）。Superboogav2 是该项目的一个插件，旨在增强其功能。然而，对于需要实现本地化的检索增强生成（RAG）应用，该组合的功能相对有限。Oobabooga 更侧重于简单的文本生成，而非复杂的文档检索和问答任务。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>简单易用</strong>: 设置和启动相对简单，适合初学者。</li>
+<li><strong>多模型支持</strong>: 支持多种模型和插件，灵活性较高。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>功能不足</strong>: 缺乏用于文档检索和问答的高级功能。</li>
+<li><strong>配置受限</strong>: 缺乏对嵌入方法、向量存储等方面的细致控制。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/oobabooga/text-generation-webui">Oobabooga GitHub</a></p>
+<hr>
+<h3 id="2-privateGPT"><a href="#2-privateGPT" class="headerlink" title="2. privateGPT"></a>2. <a target="_blank" rel="noopener" href="https://github.com/imartinez/privateGPT">privateGPT</a></h3><p><strong>详细介绍</strong>:<br>privateGPT 是一个专注于隐私的本地 RAG 框架，允许用户在离线环境中使用私人文档进行问答。该框架特别适合那些对数据隐私和安全性有严格要求的用户。privateGPT 支持本地运行，但其架构设计存在一些限制，使得它在功能扩展和性能优化上稍显不足。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>隐私保护</strong>: 所有操作都在本地进行，确保数据隐私。</li>
+<li><strong>易于部署</strong>: 可以在不需要互联网连接的环境中部署和运行。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>单一向量存储</strong>: 仅支持一个向量存储，限制了多文档管理的灵活性。</li>
+<li><strong>无法移除文档</strong>: 一旦文档被添加到向量存储中，就无法移除，导致管理不便。</li>
+<li><strong>GPU 支持困难</strong>: GPU 利用较为复杂，可能导致性能较慢。</li>
+<li><strong>配置麻烦</strong>: 更换模型需要手动编辑 YAML 文件，并重新启动服务，缺乏用户友好的配置界面。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/imartinez/privateGPT">privateGPT GitHub</a></p>
+<hr>
+<h3 id="3-localGPT"><a href="#3-localGPT" class="headerlink" title="3. localGPT"></a>3. <a target="_blank" rel="noopener" href="https://github.com/PromtEngineer/localGPT">localGPT</a></h3><p><strong>详细介绍</strong>:<br>localGPT 是一个旨在提供本地化 RAG 功能的工具。用户可以在本地运行 GPT 模型，并结合私人文档进行检索和问答。然而，localGPT 的用户体验主要依赖于 CLI（命令行界面），这对于不熟悉命令行的用户来说并不友好。此外，它在模型和嵌入配置方面的灵活性也较为有限。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>本地化执行</strong>: 支持在本地环境中运行 RAG 应用，确保数据安全。</li>
+<li><strong>一定的灵活性</strong>: 允许通过代码更改嵌入方法，虽然过程较为繁琐。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>用户体验差</strong>: 嵌入创建和模型切换都需通过 CLI 完成，操作不便。</li>
+<li><strong>缺乏 GUI 支持</strong>: 没有直观的图形用户界面，文档管理需要命令行操作。</li>
+<li><strong>模型管理复杂</strong>: 更换模型和嵌入方法需要手动编辑代码，并重新启动服务。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/PromtEngineer/localGPT">localGPT GitHub</a></p>
+<hr>
+<h3 id="4-LMStudio"><a href="#4-LMStudio" class="headerlink" title="4. LMStudio"></a>4. <a target="_blank" rel="noopener" href="https://github.com/lm-sys/FastChat">LMStudio</a></h3><p><strong>详细介绍</strong>:<br>LMStudio 是一个功能强大的文本生成平台，提供了用户友好的 GUI，用于管理、下载和切换大型语言模型。虽然其在模型管理方面表现出色，但缺乏与私人文档进行交互的功能，这使得它在 RAG 应用中表现不够全面。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>强大的 GUI</strong>: 允许用户通过图形界面轻松管理和切换模型。</li>
+<li><strong>多模型支持</strong>: 提供了对多种大型语言模型的支持和管理功能。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>缺乏文档交互功能</strong>: 不支持“与我的文档聊天”的功能，无法用于文档检索增强生成。</li>
+<li><strong>受限于 GGUF 模型</strong>: 仅支持 GGUF 格式的模型，性能较为受限。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/lm-sys/FastChat">LMStudio GitHub</a></p>
+<hr>
+<h3 id="5-OLlama"><a href="#5-OLlama" class="headerlink" title="5. OLlama"></a>5. <a target="_blank" rel="noopener" href="https://github.com/jmorganca/ollama">OLlama</a></h3><p><strong>详细介绍</strong>:<br>OLlama 是一个专为 Mac 用户设计的本地化聊天框架，充分利用了 Mac 的硬件优化。它支持本地运行大型语言模型，提供快速响应的聊天体验。然而，由于它仅限于 Mac 平台，无法满足 Windows 用户的需求，尤其是那些拥有强大 GPU 的用户。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>专为 Mac 优化</strong>: 利用 Mac 的硬件特性，提供高效的本地聊天功能。</li>
+<li><strong>易于使用</strong>: 对 Mac 用户来说，部署和使用非常方便。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>平台限制</strong>: 仅支持 Mac 系统，对 Windows 用户不友好，尤其是无法利用高性能 GPU 的用户。</li>
+<li><strong>扩展性有限</strong>: 由于平台限制，无法广泛应用于其他操作系统。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/jmorganca/ollama">OLlama GitHub</a></p>
+<hr>
+<h3 id="6-LangChain"><a href="#6-LangChain" class="headerlink" title="6. LangChain"></a>6. <a target="_blank" rel="noopener" href="https://github.com/hwchase17/langchain">LangChain</a></h3><p><strong>详细介绍</strong>:<br>LangChain 是一个构建大型语言模型应用程序的框架，提供了丰富的工具和集成选项，旨在帮助开发者创建基于语言模型的复杂应用。尽管 LangChain 功能强大，但它更适合用作工具包，而不是一个完整的 RAG 解决方案。对于那些寻找一站式解决方案的用户来说，LangChain 的灵活性反而可能成为一种负担。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>强大的工具集</strong>: 提供了广泛的 API 和集成选项，适合开发复杂的语言模型应用。</li>
+<li><strong>灵活性高</strong>: 允许开发者根据需求定制应用程序。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>学习曲线陡峭</strong>: 由于其功能广泛，初学者可能会觉得难以上手。</li>
+<li><strong>不适合作为单一解决方案</strong>: 更适合作为工具包，而非完整的 RAG 应用。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/hwchase17/langchain">LangChain GitHub</a></p>
+<hr>
+<h3 id="7-MemGPT"><a href="#7-MemGPT" class="headerlink" title="7. MemGPT"></a>7. <a target="_blank" rel="noopener" href="https://github.com/brown-iv-lab/memgpt">MemGPT</a></h3><p><strong>详细介绍</strong>:<br>MemGPT 是一个较新的项目，旨在通过结合记忆机制来增强 GPT 模型的表现。虽然该项目仍在开发和测试中，但它为 RAG 提供了一个有趣的视角，可能为未来的应用开辟新的方向。目前，MemGPT 的具体性能和适用性尚需进一步评估。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>创新性</strong>: 引入了记忆机制，有潜力提升模型的长期记忆和表现。</li>
+<li><strong>潜在应用</strong>: 未来可能在 RAG 领域表现出色。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>尚在开发中</strong>: 功能和性能尚未成熟，需要进一步测试和验证。</li>
+<li><strong>可用性未知</strong>: 当前缺乏明确的文档和用户案例。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/brown-iv-lab/memgpt">MemGPT GitHub</a></p>
+<hr>
+<h3 id="8-AutoGPT"><a href="#8-AutoGPT" class="headerlink" title="8. AutoGPT"></a>8. <a target="_blank" rel="noopener" href="https://github.com/Significant-Gravitas/Auto-GPT">AutoGPT</a></h3><p><strong>详细介绍</strong>:<br>AutoGPT 是一个自主的 GPT 系统，能够自动完成一系列复杂任务，包括 RAG。在这方面，它被视为一种尝试构建具有自主能力的 AI 工具的开创性工作。尽管如此，AutoGPT 的嵌入设置不可更改，这在一定程度上限制了用户的自定义能力，尤其是在特定 RAG 应用中。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>自动化能力</strong>: 能够自主完成复杂的任务链，减少用户干预。</li>
+<li><strong>前沿创新</strong>: 代表了自动化 AI 系统的一个新的探索方向。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>配置受限</strong>: 嵌入设置无法更改，限制了个性化配置的可能性。</li>
+<li><strong>复杂性</strong>: 系统复杂，可能需要用户具备较高的技术水平来充分利用其功能。</li>
+</ul>
+<p><strong>源链接</strong>: [</p>
+<p>AutoGPT GitHub](<a target="_blank" rel="noopener" href="https://github.com/Significant-Gravitas/Auto-GPT">https://github.com/Significant-Gravitas/Auto-GPT</a>)</p>
+<hr>
+<h3 id="9-GPT4All"><a href="#9-GPT4All" class="headerlink" title="9. GPT4All"></a>9. <a target="_blank" rel="noopener" href="https://github.com/nomic-ai/gpt4all">GPT4All</a></h3><p><strong>详细介绍</strong>:<br>GPT4All 是一个开源项目，旨在为用户提供本地化的 GPT 模型交互。它的目标是使大型语言模型在本地计算设备上可用，无需依赖云端服务。这一项目尚在发展中，目前的主要关注点是提供基本的模型交互功能，而不是完整的 RAG 应用解决方案。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>本地化执行</strong>: 支持在本地计算设备上运行，减少对云服务的依赖。</li>
+<li><strong>开源</strong>: 完全开源，用户可以根据需要进行二次开发和定制。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>功能尚不完善</strong>: 目前功能相对基础，还需要进一步完善和扩展。</li>
+<li><strong>性能未知</strong>: 由于项目仍在开发中，实际性能和适用性尚待验证。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/nomic-ai/gpt4all">GPT4All GitHub</a></p>
+<hr>
+<h3 id="10-ChatDocs"><a href="#10-ChatDocs" class="headerlink" title="10. ChatDocs"></a>10. <a target="_blank" rel="noopener" href="https://github.com/marella/chatdocs">ChatDocs</a></h3><p><strong>详细介绍</strong>:<br>ChatDocs 是 privateGPT 的一个衍生项目，旨在改进 GPU 支持和 GPTQ 模型集成。与 privateGPT 相比，ChatDocs 提供了更多的配置选项，特别是在嵌入设置方面。然而，这些设置仍需通过文件手动修改，缺乏直观的 GUI 支持。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>增强的 GPU 支持</strong>: 预配置了 GPU 和 GPTQ 模型，性能得到改进。</li>
+<li><strong>可定制的嵌入设置</strong>: 允许用户更改嵌入设置，尽管需要手动操作。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>社区支持较少</strong>: 在 GitHub 上的星数较低，说明社区参与度不高。</li>
+<li><strong>用户体验一般</strong>: 虽然功能有所增强，但操作仍然依赖于文件编辑和命令行，用户体验不够友好。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/marella/chatdocs">ChatDocs GitHub</a></p>
+<hr>
+<h3 id="11-DocsGPT"><a href="#11-DocsGPT" class="headerlink" title="11. DocsGPT"></a>11. <a target="_blank" rel="noopener" href="https://github.com/arc53/DocsGPT">DocsGPT</a></h3><p><strong>详细介绍</strong>:<br>DocsGPT 是一个专注于文档问答的系统，旨在通过 GPT 模型从文档中提取答案。然而，该系统的生成速度较慢，并且不支持 GPU，这使得其性能在处理大规模数据时受到限制。它更适合用于小规模的、非实时的文档查询任务。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>专注文档问答</strong>: 针对文档检索和问答优化，适合特定领域应用。</li>
+<li><strong>简单易用</strong>: 对于基础的文档问答任务，操作相对简单。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>性能有限</strong>: 由于不支持 GPU，生成速度较慢，难以处理大规模或实时任务。</li>
+<li><strong>扩展性不足</strong>: 在处理复杂或大规模文档集时表现不佳。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/arc53/DocsGPT">DocsGPT GitHub</a></p>
+<hr>
+<h3 id="12-Auto-RAG"><a href="#12-Auto-RAG" class="headerlink" title="12. Auto RAG"></a>12. <a target="_blank" rel="noopener" href="https://github.com/IDSCETHZurich/AutoRAG">Auto RAG</a></h3><p><strong>详细介绍</strong>:<br>Auto RAG 是一个自动化的 RAG 管道选择工具，旨在帮助用户根据具体需求选择最佳的 RAG 方案。它可以根据输入数据自动生成和选择最优的检索增强生成策略。然而，这个工具对用户的技术水平要求较高，需要使用或创建数据集才能有效使用。</p>
+<p><strong>优点</strong>:  </p>
+<ul>
+<li><strong>智能化管道选择</strong>: 能够自动选择和配置最佳的 RAG 策略，减少用户的手动干预。</li>
+<li><strong>针对性强</strong>: 为具体的应用场景提供优化的 RAG 解决方案。</li>
+</ul>
+<p><strong>缺点</strong>:  </p>
+<ul>
+<li><strong>使用复杂</strong>: 需要用户具备较高的技术水平，使用门槛较高。</li>
+<li><strong>数据集依赖</strong>: 必须使用或创建数据集才能启动，操作流程较为繁琐。</li>
+</ul>
+<p><strong>源链接</strong>: <a target="_blank" rel="noopener" href="https://github.com/IDSCETHZurich/AutoRAG">Auto RAG GitHub</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Oobabooga-with-Superboogav2"><span class="toc-number">1.</span> <span class="toc-text">1. Oobabooga with Superboogav2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-privateGPT"><span class="toc-number">2.</span> <span class="toc-text">2. privateGPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-localGPT"><span class="toc-number">3.</span> <span class="toc-text">3. localGPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-LMStudio"><span class="toc-number">4.</span> <span class="toc-text">4. LMStudio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-OLlama"><span class="toc-number">5.</span> <span class="toc-text">5. OLlama</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-LangChain"><span class="toc-number">6.</span> <span class="toc-text">6. LangChain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-MemGPT"><span class="toc-number">7.</span> <span class="toc-text">7. MemGPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-AutoGPT"><span class="toc-number">8.</span> <span class="toc-text">8. AutoGPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-GPT4All"><span class="toc-number">9.</span> <span class="toc-text">9. GPT4All</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-ChatDocs"><span class="toc-number">10.</span> <span class="toc-text">10. ChatDocs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-DocsGPT"><span class="toc-number">11.</span> <span class="toc-text">11. DocsGPT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-Auto-RAG"><span class="toc-number">12.</span> <span class="toc-text">12. Auto RAG</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&text=RAG End2end Frame and Vector DB Summary"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&title=RAG End2end Frame and Vector DB Summary"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&is_video=false&description=RAG End2end Frame and Vector DB Summary"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RAG End2end Frame and Vector DB Summary&body=Check out this article: http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&title=RAG End2end Frame and Vector DB Summary"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&title=RAG End2end Frame and Vector DB Summary"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&title=RAG End2end Frame and Vector DB Summary"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&title=RAG End2end Frame and Vector DB Summary"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&name=RAG End2end Frame and Vector DB Summary&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yuhangwuai.github.io/2024/08/14/RAG-End2end-Frame-and-Vector-DB-Summary/&t=RAG End2end Frame and Vector DB Summary"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2024
+    YuhangWu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/YuhangWuAI">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
