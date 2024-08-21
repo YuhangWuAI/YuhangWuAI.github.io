@@ -22,9 +22,8 @@
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TextRAG/formula3.svg">
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TextRAG/semantics.svg">
 <meta property="article:published_time" content="2024-08-09T11:38:38.000Z">
-<meta property="article:modified_time" content="2024-08-21T12:56:13.911Z">
+<meta property="article:modified_time" content="2024-08-21T16:30:31.405Z">
 <meta property="article:author" content="YuhangWu">
-<meta property="article:tag" content="CN Blog">
 <meta property="article:tag" content="TextRAG">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yuhangwuai.github.io/images/TextRAG/image.png">
@@ -167,14 +166,14 @@
       
     <div class="article-category">
         <i class="fa-solid fa-archive"></i>
-        <a class="category-link" href="/categories/RAG/">RAG</a>
+        <a class="category-link" href="/categories/RAG/">RAG</a> › <a class="category-link" href="/categories/RAG/CN-Blog/">CN Blog</a>
     </div>
 
 
       
     <div class="article-tag">
         <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/CN-Blog/" rel="tag">CN Blog</a>, <a class="p-category" href="/tags/TextRAG/" rel="tag">TextRAG</a>
+        <a class="p-category" href="/tags/TextRAG/" rel="tag">TextRAG</a>
     </div>
 
 
@@ -185,7 +184,7 @@
   <div class="content e-content" itemprop="articleBody">
     <p>© Wuyuhang, 2024. All rights reserved. This article is entirely the work of Wuyuhang from the University of Manchester. It may not be reproduced, distributed, or used without explicit permission from the author. For inquiries, please contact me at yuhang.wu-4 [at] postgrad.manchester.ac.uk.</p>
 <h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>在现代信息社会中，非结构化数据的数量正以前所未有的速度增长，这种数据形式已经成为信息存储和传输的主要方式。根据相关研究，全球超过80%的数据是以非结构化形式存在的，其中文本数据占据了绝大部分。这些文本数据分布在各行各业，从法律文档、学术论文到企业财报、社交媒体内容，几乎无处不在。然而，尽管非结构化文本数据的丰富性和多样性为信息检索和知识发现提供了广阔的空间，如何有效地处理和利用这些数据，仍然是一个未被完全解决的难题。</p>
-<p>针对结构化数据的处理，我们此前提出了<strong>TableRAG</strong>方法，并在这一领域取得了显著进展。TableRAG通过增强生成（RAG）技术，成功地优化了从结构化表格数据中检索和生成信息的过程，使得数据的利用效率得到了显著提升。如果您对这一方法还不熟悉，我们建议您先回顾TableRAG的相关研究成果，以全面了解我们在数据处理优化方面的技术路径。</p>
+<p>针对结构化数据的处理，我们此前提出了<strong>TableRAG</strong>方法，并在这一领域取得了显著进展。<a href="https://yuhangwuai.github.io/2024/08/08/TableRAG-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/">TableRAG</a>通过增强生成（RAG）技术，成功地优化了从结构化表格数据中检索和生成信息的过程，使得数据的利用效率得到了显著提升。如果您对这一方法还不熟悉，我们建议您先回顾<a href="https://yuhangwuai.github.io/2024/08/08/TableRAG-Advanced-Retrieval-Augmented-Generation-with-Sampling-and-Enhancement-for-Table-Reasoning-CN/">TableRAG</a>的相关研究成果，以全面了解我们在数据处理优化方面的技术路径。</p>
 <p>然而，随着数据形态从结构化向非结构化的转变，传统的RAG方法在处理非结构化文本数据时，面临着越来越多的挑战。与结构化数据相比，非结构化文本数据的内在语义更为复杂，内容结构更加多样，且上下文关联性强。这使得简单的检索和生成方法往往难以获得理想的结果，特别是在面对复杂的语义查询时，传统RAG模型在相关文档的召回率和生成质量上均存在显著不足。</p>
 <p>面对这些挑战，我们认识到，构建一个仅能应对简单文本检索和生成的RAG模型已无法满足实际应用的需求。相反，我们需要一种更为先进的技术，能够深入理解文本的语义结构，智能处理上下文信息，并在多维度上提升文本数据的检索和生成质量。</p>
 <p>正是在这种背景下，我们开发了<strong>TextRAG</strong>。TextRAG并非一个独立的系统，而是一种方法论，旨在通过优化RAG模型的核心能力，使其在处理非结构化文本数据时表现得更加出色。通过引入语义切片、自动上下文生成、相关片段提取等关键技术，TextRAG有效地增强了模型对复杂文本的理解力和生成能力，从而显著提高了检索的精准度和生成的质量。</p>
