@@ -17,9 +17,12 @@
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TextRAG/image%201.png">
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TextRAG/autocontext.svg">
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TextRAG/image%202.png">
+<meta property="og:image" content="http://yuhangwuai.github.io/images/TextRAG/formula1.svg">
+<meta property="og:image" content="http://yuhangwuai.github.io/images/TextRAG/formula2.svg">
+<meta property="og:image" content="http://yuhangwuai.github.io/images/TextRAG/formula3.svg">
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TextRAG/semantics.svg">
 <meta property="article:published_time" content="2024-08-09T11:38:38.000Z">
-<meta property="article:modified_time" content="2024-08-21T11:54:05.477Z">
+<meta property="article:modified_time" content="2024-08-21T12:11:47.910Z">
 <meta property="article:author" content="YuhangWu">
 <meta property="article:tag" content="CN Blog">
 <meta name="twitter:card" content="summary">
@@ -298,17 +301,17 @@
 </ul>
 </li>
 <li><strong>相关性分数计算</strong>：<br>在计算文本块的相关性分数时，系统使用了<code>get_chunk_value</code>函数。具体步骤如下：<ul>
-<li>首先，从<code>chunk_info</code>中获取<code>rank</code>（排名）和<code>absolute_relevance_value</code>（绝对相关性值）。如果这些值不存在，默认<code>rank</code>设为1000，<code>absolute_relevance_value</code>设为0.0。</li>
-<li>然后计算文本块的得分<code>v</code>，公式为：</li>
+<li><p>首先，从<code>chunk_info</code>中获取<code>rank</code>（排名）和<code>absolute_relevance_value</code>（绝对相关性值）。如果这些值不存在，默认<code>rank</code>设为1000，<code>absolute_relevance_value</code>设为0.0。</p>
+</li>
+<li><p>然后计算文本块的得分<code>v</code>，公式为：<br> <img src="/images/TextRAG/formula1.svg" alt="formula1"></p>
+</li>
+<li><p><code>rank</code>越高（数值越大）:</p>
+</li>
 </ul>
 </li>
 </ol>
-<p>$$<br>v &#x3D; \exp\left(-\frac{\text{rank}}{\text{decay_rate}}\right) \times \text{absolute_relevance_value} - \text{irrelevant_chunk_penalty}<br>$$</p>
-<pre><code>- `rank`越高（数值越大）， $\exp\left(-\frac&#123;\text&#123;rank&#125;&#125;&#123;\text&#123;decay\_rate&#125;&#125;\right)$ 的值就越小，意味着得分会降低；
-- `absolute_relevance_value`越大，文本块的初始得分就越高；
-- 最后减去一个`irrelevant_chunk_penalty`，作为惩罚项。
-
-不同的惩罚系数会影响生成段落的长度：
+<p><img src="/images/TextRAG/formula2.svg" alt="formula2"><br>    的值就越小，意味着得分会降低；<br>    - <code>absolute_relevance_value</code>越大，文本块的初始得分就越高；<br>    - 最后减去一个<code>irrelevant_chunk_penalty</code>，作为惩罚项。</p>
+<pre><code>不同的惩罚系数会影响生成段落的长度：
 
 - **0.05**：生成较长的段落，通常包含20-50个块。
 - **0.1**：生成10-20个块的长段落。
@@ -319,23 +322,25 @@
 通过这种方式，系统能够动态调整段落的长度和相关性，确保生成的段落既包含足够的信息量，又不会过度冗长。
 </code></pre>
 <ol start="3">
-<li><strong>长度调整</strong>：<br>在计算出初步的相关性值后，系统还会根据每个文本块的长度对其得分进行进一步调整，这一步骤通过<code>adjust_relevance_values_for_chunk_length</code>函数实现。其具体步骤如下：<ul>
-<li><strong>输入参数</strong>：<ul>
+<li><p><strong>长度调整</strong>：<br>在计算出初步的相关性值后，系统还会根据每个文本块的长度对其得分进行进一步调整，这一步骤通过<code>adjust_relevance_values_for_chunk_length</code>函数实现。其具体步骤如下：</p>
+<ul>
+<li><p><strong>输入参数</strong>：</p>
+<ul>
 <li><code>relevance_values</code>：<code>get_chunk_value</code>函数计算得到的初始相关性值列表。</li>
 <li><code>chunk_lengths</code>：对应每个文本块的长度列表（以字符数为单位）。</li>
 <li><code>reference_length</code>：参考长度（默认700字符），用于标准化不同长度的文本块。</li>
 </ul>
 </li>
-<li><strong>计算过程</strong>：<br> 系统遍历<code>relevance_values</code>和<code>chunk_lengths</code>，并对每个文本块的得分进行调整。具体公式为：</li>
+<li><p><strong>计算过程</strong>：<br> 系统遍历<code>relevance_values</code>和<code>chunk_lengths</code>，并对每个文本块的得分进行调整。具体公式为：<br> <img src="/images/TextRAG/formula3.svg" alt="formula3"></p>
+</li>
+<li><p>如果一个文本块的长度大于<code>reference_length</code>，其得分会被放大；</p>
+</li>
+<li><p>如果文本块的长度小于<code>reference_length</code>，其得分会被缩小。</p>
+</li>
 </ul>
+<p> 这一调整确保了长的文本块在整合过程中能够获得更高的得分，而短的文本块得分较低，从而在整合过程中平衡不同长度的文本块的影响。</p>
 </li>
 </ol>
-<p>$$<br>\mathit{adjusted_relevance_value} &#x3D; \mathit{relevance_value} \times \frac{\mathit{chunk_length}}{\mathit{reference_length}}<br>$$</p>
-<pre><code>- 如果一个文本块的长度大于`reference_length`，其得分会被放大；
-- 如果文本块的长度小于`reference_length`，其得分会被缩小。
-
-这一调整确保了长的文本块在整合过程中能够获得更高的得分，而短的文本块得分较低，从而在整合过程中平衡不同长度的文本块的影响。
-</code></pre>
 <p>这些调整过程的作用在于，通过考虑文本块的长度和相关性，系统能够更加准确地评估每个文本块的价值，从而在后续的段落整合过程中选择出最有价值的文本块组合。这种方法确保了最终生成的段落在信息密度和语义连贯性方面达到最佳效果。</p>
 <h3 id="3-选择最优片段组合：优化算法的应用"><a href="#3-选择最优片段组合：优化算法的应用" class="headerlink" title="3. 选择最优片段组合：优化算法的应用"></a>3. 选择最优片段组合：优化算法的应用</h3><p>在评估完所有chunks的相关性分数后，textRAG系统会应用优化算法，生成多个最优的片段组合（Segment Grouping）。这一过程非常关键，它决定了最终返回给用户的内容是否能够准确、完整地回答复杂的查询。为此，系统会基于多种约束条件，进行精确的组合优化。以下是详细的步骤：</p>
 <h3 id="传入参数"><a href="#传入参数" class="headerlink" title="传入参数"></a>传入参数</h3><p>优化算法的输入包括在前一步中计算得到的相关性分数以及多个关键的约束条件。这些参数决定了哪些chunks会被选择，以及它们如何被组合成片段组合：</p>
