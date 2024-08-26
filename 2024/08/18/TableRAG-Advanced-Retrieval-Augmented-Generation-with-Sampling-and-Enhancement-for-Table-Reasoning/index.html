@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TableRAG/filter_overview.png">
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TableRAG/clarifier_overview.png">
 <meta property="article:published_time" content="2024-08-18T11:23:58.000Z">
-<meta property="article:modified_time" content="2024-08-22T12:19:37.721Z">
+<meta property="article:modified_time" content="2024-08-26T23:26:48.246Z">
 <meta property="article:author" content="YuhangWu">
 <meta property="article:tag" content="TableRAG">
 <meta name="twitter:card" content="summary">
@@ -189,7 +189,7 @@
 <p>To address these challenges, retrieval-augmented generation (RAG) methods combine retrieval mechanisms with generative models, referencing external knowledge bases to reduce model hallucination and improve the accuracy of domain-specific question answering while reducing resource consumption (Gao et al., 2023). However, despite the strong performance of RAG in handling unstructured text data, there are several challenges when applying it to semi-structured tabular data. Specifically, we identified the following three limitations:</p>
 <ol>
 <li>The tables required to answer questions may be very large, containing a significant amount of noise unrelated to the query (Lu et al., 2024). This not only increases unnecessary computation but also affects the accuracy of retrieval and the generator’s response. To address this issue, we can employ table sampling (Sui et al., 2024) or table filtering methods to retrieve relevant rows and columns, thereby generating the most relevant sub-tables (Jiang et al., 2023).</li>
-<li>The raw content of the tables may include information that needs further clarification, such as domain-specific terms or abbreviations (Sui et al., 2024). These domain-specific details can lead to misunderstandings or biases by the generator. To solve this problem, we can use external knowledge bases to provide additional context for the tables (Bian et al., 2023), or generate term explanations through LLMs, a process we call the table clarifier.</li>
+<li>The original content of the tables may contain information that requires further clarification, such as domain-specific terms or abbreviations (Sui et al., 2024). These domain-specific details can lead to misunderstandings or biases in the generator. Additionally, we have found that many tables lack clear titles or detailed column descriptions, which makes it difficult to accurately map queries to the relevant tables or columns during retrieval, thereby affecting the effectiveness of retrieval and the accuracy of the generated results.</li>
 <li>Tables often contain various types of information across different columns, and traditional retrieval methods such as BM25 (Robertson et al., 2009) or Dense Passage Retriever (DPR) (Karpukhin, et al., 2020) may overlook table details, impacting the generated results. We can address this issue by employing the ColBERT model as a retriever, which encodes text at the token level, enabling more fine-grained retrieval (Li et al., 2023).</li>
 </ol>
 <p>By incorporating these improvements, our research aims to provide a more effective solution for handling large-scale TableQA tasks involving multiple tables, addressing more complex real-world scenarios.</p>

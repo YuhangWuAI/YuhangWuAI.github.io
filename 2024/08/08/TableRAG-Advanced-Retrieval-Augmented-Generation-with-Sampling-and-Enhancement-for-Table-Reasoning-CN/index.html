@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TableRAG/filter_overview.png">
 <meta property="og:image" content="http://yuhangwuai.github.io/images/TableRAG/clarifier_overview.png">
 <meta property="article:published_time" content="2024-08-07T23:00:17.000Z">
-<meta property="article:modified_time" content="2024-08-26T14:46:12.100Z">
+<meta property="article:modified_time" content="2024-08-26T23:26:36.502Z">
 <meta property="article:author" content="YuhangWu">
 <meta property="article:tag" content="TableRAG">
 <meta name="twitter:card" content="summary">
@@ -191,7 +191,7 @@
 <p>为了解决这些挑战，检索增强生成（RAG）方法将检索机制与生成模型相结合，引用外部知识库，以减少模型幻觉并提高领域特定问答的准确性，同时降低资源消耗（Gao et al., 2023）。然而，尽管RAG在处理非结构化文本数据方面表现出色，但在应用于半结构化表格数据时仍存在若干挑战。具体而言，我们识别了以下三个局限性：</p>
 <ol>
 <li>为回答问题所需的表格可能非常庞大，包含大量与查询无关的噪声（Lu et al., 2024）。这不仅增加了不必要的计算，还会影响检索器检索时召回的准确性以及生成器响应的准确性。为了解决这个问题，我们可以采用表格采样（Sui et al., 2024）或表格过滤的方法，检索相关的行和列，从而生成最相关的子表（Jiang et al., 2023）。</li>
-<li>表格的原始内容可能包含需要进一步澄清的信息，如领域特定术语或缩写（Sui et al., 2024）。这些领域特定的细节可能导致生成器的误解或偏见。为了解决这个问题，我们可以利用外部知识库为表格提供额外的上下文信息（Bian et al., 2023），或通过LLM生成术语解释，这一过程我们称之为table clarifier。</li>
+<li>表格的原始内容可能包含需要进一步澄清的信息，如领域特定术语或缩写（Sui et al., 2024）。这些领域特定的细节可能导致生成器的误解或偏见。此外，我们发现，许多表格缺乏明确的标题或详细的列说明信息，这使得在检索时无法准确地将查询映射到相关的表格或列上，从而影响检索的效果和生成结果的准确性。</li>
 <li>表格通常在不同列中包含多种类型的信息，而传统的检索方法如BM25（Robertson et al., 2009）或Dense Passage Retriever（DPR）（Karpukhin, et al., ）可能会忽略表格细节，影响生成结果。我们可以通过采用ColBERT模型作为检索器来解决这一问题，该模型在标记级别对文本进行编码，使得检索更加细粒度（Li et al., 2023）。</li>
 </ol>
 <p>通过结合这些改进，我们的研究旨在为处理多个表格的大规模表格问答任务提供一个更有效的解决方案，以应对更复杂的现实场景。</p>
